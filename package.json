@@ -1,0 +1,35 @@
+{
+  "name": "x11.js",
+  "version": "1.0.0",
+  "description": "x11 javascript hashing algorithm in pure javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js",
+    "clean": "rm -rfv dist/*",
+    "build": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quantumexplorer/x11-js.git"
+  },
+  "keywords": [
+    "x11","keccak","groestl","echo","skein","blake","bmw","hash","cubehash","dash","jh","luffa","shavite","simd","skein"
+  ],
+  "author": "quantumexplorer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/quantumexplorer/x11-js/issues"
+  },
+  "devDependencies": {
+    "mocha": "2.x.x",
+    "benchmark": "2.x.x",
+    "microtime": "^2.1.1",
+    "chai": "3.x.x",
+    "browserify": "latest",
+    "grunt": "latest",
+    "grunt-browserify": "latest",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-watch": "latest",
+    "uglify": "latest"
+  }
+}
