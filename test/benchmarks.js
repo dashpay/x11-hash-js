@@ -9,9 +9,6 @@ var longDream = 'Take this kiss upon the brow! And, in parting from you now, Thu
 var sentence = longDream;
 // add tests 
 suite
-.add('Hash#x11', function() {
-  x11.digest(sentence);
-})
 .add('Hash#blake', function() {
   x11.blake(sentence);
 })
@@ -27,7 +24,7 @@ suite
 .add('Hash#groestl', function() {
   x11.groestl(sentence);
 })
-.add('Hash#js', function() {
+.add('Hash#jh', function() {
   x11.jh(sentence);
 })
 .add('Hash#keccak', function() {
@@ -44,6 +41,9 @@ suite
 })
 .add('Hash#skein', function() {
   x11.skein(sentence);
+})
+.add('Hash#x11', function() {
+  x11.digest(sentence);
 })
 //add listeners 
 .on('cycle', function(event) {

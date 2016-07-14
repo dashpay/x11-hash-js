@@ -345,14 +345,6 @@ var Z = [
   [10, 2, 8, 4, 7, 6, 1, 5, 15, 11, 9, 14, 3, 12, 13, 0]
 ];
 
-var Mx = function(M, r, i) {
-  return M[Z[r][i]];
-}
-
-var CBx = function(r, i) {
-  return CB[Z[r][i]];
-}
-
 var initialValues = [
   o.u(0x6a09e667, 0xf3bcc908),
   o.u(0xbb67ae85, 0x84caa73b),
@@ -365,25 +357,25 @@ var initialValues = [
 ];
 
 var GB = function(m0, m1, c0, c1, a, b, c, d) {
-  a.add(b.plus(m0.xor(c1)));
-  d.set(d.xor(a).rotateRight(32));
+  a.add(m0.xor(c1).add(b));
+  d.setxorOne(a).setFlip();
   c.add(d);
-  b.set(b.xor(c).rotateRight(25));
-  a.add(b.plus(m1.xor(c0)));
-  d.set(d.xor(a).rotateRight(16));
+  b.setxorOne(c).setRotateRight(25);
+  a.add(m1.xor(c0).add(b));
+  d.setxorOne(a).setRotateRight(16);
   c.add(d);
-  b.set(b.xor(c).rotateRight(11));
+  b.setxorOne(c).setRotateRight(11);
 }
 
 var round = function(r, V, M) {
-  GB(Mx(M, r, 0), Mx(M, r, 1), CBx(r, 0), CBx(r, 1), V[0], V[4], V[8], V[0xC]);
-  GB(Mx(M, r, 2), Mx(M, r, 3), CBx(r, 2), CBx(r, 3), V[1], V[5], V[9], V[0xD]);
-  GB(Mx(M, r, 4), Mx(M, r, 5), CBx(r, 4), CBx(r, 5), V[2], V[6], V[0xA], V[0xE]);
-  GB(Mx(M, r, 6), Mx(M, r, 7), CBx(r, 6), CBx(r, 7), V[3], V[7], V[0xB], V[0xF]);
-  GB(Mx(M, r, 8), Mx(M, r, 9), CBx(r, 8), CBx(r, 9), V[0], V[5], V[0xA], V[0xF]);
-  GB(Mx(M, r, 0xA), Mx(M, r, 0xB), CBx(r, 0xA), CBx(r, 0xB), V[1], V[6], V[0xB], V[0xC]);
-  GB(Mx(M, r, 0xC), Mx(M, r, 0xD), CBx(r, 0xC), CBx(r, 0xD), V[2], V[7], V[8], V[0xD]);
-  GB(Mx(M, r, 0xE), Mx(M, r, 0xF), CBx(r, 0xE), CBx(r, 0xF), V[3], V[4], V[9], V[0xE]);
+  GB(M[Z[r][0]], M[Z[r][1]], CB[Z[r][0]], CB[Z[r][1]], V[0], V[4], V[8], V[0xC]);
+  GB(M[Z[r][2]], M[Z[r][3]], CB[Z[r][2]], CB[Z[r][3]], V[1], V[5], V[9], V[0xD]);
+  GB(M[Z[r][4]], M[Z[r][5]], CB[Z[r][4]], CB[Z[r][5]], V[2], V[6], V[0xA], V[0xE]);
+  GB(M[Z[r][6]], M[Z[r][7]], CB[Z[r][6]], CB[Z[r][7]], V[3], V[7], V[0xB], V[0xF]);
+  GB(M[Z[r][8]], M[Z[r][9]], CB[Z[r][8]], CB[Z[r][9]], V[0], V[5], V[0xA], V[0xF]);
+  GB(M[Z[r][10]], M[Z[r][11]], CB[Z[r][10]], CB[Z[r][11]], V[1], V[6], V[0xB], V[0xC]);
+  GB(M[Z[r][12]], M[Z[r][13]], CB[Z[r][12]], CB[Z[r][13]], V[2], V[7], V[8], V[0xD]);
+  GB(M[Z[r][14]], M[Z[r][15]], CB[Z[r][14]], CB[Z[r][15]], V[3], V[4], V[9], V[0xE]);
 }
 
 var compress = function(M, H, S, T0, T1) {
@@ -2578,7 +2570,18 @@ var T7 = h.bytes2Int64Buffer(h.b64Decode("MvSl9JelxsZvl4SX64T4+F6wmbDHme7ueoyNjP
 // ];
 
 var B64 = function(n, x) {
-  return x.shiftRight(((7 - n) * 8)).lo & 0xFF;
+  if (n === 7) {
+    return x.lo & 0xFF;
+  }
+  var bits = (7 - n) * 8;
+  if (bits >= 32) { //faster than >= 32
+    return (x.hi >>> (bits - 32)) & 0xFF;
+  }
+  else {
+    var bitsOff32 = 32 - bits,
+      toMoveDown = this.hi << bitsOff32 >>> bitsOff32;
+    return (x.lo >>> bits | (toMoveDown << bitsOff32)) & 0xFF;
+  }
 }
 
 var j64 = [o.u(0, 0), o.u(0, 0x10), o.u(0, 0x20), o.u(0, 0x30), o.u(0, 0x40), o.u(0, 0x50), o.u(0, 0x60),
@@ -2595,74 +2598,6 @@ var r64 = [o.u(0, 0), o.u(0, 1), o.u(0, 2), o.u(0, 3), o.u(0, 4), o.u(0, 5), o.u
   o.u(0, 8), o.u(0, 9), o.u(0, 10), o.u(0, 11), o.u(0, 12), o.u(0, 13)
 ];
 
-var PC64 = function(j, r) {
-  return j64[j].plus(r64[r]).shiftLeft(56);
-}
-var QC64 = function(j, r) {
-  return r64[r].xor(nj64[j]);
-}
-
-var RBTT = function(t, d, a, b0, b1, b2, b3, b4, b5, b6, b7) {
-  t[d] = o.xor64(T0[B64(0, a[b0])], T1[B64(1, a[b1])], T2[B64(2, a[b2])], T3[B64(3, a[b3])], T4[B64(4, a[b4])], T5[B64(5, a[b5])], T6[B64(6, a[b6])], T7[B64(7, a[b7])]);
-}
-
-var ROUND_BIG_P = function(a, r) {
-  var t = new Array(16);
-  for (var i = 0; i < 16; i++) {
-    a[i].setxor64(PC64(i, r));
-  }
-  for (var u = 0; u < 16; u += 4) {
-    RBTT(t, u, a, u, (u + 1) & 0xF,
-      (u + 2) & 0xF, (u + 3) & 0xF, (u + 4) & 0xF,
-      (u + 5) & 0xF, (u + 6) & 0xF, (u + 11) & 0xF);
-    RBTT(t, u + 1, a, u + 1, (u + 2) & 0xF,
-      (u + 3) & 0xF, (u + 4) & 0xF, (u + 5) & 0xF,
-      (u + 6) & 0xF, (u + 7) & 0xF, (u + 12) & 0xF);
-    RBTT(t, u + 2, a, u + 2, (u + 3) & 0xF,
-      (u + 4) & 0xF, (u + 5) & 0xF, (u + 6) & 0xF,
-      (u + 7) & 0xF, (u + 8) & 0xF, (u + 13) & 0xF);
-    RBTT(t, u + 3, a, u + 3, (u + 4) & 0xF,
-      (u + 5) & 0xF, (u + 6) & 0xF, (u + 7) & 0xF,
-      (u + 8) & 0xF, (u + 9) & 0xF, (u + 14) & 0xF);
-  }
-  o.bufferInsert(a, 0, t, 16);
-}
-
-var ROUND_BIG_Q = function(a, r) {
-  var t = new Array(16);
-  for (var i = 0; i < 16; i++) {
-    a[i].setxor64(QC64(i, r));
-  }
-  for (var u = 0; u < 16; u += 4) {
-    RBTT(t, u + 0, a, (u + 1) & 0xF, (u + 3) & 0xF,
-      (u + 5) & 0xF, (u + 11) & 0xF, (u + 0) & 0xF,
-      (u + 2) & 0xF, (u + 4) & 0xF, (u + 6) & 0xF);
-    RBTT(t, u + 1, a, (u + 2) & 0xF, (u + 4) & 0xF,
-      (u + 6) & 0xF, (u + 12) & 0xF, (u + 1) & 0xF,
-      (u + 3) & 0xF, (u + 5) & 0xF, (u + 7) & 0xF);
-    RBTT(t, u + 2, a, (u + 3) & 0xF, (u + 5) & 0xF,
-      (u + 7) & 0xF, (u + 13) & 0xF, (u + 2) & 0xF,
-      (u + 4) & 0xF, (u + 6) & 0xF, (u + 8) & 0xF);
-    RBTT(t, u + 3, a, (u + 4) & 0xF, (u + 6) & 0xF,
-      (u + 8) & 0xF, (u + 14) & 0xF, (u + 3) & 0xF,
-      (u + 5) & 0xF, (u + 7) & 0xF, (u + 9) & 0xF);
-  }
-  o.bufferInsert(a, 0, t, 16);
-}
-
-var PERM_BIG_P = function(a) {
-  for (var r = 0; r < 14; r++) {
-    ROUND_BIG_P(a, r);
-  }
-}
-
-var PERM_BIG_Q = function(a) {
-  for (var r = 0; r < 14; r++) {
-    ROUND_BIG_Q(a, r);
-  }
-}
-
-
 var compress = function(int64buf, state) {
   var g = new Array(16);
   var m = new Array(16);
@@ -2670,19 +2605,54 @@ var compress = function(int64buf, state) {
     m[u] = int64buf[u];
     g[u] = m[u].xor(state[u]);
   }
-  PERM_BIG_P(g);
-  PERM_BIG_Q(m);
+  var t = new Array(16);
+  for (var r = 0; r < 14; r++) {
+    for (var i = 0; i < 16; i++) {
+      g[i].setxor64(j64[i].plus(r64[r]).setShiftLeft(56));
+    }
+
+    for (var u = 0; u < 16; u++) {
+      t[u] = o.xor64(T0[B64(0, g[u])], T1[B64(1, g[(u + 1) & 0xF])], T2[B64(2, g[(u + 2) & 0xF])], T3[B64(3, g[(u + 3) & 0xF])], T4[B64(4, g[(u + 4) & 0xF])], T5[B64(5, g[(u + 5) & 0xF])], T6[B64(6, g[(u + 6) & 0xF])], T7[B64(7, g[(u + 11) & 0xF])]);
+    }
+    var temp = g;
+    g = t;
+    t = temp;
+  }
+  for (var r = 0; r < 14; r++) {
+    for (var i = 0; i < 16; i++) {
+      m[i].setxor64(r64[r], nj64[i]);
+    }
+    for (var u = 0; u < 16; u++) {
+      t[u] = o.xor64(T0[B64(0, m[(u + 1) & 0xF])], T1[B64(1, m[(u + 3) & 0xF])], T2[B64(2, m[(u + 5) & 0xF])], T3[B64(3, m[(u + 11) & 0xF])], T4[B64(4, m[(u + 0) & 0xF])], T5[B64(5, m[(u + 2) & 0xF])], T6[B64(6, m[(u + 4) & 0xF])], T7[B64(7, m[(u + 6) & 0xF])]);
+    }
+    var temp = m;
+    m = t;
+    t = temp;
+  }
   for (var u = 0; u < 16; u++) {
     state[u].setxor64(g[u], m[u]);
   }
 }
 
 var final = function(state) {
-  var x = new Array(16);
-  o.bufferInsert64(x, 0, state, 16);
-  PERM_BIG_P(x);
+  var g = new Array(16);
+  o.bufferInsert64(g, 0, state, 16);
+  var t = new Array(16);
+  for (var r = 0; r < 14; r++) {
+    
+    for (var i = 0; i < 16; i++) {
+      g[i].setxor64(j64[i].plus(r64[r]).setShiftLeft(56));
+    }
+
+    for (var u = 0; u < 16; u++) {
+      t[u] = o.xor64(T0[B64(0, g[u])], T1[B64(1, g[(u + 1) & 0xF])], T2[B64(2, g[(u + 2) & 0xF])], T3[B64(3, g[(u + 3) & 0xF])], T4[B64(4, g[(u + 4) & 0xF])], T5[B64(5, g[(u + 5) & 0xF])], T6[B64(6, g[(u + 6) & 0xF])], T7[B64(7, g[(u + 11) & 0xF])]);
+    }
+    var temp = g;
+    g = t;
+    t = temp;
+  }
   for (var u = 0; u < 16; u++)
-    state[u].setxor64(x[u]);
+    state[u].setxor64(g[u]);
 }
 
 var groestl = function(ctx, data, len) {
@@ -2759,11 +2729,11 @@ module.exports = function(input, format, output) {
   var ctx = {};
   ctx.state = new Array(16);
   for (var i = 0; i < 15; i++) {
-    ctx.state[i] = o.u(0, 0);
+    ctx.state[i] = new o.u64(0, 0);
   }
-  ctx.state[15] = o.u(0, 512);
+  ctx.state[15] = new o.u64(0, 512);
   ctx.ptr = 0;
-  ctx.count = o.u64.prototype.zero();
+  ctx.count = new o.u64(0,0);
   ctx.buffer = new Array(128);
   groestl(ctx, msg, msg.length);
   var r = groestlClose(ctx, 0, 0);
@@ -2960,37 +2930,37 @@ module.exports.string2Int32Buffer = function(s) {
 
 var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
-// module.exports.b64Encode = function(input) {
-// 	var output = "";
-// 	var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-// 	var i = 0;
+module.exports.b64Encode = function(input) {
+	var output = "";
+	var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+	var i = 0;
 
-// 	while (i < input.length) {
+	while (i < input.length) {
 
-// 		chr1 = input[i++];
-// 		chr2 = input[i++];
-// 		chr3 = input[i++];
+		chr1 = input[i++];
+		chr2 = input[i++];
+		chr3 = input[i++];
 
-// 		enc1 = chr1 >> 2;
-// 		enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-// 		enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-// 		enc4 = chr3 & 63;
+		enc1 = chr1 >> 2;
+		enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+		enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+		enc4 = chr3 & 63;
 
-// 		if (isNaN(chr2)) {
-// 			enc3 = enc4 = 64;
-// 		}
-// 		else if (isNaN(chr3)) {
-// 			enc4 = 64;
-// 		}
+		if (isNaN(chr2)) {
+			enc3 = enc4 = 64;
+		}
+		else if (isNaN(chr3)) {
+			enc4 = 64;
+		}
 
-// 		output = output +
-// 			keyStr.charAt(enc1) + keyStr.charAt(enc2) +
-// 			keyStr.charAt(enc3) + keyStr.charAt(enc4);
+		output = output +
+			keyStr.charAt(enc1) + keyStr.charAt(enc2) +
+			keyStr.charAt(enc3) + keyStr.charAt(enc4);
 
-// 	}
+	}
 
-// 	return output;
-// };
+	return output;
+};
 
 module.exports.b64Decode = function(input) {
 	var output = [];
@@ -3045,7 +3015,7 @@ var JH_HY = 4;
 
 var IV512 = he.bytes2Int32Buffer(he.b64Decode("b9FLlj4Aqhdjai4FehXVQ4oiXo0Ml+8L6TQSWfKzw2GJHaDBU2+AHiqpBWvqK22AWI7M2yB1uqapDzp2uvg79wFp5gVB40ppRrWKji5v5loQR6fQwYQ8JDtucbEtWsGZz1f27J2x+FanBoh8VxaxVuPC/N/mhRf7VFpGeMyM3Us="));
 
-var C = he.bytes2Int32Buffer(he.b64Decode("ctXeot8V+Gd7hBUKtyMVV4Gr1pBNWof2Tp9PxcPRK0DqmDrgXEX6nAPF0plmspmaZgKWtPK7U4q1VhQaiNuiMQOjWlyaGQ7bQD+yCofBRBAcBRmAhJ6VHW8z661e583cELoTkgK/a0HceGUV97sn0AosgTk3qnhQPxq/0kEAkdNCLVoN9sx+kN1in5ySwJfOGFynC8crRKzR32XWY8b8I5dubAOe4LgaIQVFfkRs7Kju8QO7XY5h+v2Wl7KUg4GXSo6FN9sDMC8qZ40t+59qlYr+c4H4uGlsisdyRsB/QhTF9BWPvcdexHVEb6ePEbuAUt51t67kiLyCuAAemKaj9I70jzOpo2MVql9WJNW3+Ym28e0gfFrg/TbK6VoGQiw2zik1Q07+mD1TOvl0c5pLp9D1H1lvToGGDp2tga/YWp+nBQZn7jRiaosLKL5uuRcnR3QHJsaAED/goH5vxn5Iew1VCqVK+KTAkePnn5eO8Z6GdnKBUGCN1H6eWkHz5bBi/J8f7EBUIHrj5BoAzvTJhE/XlPWd+pXYVS5+ESTDVKVb33Iovf5uKHj1f+IPpcSyBYl87+5J0y5EfpOF6yhZf3BfaTezJDFKXoYo8R3W5GXHG3cEUbkg53T+Q+gj1IeKfSnoo5J2lPLdy3oJmzDZwR0bMPtb3Bvg2iRJT/Kcgr+k57oxtHC//w0yRAXe+LxIO678MlO70zlFn8PB4CmLoOXJBf33rgkPlHA0EkKQ8TSicbcB40Ttlek7jjZPL5hKiEAdY6Bs9hVHwURLh1Kv/367SvHiCsYwRnC2xcxujOak1aRWvU/KANqdhEvIPhiuc1fORTBk0a3ops5oFFwlZ6PajPLLDuEWM+kGWJqUmZofYLIgwm+Ee9HOrH+g0YUYMllboY3dGdNQmhzAqqW0Rp89Y2fkBGu69soZqwtW7n4fsXnqqSghdOm99zU7NlHuHVesWnVQ03Y6RsL+o31wAfc1wa+YpNhCeO3sIJ5rZ3lBg2MV6jrbqPrDO00ygyyDp0A7HxwnR/NZQPA0ty12muc+TmzSIU/9uP2NOdxXWe+NmwxJK0nr2lui10lo83ANfTuu0HqNVYT1penw5PiOZaC4ovQ2EDtTDKgHnnU+7FqRaJSSVuiIT1uwXFX4urxM47s7mfOHlHt12vTWcmscXWSurCjcNLNtbDSlULgo23H4YeLyEI1RKuPbZDNZ3XX8HKy88UPOP6Jnu9E8AuhDsDMKW8qIKaF1fzQZTbQWU1ySO5TDDnlNHnl0dde27q8/6qjU974aOSFc9H4JTCMnUSajJFO6MjzSRKMXSm2m1a21HT6mr/LJCINZPZiRazxWTPh8oXKGYE1G4j7MCG7H9i+YM7OxvHZeK9Zmpe/E5ioG9LbovsHUNnTughW87yFj/cFODfRTyWmnfVrEBlhYJn7BFBYG4PoWfpCvPShjnT/SyfLjAJvSDF+qzjC31AwwdCpRFvLgMpgN6zDY4874mkvFnnu18XmS/1HmbgSGaNObI01X5pZnMczmpvMXCnUFsXaB2RMybM48F1KE+AWiYvQry7N4RxVH/0ZUgiOTakg431gHTl5lZfL8fIn8hlCOMXAuRNALyobwQAmiMHhHTmWg7jnR9ziD917pN+QsOr0hl7ImARP4b6NE7dHvn97ni6DfFXYlktk8hff2EtxCvtin7HyrJ7B+U4192qo+qN6qJc6TvQJp2Fr2Q/0acwj5wF/v2hdKGaWXTWYzTP0hajW0mDHbQRVw6h4Pu+3NVJua0GOhUZdAcvZ1nb+RR2/i"));
+var C = he.bytes2Int32Buffer(he.b64Decode("ot7Vcmf4Fd8KFYR7VxUjt5DWq4H2h1pNxU+fTkAr0cPgOpjqnPpFXJnSxQOambJmtJYCZopTu/IaFFa1MaLbiFxaowPbDhmaCrI/QBBEwYeAGQUcHZWehK3rM2/czedekhO6EEFrvwIVZXjc0Ce79zmBLApQeKo30r8aP9ORAEENWi1CkH7M9pyfYt3Ol8CSC6dcGKxEK8fWZd/RI/zGYwNsbpcauOCefkUFIajsbES7A/Hu+mGOXbKXlv2XgYOUN4WOSi8wA9stjWcqlWqf+4Fz/opsabj4RnLHihRCf8CPFfTFxF7HvadvRHWAuxGPt3XeUryI5K4eALiC9KOmmDOP9I4VY6OpJFZfqon5t9Ug7fG2/eBafFrpyjY2LEIGQzUpzj2Y/k50+TpTp0uac1kf9dCGgU5vga2dDp9a2K9nBgWnamI07r4oC4snF7luJgd0Rz8QgMZvfqDge0h+xqUKVQ3ApPhKn+fjkZ7xjpeBcnaG1I1gUEFann5isOXz7B+f/HogVEAAGuTjhMn0zvWU10/YlfqdEX4uVaVUwyQoct9bKG7+veJ/9XiyxKUP73yJBS7TSe6Fk35Ef1ko6zdpX3BKMSSz8SiGXmXk1h0EdxvH5yC5UehD/nSKh9Qjo+gpffKUdpIJesvdwdkwm/swGx3gG9xbT0kk2r+CnPIxuuek/79wtAVEMg1IvPjeMvyuOznTu1PBw59FoIsp4P0FyeUPCa73EjRwlDTxkEIBt3Gile1E4zaOO+lKmC9PYx1AiBX2bKBLRMFH/69Sh/FKu34wxgrixbZwRuaMbsxWpNWkAMpPvUuEndquGD7IRc5Xc63RZDBozqboZyVcFPKM2qMW4Q7LWAbpM5qZlJogsmAfe4Rvwn+sztEYhdGgoVtZMtMZ3Y3AHJpQRrSlqmdjPZ+6awTkqxnK9n7uVgvqebEfdCEoqTX3venuUTY7WqxXHXbTUHX+wkY6AXB9o6/BNfdC2KSYIOzteHlna54VY4NBqNs66k07w/qDLIMyHztAp/NHJxw08EBZmnYtt2xOPuf9TyHSOY39uO9ZV9xJDJuN2utJK0nXolsNcPNo0K47fYRVjXrw6aX1ZY745PSiuKBTOxA2ngeoDFrsPnWSlGiRT4joVlVcsFtMvLr4mTu743uUh/PW9Np1XRxrciisrmRtszTcUKU0bHHbKLjy4mH4KlGNEDNk2+P8dd1Z8bysHKI/zkM80btnsEPoAspbCjN1oSmITRk0f1xTFrTDlDuSHk15Dtd1dHk/r+6299So6iE5Gr4JfvRcUScjTFMkoybSPDK6ShejRK3Vpm2mPh21CMnyr5g9WYNWPGuRoXz4TE1ghnLMPuJG9sduCLMzmC9edryxpWbWKyrmxO/otvQGNtTBvhWC7nRjIe+8DU7B/WnJU/TEWn2nJlhYBhYUwX4W+uAGPa+Qfj+dYyjj8snSDNKbADDOql8wDNS3FlEqdJgy4PLYMOsNmvjO43uexUuSefG1buZR/9NohgRXTSObMWeW5vOm5swFdQoX2YF2sc5sMhOEUhc8YqIF+LPLK/RHFUd4glRG/0hqkyMHWN84ZWVeTol8/PKOUIb8RC5wMYbKC9CiCUDwTkd4MDnuoGWDOPfRN+le9706LOQmspchb/gTAdHtRKPn3p/vFd+gi9mSJXb294U8vkLcEnzsp9h+sCer2n2NU96oPqqTziWq2GkCvf1D9lr5CHMa2u9fwKUZShczZk2XaiH9TDGYtDVwFUHbuw8e6ptUze2hY9CackCXUb+ddfbib0eR"));
 
 // var IV512 = [
 //   (0x6fd14b96), (0x3e00aa17), (0x636a2e05), (0x7a15d543),
@@ -3058,6 +3028,7 @@ var C = he.bytes2Int32Buffer(he.b64Decode("ctXeot8V+Gd7hBUKtyMVV4Gr1pBNWof2Tp9Px
 //   (0xe3c2fcdf), (0xe68517fb), (0x545a4678), (0xcc8cdd4b)
 // ];
 
+//C would need to be 32 bit swapped if using these values
 // var C = [
 //   (0x72d5dea2), (0xdf15f867), (0x7b84150a),
 //   (0xb7231557), (0x81abd690), (0x4d5a87f6),
@@ -3201,11 +3172,11 @@ var Lb = function(x) {
 }
 
 var Ceven = function(n, r) {
-  return op.swap32(C[((r) << 3) + 3 - n]);
+  return C[((r) << 3) + 3 - n];
 }
 
 var Codd = function(n, r) {
-  return op.swap32(C[((r) << 3) + 7 - n]);
+  return C[((r) << 3) + 7 - n];
 }
 
 var S = function(x0, x1, x2, x3, cb, r) {
@@ -4549,7 +4520,8 @@ u64.prototype.addOne = function() {
   if (this.lo === -1 || this.lo === 0xFFFFFFFF) {
     this.lo = 0;
     this.hi++;
-  } else {
+  }
+  else {
     this.lo++;
   }
 }
@@ -4659,7 +4631,8 @@ u64.prototype.shiftLeft = function(bits) {
   var c = new u64(0, 0);
   if (bits === 0) {
     return this.clone();
-  } else if (bits >= 32) {
+  }
+  else if (bits > 31) {
     c.lo = 0;
     c.hi = this.lo << (bits - 32);
   }
@@ -4670,13 +4643,34 @@ u64.prototype.shiftLeft = function(bits) {
   }
   return c; //for chaining..
 };
+
+u64.prototype.setShiftLeft = function(bits) {
+  if (bits === 0) {
+    return this;
+  }
+  if (bits > 63) {
+    bits = bits % 64;
+  }
+  
+  if (bits > 31) {
+    this.hi = this.lo << (bits - 32);
+    this.lo = 0;
+  }
+  else {
+    var toMoveUp = this.lo >>> 32 - bits;
+    this.lo <<= bits;
+    this.hi = (this.hi << bits) | toMoveUp;
+  }
+  return this; //for chaining..
+};
 //Shifts this word by the given number of bits to the right (max 32)..
 u64.prototype.shiftRight = function(bits) {
   bits = bits % 64;
   var c = new u64(0, 0);
   if (bits === 0) {
     return this.clone();
-  } else if (bits >= 32) {
+  }
+  else if (bits >= 32) {
     c.hi = 0;
     c.lo = this.hi >>> (bits - 32);
   }
@@ -4694,21 +4688,40 @@ u64.prototype.rotateLeft = function(bits) {
     return this.rotateRight(64 - bits);
   }
   var c = new u64(0, 0);
-  var newHigh;
   if (bits === 0) {
     c.lo = this.lo >>> 0;
     c.hi = this.hi >>> 0;
-  } else if (bits === 32) { //just switch high and low over in this case..
-    newHigh = this.lo;
+  }
+  else if (bits === 32) { //just switch high and low over in this case..
     c.lo = this.hi;
-    c.hi = newHigh;
+    c.hi = this.lo;
+  }
+  else {
+    c.lo = (this.lo << bits) | (this.hi >>> (32 - bits));
+    c.hi = (this.hi << bits) | (this.lo >>> (32 - bits));
+  }
+  return c; //for chaining..
+};
+
+u64.prototype.setRotateLeft = function(bits) {
+  if (bits > 32) {
+    return this.setRotateRight(64 - bits);
+  }
+  var newHigh;
+  if (bits === 0) {
+    return this;
+  }
+  else if (bits === 32) { //just switch high and low over in this case..
+    newHigh = this.lo;
+    this.lo = this.hi;
+    this.hi = newHigh;
   }
   else {
     newHigh = (this.hi << bits) | (this.lo >>> (32 - bits));
-    c.lo = (this.lo << bits) | (this.hi >>> (32 - bits));
-    c.hi = newHigh;
+    this.lo = (this.lo << bits) | (this.hi >>> (32 - bits));
+    this.hi = newHigh;
   }
-  return c; //for chaining..
+  return this; //for chaining..
 };
 //Rotates the bits of this word round to the right (max 32)..
 u64.prototype.rotateRight = function(bits) {
@@ -4716,21 +4729,48 @@ u64.prototype.rotateRight = function(bits) {
     return this.rotateLeft(64 - bits);
   }
   var c = new u64(0, 0);
-  var newHigh;
   if (bits === 0) {
     c.lo = this.lo >>> 0;
     c.hi = this.hi >>> 0;
-  } else if (bits === 32) { //just switch high and low over in this case..
-    newHigh = this.lo;
+  }
+  else if (bits === 32) { //just switch high and low over in this case..
     c.lo = this.hi;
-    c.hi = newHigh;
+    c.hi = this.lo;
+  }
+  else {
+    c.lo = (this.hi << (32 - bits)) | (this.lo >>> bits);
+    c.hi = (this.lo << (32 - bits)) | (this.hi >>> bits);
+  }
+  return c; //for chaining..
+};
+u64.prototype.setFlip = function() {
+  var newHigh;
+  newHigh = this.lo;
+  this.lo = this.hi;
+  this.hi = newHigh;
+  return this;
+};
+//Rotates the bits of this word round to the right (max 32)..
+u64.prototype.setRotateRight = function(bits) {
+  if (bits > 32) {
+    return this.setRotateLeft(64 - bits);
+  }
+
+  if (bits === 0) {
+    return this;
+  }
+  else if (bits === 32) { //just switch high and low over in this case..
+    var newHigh;
+    newHigh = this.lo;
+    this.lo = this.hi;
+    this.hi = newHigh;
   }
   else {
     newHigh = (this.lo << (32 - bits)) | (this.hi >>> bits);
-    c.lo = (this.hi << (32 - bits)) | (this.lo >>> bits);
-    c.hi = newHigh;
+    this.lo = (this.hi << (32 - bits)) | (this.lo >>> bits);
+    this.hi = newHigh;
   }
-  return c; //for chaining..
+  return this; //for chaining..
 };
 //Xors this word with the given other..
 u64.prototype.xor = function(oWord) {
@@ -4738,6 +4778,12 @@ u64.prototype.xor = function(oWord) {
   c.hi = this.hi ^ oWord.hi;
   c.lo = this.lo ^ oWord.lo;
   return c; //for chaining..
+};
+//Xors this word with the given other..
+u64.prototype.setxorOne = function(oWord) {
+  this.hi ^= oWord.hi;
+  this.lo ^= oWord.lo;
+  return this; //for chaining..
 };
 //Ands this word with the given other..
 u64.prototype.and = function(oWord) {
@@ -4763,8 +4809,8 @@ u64.prototype.setxor64 = function() {
 
 module.exports.u64 = u64;
 
-module.exports.u = function(h,l) {
-  return new u64(h,l);
+module.exports.u = function(h, l) {
+  return new u64(h, l);
 }
 
 module.exports.add64 = function(a, b) {
@@ -4839,7 +4885,7 @@ module.exports.load64 = function(x, i) {
   return new this.u64(h, l);
 }
 
-module.exports.bufferInsert = function(buffer, bufferOffset, data, len,dataOffset) {
+module.exports.bufferInsert = function(buffer, bufferOffset, data, len, dataOffset) {
   if (!dataOffset) dataOffset = 0;
   for (var i = 0; i < len; i++) {
     buffer[i + bufferOffset] = data[i + dataOffset];
@@ -5737,17 +5783,17 @@ var WB_DATA = [
 ];
 
 var REDS1 = function(x) {
-  return (((x) & 0xFF) - ((x) >> 8));
+  return ((x & 0xFF) - (x >> 8));
 }
 var REDS2 = function(x) {
-  return (((x) & 0xFFFF) + ((x) >> 16));
+  return ((x & 0xFFFF) + (x >> 16));
 }
 
 var IF = function(x, y, z) {
-  return ((((y) ^ (z)) & (x)) ^ (z));
+  return ((y ^ z) & x) ^ (z);
 }
 var MAJ = function(x, y, z) {
-  return (((x) & (y)) | (((x) | (y)) & (z)));
+  return (x & y) | ((x | y) & (z));
 }
 
 var FFT_LOOP = function(q, qOffset, hk, as) {
