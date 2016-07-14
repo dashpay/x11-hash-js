@@ -1,9 +1,6 @@
 'use strict';
 
-var x11 = require('./');
-
-//test.assert(x11.blake('The quick brown fox jumps over the lazy dog') === '1f7e26f63b6ad25a0896fd978fd050a1766391d2fd0471a77afb975e5034b7ad2d9ccf8dfb47abbbe656e1b82fbc634ba42ce186e8dc5e1ce09a885d41f43451');
-
+var x11 = require('../');
 var expect    = require("chai").expect;
 
 var fox = 'The quick brown fox jumps over the lazy dog';
@@ -214,16 +211,20 @@ describe("X11 Hash Functions", function() {
   
   describe("x11", function() {
     it("empty string", function() {
-      expect(x11.x11(empty)).to.equal("51b572209083576ea221c27e62b4e22063257571ccb6cc3dc3cd17eb67584eba");
+      expect(x11.digest(empty)).to.equal("51b572209083576ea221c27e62b4e22063257571ccb6cc3dc3cd17eb67584eba");
     });
     it("fox string", function() {
-      expect(x11.x11(fox)).to.equal("534536a4e4f16b32447f02f77200449dc2f23b532e3d9878fe111c9de666bc5c");
+      expect(x11.digest(fox)).to.equal("534536a4e4f16b32447f02f77200449dc2f23b532e3d9878fe111c9de666bc5c");
     });
     it("dash string", function() {
-      expect(x11.x11(dash)).to.equal("fe809ebca8753d907f6ad32cdcf8e5c4e090d7bece5df35b2147e10b88c12d26");
+      expect(x11.digest(dash)).to.equal("fe809ebca8753d907f6ad32cdcf8e5c4e090d7bece5df35b2147e10b88c12d26");
     });
     it("dream string", function() {
-      expect(x11.x11(longDream)).to.equal("5c0996b9d49dbe84e29f1b818c1fa9e73549f894a71b8a258964b8f0ecf3c866");
+      expect(x11.digest(longDream)).to.equal("5c0996b9d49dbe84e29f1b818c1fa9e73549f894a71b8a258964b8f0ecf3c866");
     });
+    // TODO:
+    //it("int32", function() {
+    //  expect(x11.digest(int32,2)).to.equal("?");
+    //});
   });
 });

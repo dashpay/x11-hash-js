@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.registerTask('default', ['browserify']);
+    grunt.registerTask('default', ['browserify', 'uglify']);
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -12,7 +12,7 @@ module.exports = function(grunt) {
                 dest: 'dist/x11-hash.js',
                 options: {
                     require: [
-                        './index.js:hash'
+                        './index.js:x11hash'
                     ]
                 }
             }
