@@ -1,6 +1,6 @@
 'use strict';
 
-var x11 = require('./');
+var x11 = require('../');
 
 //test.assert(x11.blake('The quick brown fox jumps over the lazy dog') === '1f7e26f63b6ad25a0896fd978fd050a1766391d2fd0471a77afb975e5034b7ad2d9ccf8dfb47abbbe656e1b82fbc634ba42ce186e8dc5e1ce09a885d41f43451');
 
