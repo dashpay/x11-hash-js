@@ -10,7 +10,7 @@ var sentence = longDream;
 // add tests 
 suite
 .add('Hash#x11', function() {
-  x11.x11(sentence);
+  x11.digest(sentence);
 })
 .add('Hash#blake', function() {
   x11.blake(sentence);
