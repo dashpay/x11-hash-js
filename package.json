@@ -4,8 +4,9 @@
   "description": "x11 javascript hashing algorithm in pure javascript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js",
+    "test": "mocha test/test.js",
     "clean": "rm -rfv dist/*",
+    "benchmark": "node test/benchmarks.js",
     "build": "grunt"
   },
   "repository": {
