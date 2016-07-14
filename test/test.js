@@ -222,9 +222,8 @@ describe("X11 Hash Functions", function() {
     it("dream string", function() {
       expect(x11.digest(longDream)).to.equal("5c0996b9d49dbe84e29f1b818c1fa9e73549f894a71b8a258964b8f0ecf3c866");
     });
-    // TODO:
-    //it("int32", function() {
-    //  expect(x11.digest(int32,2)).to.equal("?");
-    //});
+    it("int32", function() {
+      expect(x11.digest(int32,2)).to.equal("ce06ca169b75084cd7b245966296e637e9af85091e848937af070f110cdb6298");
+    });
   });
 });
