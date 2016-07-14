@@ -106,4 +106,4 @@ module.exports.x11 = function(str,format, output) {
 // console.log(this.cubehash(longDream));
 // console.log(this.echo(longDream));
 // console.log(cubehash(int32,2));
-// console.log(this.x11(fox));
+// console.log(this.x11(''));
