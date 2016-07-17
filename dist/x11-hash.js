@@ -6319,10 +6319,10 @@ module.exports.digest = function(str,format, output) {
   a = simd(a,2,2);
   a = echo(a,2,2);
   a = a.slice(0,8);
-  if (output === 1) {
+  if (output === 2) {
     return a;
   }
-  else if (output === 2) {
+  else if (output === 1) {
     return h.int32Buffer2Bytes(a);
   }
   else {
