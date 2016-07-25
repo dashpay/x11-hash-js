@@ -2756,59 +2756,85 @@ module.exports = function(input, format, output) {
 var op = require('./op.js');
 
 module.exports.int8ArrayToHexString = function toString(array) {
-	var string = '';
-	for (var i in array) {
+	var string = '',
+		i = 0,
+		len = array.length;
+	while (i < len) {
 		if (array[i] < 16) {
 			string += '0' + array[i].toString(16);
 		}
 		else {
 			string += array[i].toString(16);
 		}
+		i++;
 	}
 	return string;
 }
 
 module.exports.int32ArrayToHexString = function toString(array) {
-	var string = '';
-	for (var i in array) {
+	var string = '',
+		i = 0,
+		len = array.length,
+		padding = 8;
+	while (i < len) {
 		var s = array[i];
 		if (s < 0) {
 			s = 0xFFFFFFFF + array[i] + 1;
 		}
 		var l = s.toString(16);
-		var padding = 8;
 		while (l.length < padding) {
 			l = "0" + l;
 		}
 		string += l;
+		i++
 	}
 	return string;
 }
-
+/*
 module.exports.hex2string = function toString(s) {
-	for (var c = [], len = s.length, i = 0; i < len; i += 2)
+	var c = [],
+		len = s.length,
+		i = 0;
+	while ( i < len) {
 		c.push(String.fromCharCode(parseInt(s.substring(i, i + 2), 16)));
+		i += 2;
+	}
 	return c.join('');
 }
 
 module.exports.hex2bytes = function toString(s) {
-	for (var c = [], len = s.length, i = 0; i < len; i += 2)
+	var c = [],
+		len = s.length,
+		i = 0;
+	while ( i < len) {
 		c.push(parseInt(s.substring(i, i + 2), 16));
+		i += 2;
+	}
 	return c;
 }
 
 module.exports.string2hex = function toString(s) {
-	for (var p = [], len = s.length, i = 0; i < len; i++) {
-		p.push((256 + s.charCodeAt(i)).toString(16).substring(1));
+	var c = [],
+		len = s.length,
+		i = 0;
+	while ( i < len) {
+		c.push((256 + s.charCodeAt(i)).toString(16).substring(1));
+		i++;
 	}
-	return p.join('');
+	return c.join('');
 }
-
+*/
 module.exports.string2bytes = function(s) {
-	for (var b = [], i = 0; i < s.length; i++) b[i] = s.charCodeAt(i);
+	var b = [],
+		len = s.length,
+		i = 0;
+	while ( i < len) {
+		b[i] = s.charCodeAt(i);
+		i++;
+	}
 	return b;
 }
-
+/*
 module.exports.bytes2Int16Buffer = function(b) {
 	var len = b.length;
 	var bufferLength = len ? (((len - 1) >>> 1) + 1) : 0;
@@ -2822,18 +2848,20 @@ module.exports.bytes2Int16Buffer = function(b) {
 	}
 	return buffer;
 }
-
+*/
 module.exports.bytes2Int32Buffer = function(b) {
 	var len = b.length;
 	if (!len) return [];
 	var bufferLength = len ? (((len - 1) >>> 2) + 1) : 0;
 	var buffer = new Array(bufferLength);
-	for (var j = 0; j < bufferLength; j++) {
+	var j = 0;
+	while (j < bufferLength) {
 		buffer[j] = (b[j * 4] << 24) | (b[j * 4 + 1] << 16) | (b[j * 4 + 2] << 8) | b[j * 4 + 3];
+		j++;
 	}
 	return buffer;
 }
-
+/*
 module.exports.bytes2Int32BufferLeAligned = function(b) {
 	var len = b.length;
 	if (!len) return [];
@@ -2844,14 +2872,16 @@ module.exports.bytes2Int32BufferLeAligned = function(b) {
 	}
 	return buffer;
 }
-
+*/
 module.exports.bytes2Int64Buffer = function(b) {
 	var len = b.length;
 	if (!len) return [];
-	var bufferLength = len ? (((len - 1) >>> 3) + 1) : 0;
-	var buffer = new Array(bufferLength);
-	for (var j = 0; j < bufferLength; j++) {
+	var bufferLength = len ? (((len - 1) >>> 3) + 1) : 0,
+		buffer = new Array(bufferLength),
+		j = 0;
+	while (j < bufferLength) {
 		buffer[j] = new op.u64((b[j * 8] << 24) | (b[j * 8 + 1] << 16) | (b[j * 8 + 2] << 8) | b[j * 8 + 3], (b[j * 8 + 4] << 24) | (b[j * 8 + 5] << 16) | (b[j * 8 + 6] << 8) | b[j * 8 + 7]);
+		j++;
 	}
 	return buffer;
 }
@@ -2859,10 +2889,12 @@ module.exports.bytes2Int64Buffer = function(b) {
 module.exports.bytes2Int64BufferLeAligned = function(b) {
 	var len = b.length;
 	if (!len) return [];
-	var bufferLength = len ? (((len - 1) >>> 3) + 1) : 0;
-	var buffer = new Array(bufferLength);
-	for (var j = 0; j < bufferLength; j++) {
+	var bufferLength = len ? (((len - 1) >>> 3) + 1) : 0,
+		buffer = new Array(bufferLength),
+		j = 0;
+	while (j < bufferLength) {
 		buffer[j] = new op.u64((b[j * 8 + 7] << 24) | (b[j * 8 + 6] << 16) | (b[j * 8 + 5] << 8) | b[j * 8 + 4], (b[j * 8 + 3] << 24) | (b[j * 8 + 2] << 16) | (b[j * 8 + 1] << 8) | b[j * 8]);
+		j++;
 	}
 	return buffer;
 }
@@ -2890,10 +2922,10 @@ module.exports.bufferEncode64 = function(buffer, offset, uint64) {
 }
 
 module.exports.int32Buffer2Bytes = function(b) {
-	var len = b.length;
-	var bufferLength = len * 4;
-	var buffer = new Array(bufferLength);
-	var i = 0;
+	var len = b.length,
+		bufferLength = len * 4,
+		buffer = new Array(bufferLength),
+		i = 0;
 	while (i < len) {
 		buffer[i * 4] = (b[i] & 0xFF000000) >>> 24;
 		buffer[i * 4 + 1] = (b[i] & 0x00FF0000) >>> 16;
@@ -2905,10 +2937,10 @@ module.exports.int32Buffer2Bytes = function(b) {
 }
 
 module.exports.int64Buffer2Bytes = function(b) {
-	var len = b.length;
-	var bufferLength = len * 8;
-	var buffer = new Array(bufferLength);
-	var i = 0;
+	var len = b.length,
+		bufferLength = len * 8,
+		buffer = new Array(bufferLength),
+		i = 0;
 	while (i < len) {
 		buffer[i * 8] = (b[i].hi & 0xFF000000) >>> 24;
 		buffer[i * 8 + 1] = (b[i].hi & 0x00FF0000) >>> 16;
@@ -2931,9 +2963,9 @@ module.exports.string2Int32Buffer = function(s) {
 var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
 module.exports.b64Encode = function(input) {
-	var output = "";
-	var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-	var i = 0;
+	var output = "",
+		chr1, chr2, chr3, enc1, enc2, enc3, enc4,
+		i = 0;
 
 	while (i < input.length) {
 
@@ -2952,25 +2984,22 @@ module.exports.b64Encode = function(input) {
 		else if (isNaN(chr3)) {
 			enc4 = 64;
 		}
-
 		output = output +
 			keyStr.charAt(enc1) + keyStr.charAt(enc2) +
 			keyStr.charAt(enc3) + keyStr.charAt(enc4);
-
 	}
-
 	return output;
 };
 
 module.exports.b64Decode = function(input) {
-	var output = [];
-	var chr1, chr2, chr3;
-	var enc1, enc2, enc3, enc4;
-	var i = 0;
+	var output = [],
+		chr1, chr2, chr3, enc1, enc2, enc3, enc4,
+		i = 0;
 
 	input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+	var len = input.length;
 
-	while (i < input.length) {
+	while (i < len) {
 
 		enc1 = keyStr.indexOf(input.charAt(i++));
 		enc2 = keyStr.indexOf(input.charAt(i++));
@@ -2989,11 +3018,8 @@ module.exports.b64Decode = function(input) {
 		if (enc4 != 64) {
 			output.push(chr3);
 		}
-
 	}
-
 	return output;
-
 };
 },{"./op.js":11}],8:[function(require,module,exports){
 /////////////////////////////////////
@@ -4800,9 +4826,11 @@ u64.prototype.clone = function() {
 
 u64.prototype.setxor64 = function() {
   var a = arguments;
-  for (var i = 0, len = a.length; i < len; i++) {
+  var i = 0, len = a.length;
+  while (i < len) {
     this.hi ^= a[i].hi;
     this.lo ^= a[i].lo;
+    i++;
   }
   return this;
 }
@@ -4812,7 +4840,7 @@ module.exports.u64 = u64;
 module.exports.u = function(h, l) {
   return new u64(h, l);
 }
-
+/*
 module.exports.add64 = function(a, b) {
   var lowest, lowMid, highMid, highest; //four parts of the whole 64 bit number..
 
@@ -4826,22 +4854,27 @@ module.exports.add64 = function(a, b) {
 
   return r;
 };
-
+*/
 module.exports.xor64 = function() {
   var a = arguments,
-    h = a[0].hi,
-    l = a[0].lo;
-  for (var i = 1, len = a.length; i < len; i++) {
+      h = a[0].hi,
+      l = a[0].lo;
+  var i = 1, len = a.length;
+  while (i < len) {
     h ^= a[i].hi;
     l ^= a[i].lo;
+    i++;
   }
   return new this.u64(h, l);
 }
 
 module.exports.clone64Array = function(array) {
-  var a = [];
-  for (var i in array) {
-    a.push(array[i].clone());
+  var i = 0;
+  var len = array.length;
+  var a = new Array(len);
+  while(i<len) {
+    a[i] = array[i];
+    i++;
   }
   return a;
 }
@@ -4868,9 +4901,10 @@ module.exports.swap32 = function(val) {
 
 module.exports.swap32Array = function(a) {
   //can't do this with map because of support for IE8 (Don't hate me plz).
-  var r = Array(a.length);
-  for (var i in a) {
+  var i = 0, len = a.length, r = new Array(len);
+  while (i<len) {
     r[i] = (this.swap32(a[i]));
+    i++;
   }
   return r;
 }
@@ -4878,58 +4912,74 @@ module.exports.swap32Array = function(a) {
 module.exports.xnd64 = function(x, y, z) {
   return new this.u64(x.hi ^ ((~y.hi) & z.hi), x.lo ^ ((~y.lo) & z.lo));
 }
-
+/*
 module.exports.load64 = function(x, i) {
   var l = x[i] | (x[i + 1] << 8) | (x[i + 2] << 16) | (x[i + 3] << 24);
   var h = x[i + 4] | (x[i + 5] << 8) | (x[i + 6] << 16) | (x[i + 7] << 24);
   return new this.u64(h, l);
 }
-
+*/
 module.exports.bufferInsert = function(buffer, bufferOffset, data, len, dataOffset) {
-  if (!dataOffset) dataOffset = 0;
-  for (var i = 0; i < len; i++) {
+  dataOffset = dataOffset | 0;
+  var i = 0;
+  while (i < len) {
     buffer[i + bufferOffset] = data[i + dataOffset];
+    i++;
   }
 }
 
 module.exports.bufferInsert64 = function(buffer, bufferOffset, data, len) {
-  for (var i = len - 1; i >= 0; i--) {
+  var i = 0;
+  while (i < len) {
     buffer[i + bufferOffset] = data[i].clone();
+    i++;
   }
 }
 
 module.exports.buffer2Insert = function(buffer, bufferOffset, bufferOffset2, data, len, len2) {
-  for (var i = len - 1; i >= 0; i--) {
-    for (var j = len2 - 1; j >= 0; j--) {
+  var i = 0;
+  while (i < len) {
+    var j = 0;
+    while (j < len2) {
       buffer[i + bufferOffset][j + bufferOffset2] = data[i][j];
+      j++;
     }
+    i++;
   }
 }
 
-
 module.exports.bufferInsertBackwards = function(buffer, bufferOffset, data, len) {
-  for (var i = len - 1; i >= 0; i--) {
+  var i = 0;
+  while (i < len) {
     buffer[i + bufferOffset] = data[len - 1 - i];
+    i++;
   }
 }
 
 module.exports.bufferSet = function(buffer, bufferOffset, value, len) {
-  for (var i = len - 1; i >= 0; i--) {
+  var i = 0;
+  while (i < len) {
     buffer[i + bufferOffset] = value;
+    i++;
   }
 }
 
 module.exports.bufferXORInsert = function(buffer, bufferOffset, data, dataOffset, len) {
-  for (var i = 0; i < len; i++) {
+  var i = 0;
+  while (i < len) {
     buffer[i + bufferOffset] ^= data[i + dataOffset];
+    i++;
   }
 }
 
 module.exports.xORTable = function(d, s1, s2, len) {
-  for (var i = 0; i < len; i++) {
+  var i = 0;
+  while (i < len) {
     d[i] = s1[i] ^ s2[i];
+    i++
   }
 }
+
 },{}],12:[function(require,module,exports){
 /////////////////////////////////////
 ////////////  Shavite ///////////////
