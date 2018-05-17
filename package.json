@@ -4,10 +4,11 @@
   "description": "x11 javascript hashing algorithm in pure javascript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/test.js",
+    "test": "mocha --timeout 10000 --full-trace --check-leaks test/test.js",
     "clean": "rm -rfv dist/*",
     "benchmark": "node test/benchmarks.js",
-    "build": "grunt"
+    "lint": "node_modules/.bin/eslint lib",
+    "build": "npm test && grunt"
   },
   "repository": {
     "type": "git",
@@ -36,13 +37,15 @@
     "url": "https://github.com/quantumexplorer/x11-hash-js/issues"
   },
   "devDependencies": {
-    "benchmark": "^2.1.0",
-    "browserify": "^13.0.1",
+    "benchmark": "^2.1.4",
+    "browserify": "^13.3.0",
     "chai": "^3.5.0",
-    "grunt": "^1.0.1",
-    "grunt-browserify": "^5.0.0",
-    "grunt-contrib-uglify": "^1.0.1",
-    "grunt-contrib-watch": "^1.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^10.2.1",
+    "grunt": "^1.0.2",
+    "grunt-browserify": "^5.3.0",
+    "grunt-contrib-uglify": "^1.0.2",
+    "grunt-contrib-watch": "^1.1.0",
     "mocha": "^2.5.3",
     "uglify": "^0.1.5"
   }
