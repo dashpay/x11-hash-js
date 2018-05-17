@@ -7,7 +7,7 @@
     "test": "mocha --timeout 10000 --full-trace --check-leaks test/test.js",
     "clean": "rm -rfv dist/*",
     "benchmark": "node test/benchmarks.js",
-    "lint": "node_modules/.bin/eslint lib",
+    "lint": "eslint lib",
     "build": "npm test && grunt"
   },
   "repository": {
