@@ -1,11 +1,12 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+'use strict';
 var op = require('./op');
 var h = require('./helper');
 
-var AES0 = h.bytes2Int32Buffer(h.b64Decode("pWNjxoR8fPiZd3fujXt79g3y8v+9a2vWsW9v3lTFxZFQMDBgAwEBAqlnZ859KytWGf7+52LX17Xmq6tNmnZ27EXKyo+dgoIfQMnJiYd9ffoV+vrv61lZsslHR44L8PD77K2tQWfU1LP9oqJf6q+vRb+cnCP3pKRTlnJy5FvAwJvCt7d1HP394a6Tkz1qJiZMWjY2bEE/P34C9/f1T8zMg1w0NGj0paVRNOXl0Qjx8fmTcXHic9jYq1MxMWI/FRUqDAQECFLHx5VlIyNGXsPDnSgYGDChlpY3DwUFCrWami8JBwcONhISJJuAgBs94uLfJuvrzWknJ07NsrJ/n3V16hsJCRKeg4MddCwsWC4aGjQtGxs2sm5u3O5aWrT7oKBb9lJSpE07O3Zh1ta3zrOzfXspKVI+4+PdcS8vXpeEhBP1U1OmaNHRuQAAAAAs7e3BYCAgQB/8/OPIsbF57Vtbtr5qatRGy8uN2b6+Z0s5OXLeSkqU1ExMmOhYWLBKz8+Fa9DQuyrv78XlqqpPFvv77cVDQ4bXTU2aVTMzZpSFhRHPRUWKEPn56QYCAgSBf3/+8FBQoEQ8PHi6n58l46ioS/NRUaL+o6NdwEBAgIqPjwWtkpI/vJ2dIUg4OHAE9fXx37y8Y8G2tnd12tqvYyEhQjAQECAa///lDvPz/W3S0r9Mzc2BFAwMGDUTEyYv7OzD4V9fvqKXlzXMRESIORcXLlfExJPyp6dVgn5+/Ec9PXqsZGTI511duisZGTKVc3PmoGBgwJiBgRnRT0+ef9zco2YiIkR+KipUq5CQO4OIiAvKRkaMKe7ux9O4uGs8FBQoed7ep+JeXrwdCwsWdtvbrTvg4NtWMjJkTjo6dB4KChTbSUmSCgYGDGwkJEjkXFy4XcLCn27T073vrKxDpmJixKiRkTmklZUxN+Tk04t5efIy5+fVQ8jIi1k3N263bW3ajI2NAWTV1bHSTk6c4KmpSbRsbNj6VlasB/T08yXq6s+vZWXKjnp69OmurkcYCAgQ1bq6b4h4ePBvJSVKci4uXCQcHDjxpqZXx7S0c1HGxpcj6OjLfN3doZx0dOghHx8+3UtLlty9vWGGi4sNhYqKD5BwcOBCPj58xLW1capmZszYSEiQBQMDBgH29vcSDg4co2Fhwl81NWr5V1eu0Lm5aZGGhhdYwcGZJx0dOrmenic44eHZE/j467OYmCszEREiu2lp0nDZ2amJjo4Hp5SUM7abmy0iHh48koeHFSDp6clJzs6H/1VVqngoKFB639+lj4yMA/ihoVmAiYkJFw0NGtq/v2Ux5ubXxkJChLhoaNDDQUGCsJmZKXctLVoRDw8ey7Cwe/xUVKjWu7ttOhYWLA=="));
-var AES1 = h.bytes2Int32Buffer(h.b64Decode("Y2PGpXx8+IR3d+6Ze3v2jfLy/w1ra9a9b2/escXFkVQwMGBQAQECA2dnzqkrK1Z9/v7nGdfXtWKrq03mdnbsmsrKj0WCgh+dycmJQH19+of6+u8VWVmy60dHjsnw8PsLra1B7NTUs2eiol/9r69F6pycI7+kpFP3cnLklsDAm1u3t3XC/f3hHJOTPa4mJkxqNjZsWj8/fkH39/UCzMyDTzQ0aFylpVH05eXRNPHx+QhxceKT2NirczExYlMVFSo/BAQIDMfHlVIjI0Zlw8OdXhgYMCiWljehBQUKD5qaL7UHBw4JEhIkNoCAG5vi4t896+vNJicnTmmysn/NdXXqnwkJEhuDgx2eLCxYdBoaNC4bGzYtbm7cslpatO6goFv7UlKk9js7dk3W1rdhs7N9zikpUnvj490+Ly9ecYSEE5dTU6b10dG5aAAAAADt7cEsICBAYPz84x+xsXnIW1u27Wpq1L7Ly41Gvr5n2Tk5cktKSpTeTEyY1FhYsOjPz4VK0NC7a+/vxSqqqk/l+/vtFkNDhsVNTZrXMzNmVYWFEZRFRYrP+fnpEAICBAZ/f/6BUFCg8Dw8eESfnyW6qKhL41FRovOjo13+QECAwI+PBYqSkj+tnZ0hvDg4cEj19fEEvLxj37a2d8Ha2q91ISFCYxAQIDD//+Ua8/P9DtLSv23NzYFMDAwYFBMTJjXs7MMvX1++4ZeXNaJERIjMFxcuOcTEk1enp1Xyfn78gj09ekdkZMisXV265xkZMitzc+aVYGDAoIGBGZhPT57R3NyjfyIiRGYqKlR+kJA7q4iIC4NGRozK7u7HKbi4a9MUFCg83t6neV5evOILCxYd29utduDg2zsyMmRWOjp0TgoKFB5JSZLbBgYMCiQkSGxcXLjkwsKfXdPTvW6srEPvYmLEppGROaiVlTGk5OTTN3l58ovn59UyyMiLQzc3blltbdq3jY0BjNXVsWROTpzSqalJ4Gxs2LRWVqz69PTzB+rqzyVlZcqvenr0jq6uR+kICBAYurpv1Xh48IglJUpvLi5cchwcOCSmplfxtLRzx8bGl1Ho6Msj3d2hfHR06JwfHz4hS0uW3b29YdyLiw2GiooPhXBw4JA+PnxCtbVxxGZmzKpISJDYAwMGBfb29wEODhwSYWHCozU1al9XV675ublp0IaGF5HBwZlYHR06J56eJ7nh4dk4+PjrE5iYK7MRESIzaWnSu9nZqXCOjgeJlJQzp5ubLbYeHjwih4cVkunpySDOzodJVVWq/ygoUHjf36V6jIwDj6GhWfiJiQmADQ0aF7+/Zdrm5tcxQkKExmho0LhBQYLDmZkpsC0tWncPDx4RsLB7y1RUqPy7u23WFhYsOg=="));
-var AES2 = h.bytes2Int32Buffer(h.b64Decode("Y8alY3z4hHx37pl3e/aNe/L/DfJr1r1rb96xb8WRVMUwYFAwAQIDAWfOqWcrVn0r/ucZ/te1YterTearduyadsqPRcqCH52CyYlAyX36h3367xX6WbLrWUeOyUfw+wvwrUHsrdSzZ9SiX/2ir0Xqr5wjv5ykU/ekcuSWcsCbW8C3dcK3/eEc/ZM9rpMmTGomNmxaNj9+QT/39QL3zINPzDRoXDSlUfSl5dE05fH5CPFx4pNx2Ktz2DFiUzEVKj8VBAgMBMeVUscjRmUjw51ewxgwKBiWN6GWBQoPBZovtZoHDgkHEiQ2EoAbm4Di3z3i680m6ydOaSeyf82ydeqfdQkSGwmDHZ6DLFh0LBo0LhobNi0bbtyyblq07lqgW/ugUqT2Ujt2TTvWt2HWs33OsylSeynj3T7jL15xL4QTl4RTpvVT0blo0QAAAADtwSztIEBgIPzjH/yxecixW7btW2rUvmrLjUbLvmfZvjlySzlKlN5KTJjUTFiw6FjPhUrP0Ltr0O/FKu+qT+Wq++0W+0OGxUNNmtdNM2ZVM4URlIVFis9F+ekQ+QIEBgJ//oF/UKDwUDx4RDyfJbqfqEvjqFGi81GjXf6jQIDAQI8Fio+SP62SnSG8nThwSDj18QT1vGPfvLZ3wbbar3XaIUJjIRAgMBD/5Rr/8/0O89K/bdLNgUzNDBgUDBMmNRPswy/sX77hX5c1opdEiMxEFy45F8STV8SnVfKnfvyCfj16Rz1kyKxkXbrnXRkyKxlz5pVzYMCgYIEZmIFPntFP3KN/3CJEZiIqVH4qkDurkIgLg4hGjMpG7scp7rhr07gUKDwU3qd53l684l4LFh0L26122+DbO+AyZFYyOnROOgoUHgpJkttJBgwKBiRIbCRcuORcwp9dwtO9btOsQ++sYsSmYpE5qJGVMaSV5NM35Hnyi3nn1TLnyItDyDduWTdt2rdtjQGMjdWxZNVOnNJOqUngqWzYtGxWrPpW9PMH9OrPJeplyq9levSOeq5H6a4IEBgIum/VunjwiHglSm8lLlxyLhw4JBymV/GmtHPHtMaXUcboyyPo3aF83XTonHQfPiEfS5bdS71h3L2LDYaLig+FinDgkHA+fEI+tXHEtWbMqmZIkNhIAwYFA/b3AfYOHBIOYcKjYTVqXzVXrvlXuWnQuYYXkYbBmVjBHTonHZ4nuZ7h2Tjh+OsT+Jgrs5gRIjMRadK7admpcNmOB4mOlDOnlJsttpsePCIehxWSh+nJIOnOh0nOVar/VShQeCjfpXrfjAOPjKFZ+KGJCYCJDRoXDb9l2r/m1zHmQoTGQmjQuGhBgsNBmSmwmS1ady0PHhEPsHvLsFSo/FS7bda7Fiw6Fg=="));
-var AES3 = h.bytes2Int32Buffer(h.b64Decode("xqVjY/iEfHzumXd39o17e/8N8vLWvWtr3rFvb5FUxcVgUDAwAgMBAc6pZ2dWfSsr5xn+/rVi19dN5qur7Jp2do9FysofnYKCiUDJyfqHfX3vFfr6sutZWY7JR0f7C/DwQeytrbNn1NRf/aKiReqvryO/nJxT96Sk5JZycptbwMB1wre34Rz9/T2uk5NMaiYmbFo2Nn5BPz/1Avf3g0/MzGhcNDRR9KWl0TTl5fkI8fHik3Fxq3PY2GJTMTEqPxUVCAwEBJVSx8dGZSMjnV7DwzAoGBg3oZaWCg8FBS+1mpoOCQcHJDYSEhubgIDfPeLizSbr605pJyd/zbKy6p91dRIbCQkdnoODWHQsLDQuGho2LRsb3LJubrTuWlpb+6CgpPZSUnZNOzu3YdbWfc6zs1J7KSndPuPjXnEvLxOXhISm9VNTuWjR0QAAAADBLO3tQGAgIOMf/Px5yLGxtu1bW9S+amqNRsvLZ9m+vnJLOTmU3kpKmNRMTLDoWFiFSs/Pu2vQ0MUq7+9P5aqq7Rb7+4bFQ0Oa101NZlUzMxGUhYWKz0VF6RD5+QQGAgL+gX9/oPBQUHhEPDwlup+fS+OoqKLzUVFd/qOjgMBAQAWKj48/rZKSIbydnXBIODjxBPX1Y9+8vHfBtravddraQmMhISAwEBDlGv///Q7z879t0tKBTM3NGBQMDCY1ExPDL+zsvuFfXzWil5eIzERELjkXF5NXxMRV8qen/IJ+fnpHPT3IrGRkuuddXTIrGRnmlXNzwKBgYBmYgYGe0U9Po3/c3ERmIiJUfioqO6uQkAuDiIiMykZGxynu7mvTuLgoPBQUp3ne3rziXl4WHQsLrXbb29s74OBkVjIydE46OhQeCgqS20lJDAoGBkhsJCS45Fxcn13Cwr1u09ND76ysxKZiYjmokZExpJWV0zfk5PKLeXnVMufni0PIyG5ZNzfat21tAYyNjbFk1dWc0k5OSeCpqdi0bGys+lZW8wf09M8l6urKr2Vl9I56ekfprq4QGAgIb9W6uvCIeHhKbyUlXHIuLjgkHBxX8aamc8e0tJdRxsbLI+jooXzd3eicdHQ+IR8flt1LS2Hcvb0NhouLD4WKiuCQcHB8Qj4+ccS1tcyqZmaQ2EhIBgUDA/cB9vYcEg4OwqNhYWpfNTWu+VdXadC5uReRhoaZWMHBOicdHSe5np7ZOOHh6xP4+CuzmJgiMxER0rtpaalw2dkHiY6OM6eUlC22m5s8Ih4eFZKHh8kg6emHSc7Oqv9VVVB4KCilet/fA4+MjFn4oaEJgImJGhcNDWXav7/XMebmhMZCQtC4aGiCw0FBKbCZmVp3LS0eEQ8Pe8uwsKj8VFRt1ru7LDoWFg=="));
+var AES0 = h.bytes2Int32Buffer(h.b64Decode('pWNjxoR8fPiZd3fujXt79g3y8v+9a2vWsW9v3lTFxZFQMDBgAwEBAqlnZ859KytWGf7+52LX17Xmq6tNmnZ27EXKyo+dgoIfQMnJiYd9ffoV+vrv61lZsslHR44L8PD77K2tQWfU1LP9oqJf6q+vRb+cnCP3pKRTlnJy5FvAwJvCt7d1HP394a6Tkz1qJiZMWjY2bEE/P34C9/f1T8zMg1w0NGj0paVRNOXl0Qjx8fmTcXHic9jYq1MxMWI/FRUqDAQECFLHx5VlIyNGXsPDnSgYGDChlpY3DwUFCrWami8JBwcONhISJJuAgBs94uLfJuvrzWknJ07NsrJ/n3V16hsJCRKeg4MddCwsWC4aGjQtGxs2sm5u3O5aWrT7oKBb9lJSpE07O3Zh1ta3zrOzfXspKVI+4+PdcS8vXpeEhBP1U1OmaNHRuQAAAAAs7e3BYCAgQB/8/OPIsbF57Vtbtr5qatRGy8uN2b6+Z0s5OXLeSkqU1ExMmOhYWLBKz8+Fa9DQuyrv78XlqqpPFvv77cVDQ4bXTU2aVTMzZpSFhRHPRUWKEPn56QYCAgSBf3/+8FBQoEQ8PHi6n58l46ioS/NRUaL+o6NdwEBAgIqPjwWtkpI/vJ2dIUg4OHAE9fXx37y8Y8G2tnd12tqvYyEhQjAQECAa///lDvPz/W3S0r9Mzc2BFAwMGDUTEyYv7OzD4V9fvqKXlzXMRESIORcXLlfExJPyp6dVgn5+/Ec9PXqsZGTI511duisZGTKVc3PmoGBgwJiBgRnRT0+ef9zco2YiIkR+KipUq5CQO4OIiAvKRkaMKe7ux9O4uGs8FBQoed7ep+JeXrwdCwsWdtvbrTvg4NtWMjJkTjo6dB4KChTbSUmSCgYGDGwkJEjkXFy4XcLCn27T073vrKxDpmJixKiRkTmklZUxN+Tk04t5efIy5+fVQ8jIi1k3N263bW3ajI2NAWTV1bHSTk6c4KmpSbRsbNj6VlasB/T08yXq6s+vZWXKjnp69OmurkcYCAgQ1bq6b4h4ePBvJSVKci4uXCQcHDjxpqZXx7S0c1HGxpcj6OjLfN3doZx0dOghHx8+3UtLlty9vWGGi4sNhYqKD5BwcOBCPj58xLW1capmZszYSEiQBQMDBgH29vcSDg4co2Fhwl81NWr5V1eu0Lm5aZGGhhdYwcGZJx0dOrmenic44eHZE/j467OYmCszEREiu2lp0nDZ2amJjo4Hp5SUM7abmy0iHh48koeHFSDp6clJzs6H/1VVqngoKFB639+lj4yMA/ihoVmAiYkJFw0NGtq/v2Ux5ubXxkJChLhoaNDDQUGCsJmZKXctLVoRDw8ey7Cwe/xUVKjWu7ttOhYWLA=='));
+var AES1 = h.bytes2Int32Buffer(h.b64Decode('Y2PGpXx8+IR3d+6Ze3v2jfLy/w1ra9a9b2/escXFkVQwMGBQAQECA2dnzqkrK1Z9/v7nGdfXtWKrq03mdnbsmsrKj0WCgh+dycmJQH19+of6+u8VWVmy60dHjsnw8PsLra1B7NTUs2eiol/9r69F6pycI7+kpFP3cnLklsDAm1u3t3XC/f3hHJOTPa4mJkxqNjZsWj8/fkH39/UCzMyDTzQ0aFylpVH05eXRNPHx+QhxceKT2NirczExYlMVFSo/BAQIDMfHlVIjI0Zlw8OdXhgYMCiWljehBQUKD5qaL7UHBw4JEhIkNoCAG5vi4t896+vNJicnTmmysn/NdXXqnwkJEhuDgx2eLCxYdBoaNC4bGzYtbm7cslpatO6goFv7UlKk9js7dk3W1rdhs7N9zikpUnvj490+Ly9ecYSEE5dTU6b10dG5aAAAAADt7cEsICBAYPz84x+xsXnIW1u27Wpq1L7Ly41Gvr5n2Tk5cktKSpTeTEyY1FhYsOjPz4VK0NC7a+/vxSqqqk/l+/vtFkNDhsVNTZrXMzNmVYWFEZRFRYrP+fnpEAICBAZ/f/6BUFCg8Dw8eESfnyW6qKhL41FRovOjo13+QECAwI+PBYqSkj+tnZ0hvDg4cEj19fEEvLxj37a2d8Ha2q91ISFCYxAQIDD//+Ua8/P9DtLSv23NzYFMDAwYFBMTJjXs7MMvX1++4ZeXNaJERIjMFxcuOcTEk1enp1Xyfn78gj09ekdkZMisXV265xkZMitzc+aVYGDAoIGBGZhPT57R3NyjfyIiRGYqKlR+kJA7q4iIC4NGRozK7u7HKbi4a9MUFCg83t6neV5evOILCxYd29utduDg2zsyMmRWOjp0TgoKFB5JSZLbBgYMCiQkSGxcXLjkwsKfXdPTvW6srEPvYmLEppGROaiVlTGk5OTTN3l58ovn59UyyMiLQzc3blltbdq3jY0BjNXVsWROTpzSqalJ4Gxs2LRWVqz69PTzB+rqzyVlZcqvenr0jq6uR+kICBAYurpv1Xh48IglJUpvLi5cchwcOCSmplfxtLRzx8bGl1Ho6Msj3d2hfHR06JwfHz4hS0uW3b29YdyLiw2GiooPhXBw4JA+PnxCtbVxxGZmzKpISJDYAwMGBfb29wEODhwSYWHCozU1al9XV675ublp0IaGF5HBwZlYHR06J56eJ7nh4dk4+PjrE5iYK7MRESIzaWnSu9nZqXCOjgeJlJQzp5ubLbYeHjwih4cVkunpySDOzodJVVWq/ygoUHjf36V6jIwDj6GhWfiJiQmADQ0aF7+/Zdrm5tcxQkKExmho0LhBQYLDmZkpsC0tWncPDx4RsLB7y1RUqPy7u23WFhYsOg=='));
+var AES2 = h.bytes2Int32Buffer(h.b64Decode('Y8alY3z4hHx37pl3e/aNe/L/DfJr1r1rb96xb8WRVMUwYFAwAQIDAWfOqWcrVn0r/ucZ/te1YterTearduyadsqPRcqCH52CyYlAyX36h3367xX6WbLrWUeOyUfw+wvwrUHsrdSzZ9SiX/2ir0Xqr5wjv5ykU/ekcuSWcsCbW8C3dcK3/eEc/ZM9rpMmTGomNmxaNj9+QT/39QL3zINPzDRoXDSlUfSl5dE05fH5CPFx4pNx2Ktz2DFiUzEVKj8VBAgMBMeVUscjRmUjw51ewxgwKBiWN6GWBQoPBZovtZoHDgkHEiQ2EoAbm4Di3z3i680m6ydOaSeyf82ydeqfdQkSGwmDHZ6DLFh0LBo0LhobNi0bbtyyblq07lqgW/ugUqT2Ujt2TTvWt2HWs33OsylSeynj3T7jL15xL4QTl4RTpvVT0blo0QAAAADtwSztIEBgIPzjH/yxecixW7btW2rUvmrLjUbLvmfZvjlySzlKlN5KTJjUTFiw6FjPhUrP0Ltr0O/FKu+qT+Wq++0W+0OGxUNNmtdNM2ZVM4URlIVFis9F+ekQ+QIEBgJ//oF/UKDwUDx4RDyfJbqfqEvjqFGi81GjXf6jQIDAQI8Fio+SP62SnSG8nThwSDj18QT1vGPfvLZ3wbbar3XaIUJjIRAgMBD/5Rr/8/0O89K/bdLNgUzNDBgUDBMmNRPswy/sX77hX5c1opdEiMxEFy45F8STV8SnVfKnfvyCfj16Rz1kyKxkXbrnXRkyKxlz5pVzYMCgYIEZmIFPntFP3KN/3CJEZiIqVH4qkDurkIgLg4hGjMpG7scp7rhr07gUKDwU3qd53l684l4LFh0L26122+DbO+AyZFYyOnROOgoUHgpJkttJBgwKBiRIbCRcuORcwp9dwtO9btOsQ++sYsSmYpE5qJGVMaSV5NM35Hnyi3nn1TLnyItDyDduWTdt2rdtjQGMjdWxZNVOnNJOqUngqWzYtGxWrPpW9PMH9OrPJeplyq9levSOeq5H6a4IEBgIum/VunjwiHglSm8lLlxyLhw4JBymV/GmtHPHtMaXUcboyyPo3aF83XTonHQfPiEfS5bdS71h3L2LDYaLig+FinDgkHA+fEI+tXHEtWbMqmZIkNhIAwYFA/b3AfYOHBIOYcKjYTVqXzVXrvlXuWnQuYYXkYbBmVjBHTonHZ4nuZ7h2Tjh+OsT+Jgrs5gRIjMRadK7admpcNmOB4mOlDOnlJsttpsePCIehxWSh+nJIOnOh0nOVar/VShQeCjfpXrfjAOPjKFZ+KGJCYCJDRoXDb9l2r/m1zHmQoTGQmjQuGhBgsNBmSmwmS1ady0PHhEPsHvLsFSo/FS7bda7Fiw6Fg=='));
+var AES3 = h.bytes2Int32Buffer(h.b64Decode('xqVjY/iEfHzumXd39o17e/8N8vLWvWtr3rFvb5FUxcVgUDAwAgMBAc6pZ2dWfSsr5xn+/rVi19dN5qur7Jp2do9FysofnYKCiUDJyfqHfX3vFfr6sutZWY7JR0f7C/DwQeytrbNn1NRf/aKiReqvryO/nJxT96Sk5JZycptbwMB1wre34Rz9/T2uk5NMaiYmbFo2Nn5BPz/1Avf3g0/MzGhcNDRR9KWl0TTl5fkI8fHik3Fxq3PY2GJTMTEqPxUVCAwEBJVSx8dGZSMjnV7DwzAoGBg3oZaWCg8FBS+1mpoOCQcHJDYSEhubgIDfPeLizSbr605pJyd/zbKy6p91dRIbCQkdnoODWHQsLDQuGho2LRsb3LJubrTuWlpb+6CgpPZSUnZNOzu3YdbWfc6zs1J7KSndPuPjXnEvLxOXhISm9VNTuWjR0QAAAADBLO3tQGAgIOMf/Px5yLGxtu1bW9S+amqNRsvLZ9m+vnJLOTmU3kpKmNRMTLDoWFiFSs/Pu2vQ0MUq7+9P5aqq7Rb7+4bFQ0Oa101NZlUzMxGUhYWKz0VF6RD5+QQGAgL+gX9/oPBQUHhEPDwlup+fS+OoqKLzUVFd/qOjgMBAQAWKj48/rZKSIbydnXBIODjxBPX1Y9+8vHfBtravddraQmMhISAwEBDlGv///Q7z879t0tKBTM3NGBQMDCY1ExPDL+zsvuFfXzWil5eIzERELjkXF5NXxMRV8qen/IJ+fnpHPT3IrGRkuuddXTIrGRnmlXNzwKBgYBmYgYGe0U9Po3/c3ERmIiJUfioqO6uQkAuDiIiMykZGxynu7mvTuLgoPBQUp3ne3rziXl4WHQsLrXbb29s74OBkVjIydE46OhQeCgqS20lJDAoGBkhsJCS45Fxcn13Cwr1u09ND76ysxKZiYjmokZExpJWV0zfk5PKLeXnVMufni0PIyG5ZNzfat21tAYyNjbFk1dWc0k5OSeCpqdi0bGys+lZW8wf09M8l6urKr2Vl9I56ekfprq4QGAgIb9W6uvCIeHhKbyUlXHIuLjgkHBxX8aamc8e0tJdRxsbLI+jooXzd3eicdHQ+IR8flt1LS2Hcvb0NhouLD4WKiuCQcHB8Qj4+ccS1tcyqZmaQ2EhIBgUDA/cB9vYcEg4OwqNhYWpfNTWu+VdXadC5uReRhoaZWMHBOicdHSe5np7ZOOHh6xP4+CuzmJgiMxER0rtpaalw2dkHiY6OM6eUlC22m5s8Ih4eFZKHh8kg6emHSc7Oqv9VVVB4KCilet/fA4+MjFn4oaEJgImJGhcNDWXav7/XMebmhMZCQtC4aGiCw0FBKbCZmVp3LS0eEQ8Pe8uwsKj8VFRt1ru7LDoWFg=='));
 // var AES0 = [
 //     0xA56363C6, 0x847C7CF8, 0x997777EE, 0x8D7B7BF6,
 //     0x0DF2F2FF, 0xBD6B6BD6, 0xB16F6FDE, 0x54C5C591,
@@ -292,14 +293,16 @@ module.exports.AES_ROUND_LE = function(X, K, Y) {
         AES1[((X[0]) >>> 8) & 0xFF] ^
         AES2[((X[1]) >>> 16) & 0xFF] ^
         AES3[((X[2]) >>> 24) & 0xFF] ^ (K[3]);
-}
+};
 
 module.exports.AES_ROUND_NOKEY_LE = function(X, Y) {
     var K = new Array(4);
     op.bufferSet(K, 0, 0, 4);
     this.AES_ROUND_LE(X, K, Y);
-}
+};
+
 },{"./helper":7,"./op":11}],2:[function(require,module,exports){
+'use strict';
 /////////////////////////////////////
 ///////////////  Blake //////////////
 
@@ -311,7 +314,7 @@ module.exports.AES_ROUND_NOKEY_LE = function(X, Y) {
 var o = require('./op');
 var h = require('./helper');
 
-var CB = h.bytes2Int64Buffer(h.b64Decode("JD9qiIWjCNMTGYouA3BzRKQJOCIpnzHQCC76mOxObIlFKCHmONATd75UZs806QxswKwpt8l8UN0/hNW1tUcJF5IW1dmJefsb0TELppjftawv/XLb0Brft7jhr+1qJn6WunyQRfEsf5kkoZlHs5Fs9wgB8uKFjvwWY2kg2HFXTmk="));
+var CB = h.bytes2Int64Buffer(h.b64Decode('JD9qiIWjCNMTGYouA3BzRKQJOCIpnzHQCC76mOxObIlFKCHmONATd75UZs806QxswKwpt8l8UN0/hNW1tUcJF5IW1dmJefsb0TELppjftawv/XLb0Brft7jhr+1qJn6WunyQRfEsf5kkoZlHs5Fs9wgB8uKFjvwWY2kg2HFXTmk='));
 
 // var CB = [
 //   o.u(0x243f6a88, 0x85a308d3),
@@ -333,193 +336,191 @@ var CB = h.bytes2Int64Buffer(h.b64Decode("JD9qiIWjCNMTGYouA3BzRKQJOCIpnzHQCC76mO
 // ];
 
 var Z = [
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-  [14, 10, 4, 8, 9, 15, 13, 6, 1, 12, 0, 2, 11, 7, 5, 3],
-  [11, 8, 12, 0, 5, 2, 15, 13, 10, 14, 3, 6, 7, 1, 9, 4],
-  [7, 9, 3, 1, 13, 12, 11, 14, 2, 6, 5, 10, 4, 0, 15, 8],
-  [9, 0, 5, 7, 2, 4, 10, 15, 14, 1, 11, 12, 6, 8, 3, 13],
-  [2, 12, 6, 10, 0, 11, 8, 3, 4, 13, 7, 5, 15, 14, 1, 9],
-  [12, 5, 1, 15, 14, 13, 4, 10, 0, 7, 6, 3, 9, 2, 8, 11],
-  [13, 11, 7, 14, 12, 1, 3, 9, 5, 0, 15, 4, 8, 6, 2, 10],
-  [6, 15, 14, 9, 11, 3, 0, 8, 12, 2, 13, 7, 1, 4, 10, 5],
-  [10, 2, 8, 4, 7, 6, 1, 5, 15, 11, 9, 14, 3, 12, 13, 0]
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    [14, 10, 4, 8, 9, 15, 13, 6, 1, 12, 0, 2, 11, 7, 5, 3],
+    [11, 8, 12, 0, 5, 2, 15, 13, 10, 14, 3, 6, 7, 1, 9, 4],
+    [7, 9, 3, 1, 13, 12, 11, 14, 2, 6, 5, 10, 4, 0, 15, 8],
+    [9, 0, 5, 7, 2, 4, 10, 15, 14, 1, 11, 12, 6, 8, 3, 13],
+    [2, 12, 6, 10, 0, 11, 8, 3, 4, 13, 7, 5, 15, 14, 1, 9],
+    [12, 5, 1, 15, 14, 13, 4, 10, 0, 7, 6, 3, 9, 2, 8, 11],
+    [13, 11, 7, 14, 12, 1, 3, 9, 5, 0, 15, 4, 8, 6, 2, 10],
+    [6, 15, 14, 9, 11, 3, 0, 8, 12, 2, 13, 7, 1, 4, 10, 5],
+    [10, 2, 8, 4, 7, 6, 1, 5, 15, 11, 9, 14, 3, 12, 13, 0]
 ];
 
 var initialValues = [
-  o.u(0x6a09e667, 0xf3bcc908),
-  o.u(0xbb67ae85, 0x84caa73b),
-  o.u(0x3c6ef372, 0xfe94f82b),
-  o.u(0xa54ff53a, 0x5f1d36f1),
-  o.u(0x510e527f, 0xade682d1),
-  o.u(0x9b05688c, 0x2b3e6c1f),
-  o.u(0x1f83d9ab, 0xfb41bd6b),
-  o.u(0x5be0cd19, 0x137e2179)
+    o.u(0x6a09e667, 0xf3bcc908),
+    o.u(0xbb67ae85, 0x84caa73b),
+    o.u(0x3c6ef372, 0xfe94f82b),
+    o.u(0xa54ff53a, 0x5f1d36f1),
+    o.u(0x510e527f, 0xade682d1),
+    o.u(0x9b05688c, 0x2b3e6c1f),
+    o.u(0x1f83d9ab, 0xfb41bd6b),
+    o.u(0x5be0cd19, 0x137e2179)
 ];
 
 var GB = function(m0, m1, c0, c1, a, b, c, d) {
-  a.add(m0.xor(c1).add(b));
-  d.setxorOne(a).setFlip();
-  c.add(d);
-  b.setxorOne(c).setRotateRight(25);
-  a.add(m1.xor(c0).add(b));
-  d.setxorOne(a).setRotateRight(16);
-  c.add(d);
-  b.setxorOne(c).setRotateRight(11);
-}
+    a.add(m0.xor(c1).add(b));
+    d.setxorOne(a).setFlip();
+    c.add(d);
+    b.setxorOne(c).setRotateRight(25);
+    a.add(m1.xor(c0).add(b));
+    d.setxorOne(a).setRotateRight(16);
+    c.add(d);
+    b.setxorOne(c).setRotateRight(11);
+};
 
 var round = function(r, V, M) {
-  GB(M[Z[r][0]], M[Z[r][1]], CB[Z[r][0]], CB[Z[r][1]], V[0], V[4], V[8], V[0xC]);
-  GB(M[Z[r][2]], M[Z[r][3]], CB[Z[r][2]], CB[Z[r][3]], V[1], V[5], V[9], V[0xD]);
-  GB(M[Z[r][4]], M[Z[r][5]], CB[Z[r][4]], CB[Z[r][5]], V[2], V[6], V[0xA], V[0xE]);
-  GB(M[Z[r][6]], M[Z[r][7]], CB[Z[r][6]], CB[Z[r][7]], V[3], V[7], V[0xB], V[0xF]);
-  GB(M[Z[r][8]], M[Z[r][9]], CB[Z[r][8]], CB[Z[r][9]], V[0], V[5], V[0xA], V[0xF]);
-  GB(M[Z[r][10]], M[Z[r][11]], CB[Z[r][10]], CB[Z[r][11]], V[1], V[6], V[0xB], V[0xC]);
-  GB(M[Z[r][12]], M[Z[r][13]], CB[Z[r][12]], CB[Z[r][13]], V[2], V[7], V[8], V[0xD]);
-  GB(M[Z[r][14]], M[Z[r][15]], CB[Z[r][14]], CB[Z[r][15]], V[3], V[4], V[9], V[0xE]);
-}
+    GB(M[Z[r][0]], M[Z[r][1]], CB[Z[r][0]], CB[Z[r][1]], V[0], V[4], V[8], V[0xC]);
+    GB(M[Z[r][2]], M[Z[r][3]], CB[Z[r][2]], CB[Z[r][3]], V[1], V[5], V[9], V[0xD]);
+    GB(M[Z[r][4]], M[Z[r][5]], CB[Z[r][4]], CB[Z[r][5]], V[2], V[6], V[0xA], V[0xE]);
+    GB(M[Z[r][6]], M[Z[r][7]], CB[Z[r][6]], CB[Z[r][7]], V[3], V[7], V[0xB], V[0xF]);
+    GB(M[Z[r][8]], M[Z[r][9]], CB[Z[r][8]], CB[Z[r][9]], V[0], V[5], V[0xA], V[0xF]);
+    GB(M[Z[r][10]], M[Z[r][11]], CB[Z[r][10]], CB[Z[r][11]], V[1], V[6], V[0xB], V[0xC]);
+    GB(M[Z[r][12]], M[Z[r][13]], CB[Z[r][12]], CB[Z[r][13]], V[2], V[7], V[8], V[0xD]);
+    GB(M[Z[r][14]], M[Z[r][15]], CB[Z[r][14]], CB[Z[r][15]], V[3], V[4], V[9], V[0xE]);
+};
 
 var compress = function(M, H, S, T0, T1) {
-  var V = new Array(16);
-  o.bufferInsert64(V, 0, H, 8);
-  V[8] = S[0].xor(CB[0]);
-  V[9] = S[1].xor(CB[1]);
-  V[10] = S[2].xor(CB[2]);
-  V[11] = S[3].xor(CB[3]);
-  V[12] = T0.xor(CB[4]);
-  V[13] = T0.xor(CB[5]);
-  V[14] = T1.xor(CB[6]);
-  V[15] = T1.xor(CB[7]);
-  for (var i = 0; i < 16; i++) {
-    round(i % 10, V, M);
-  }
-  for (var i = 0; i < 8; i++) {
-    H[i] = o.xor64(H[i], S[i % 4], V[i], V[8 + i]);
-  }
-}
+    var V = new Array(16);
+    o.bufferInsert64(V, 0, H, 8);
+    V[8] = S[0].xor(CB[0]);
+    V[9] = S[1].xor(CB[1]);
+    V[10] = S[2].xor(CB[2]);
+    V[11] = S[3].xor(CB[3]);
+    V[12] = T0.xor(CB[4]);
+    V[13] = T0.xor(CB[5]);
+    V[14] = T1.xor(CB[6]);
+    V[15] = T1.xor(CB[7]);
+    for (var i = 0; i < 16; i++) {
+        round(i % 10, V, M);
+    }
+    for (var i = 0; i < 8; i++) {
+        H[i] = o.xor64(H[i], S[i % 4], V[i], V[8 + i]);
+    }
+};
 
 var blake = function(ctx, data, len) {
-  var buf, ptr;
-  //create a local copy of states
-  var H = new Array(8);
-  var S = new Array(4);
-  var T0 = ctx.T0.clone();
-  var T1 = ctx.T1.clone();
-  buf = ctx.buffer;
-  ptr = ctx.ptr;
-  if (len < ctx.buffer.length - ptr) {
-    o.bufferInsert(buf, ptr, data, data.length);
-    ptr += data.length;
-    ctx.ptr = ptr;
-    return;
-  }
-  //perform a deep copy of current state
-  o.bufferInsert(H, 0, ctx.state, 8);
-  o.bufferInsert(S, 0, ctx.salt, 4);
-  while (len > 0) {
-    var clen = ctx.buffer.length - ptr;
-    if (clen > len) clen = len;
-    o.bufferInsert(buf, ptr, data, clen);
-    ptr += clen;
-    data = data.slice(clen);
-    len -= clen;
-    if (ptr === ctx.buffer.length) {
-      T0.add(o.u(0, 1024));
-      if (T0.hi < 0 || T0.lo < 1024)
-        T1.addOne();
-      var int64Buf = h.bytes2Int64Buffer(buf);
-      compress(int64Buf, H, S, T0, T1);
-      ptr = 0;
+    var buf, ptr;
+    //create a local copy of states
+    var H = new Array(8);
+    var S = new Array(4);
+    var T0 = ctx.T0.clone();
+    var T1 = ctx.T1.clone();
+    buf = ctx.buffer;
+    ptr = ctx.ptr;
+    if (len < ctx.buffer.length - ptr) {
+        o.bufferInsert(buf, ptr, data, data.length);
+        ptr += data.length;
+        ctx.ptr = ptr;
+        return;
     }
-  }
-  ctx.state = H;
-  ctx.salt = S;
-  ctx.T0 = T0;
-  ctx.T1 = T1;
-  ctx.ptr = ptr;
-}
+    //perform a deep copy of current state
+    o.bufferInsert(H, 0, ctx.state, 8);
+    o.bufferInsert(S, 0, ctx.salt, 4);
+    while (len > 0) {
+        var clen = ctx.buffer.length - ptr;
+        if (clen > len) clen = len;
+        o.bufferInsert(buf, ptr, data, clen);
+        ptr += clen;
+        data = data.slice(clen);
+        len -= clen;
+        if (ptr === ctx.buffer.length) {
+            T0.add(o.u(0, 1024));
+            if (T0.hi < 0 || T0.lo < 1024) T1.addOne();
+            var int64Buf = h.bytes2Int64Buffer(buf);
+            compress(int64Buf, H, S, T0, T1);
+            ptr = 0;
+        }
+    }
+    ctx.state = H;
+    ctx.salt = S;
+    ctx.T0 = T0;
+    ctx.T1 = T1;
+    ctx.ptr = ptr;
+};
 
 var blakeClose = function(ctx) {
-  var buf = new Array(128);
-  var ptr = ctx.ptr;
-  var bitLen = (o.u(0, ptr)).shiftLeft(3);
-  var len = buf.length;
-  var padLen;
-  var count;
-  var tl = ctx.T0.plus(bitLen);
-  var th = ctx.T1.clone();
-  buf[ptr] = 0x80;
-  if (ptr === 0) {
-    ctx.T0 = o.u(0xFFFFFFFF, 0xFFFFFC00);
-    ctx.T1 = o.u(0xFFFFFFFF, 0xFFFFFFFF);
-  }
-  else if (ctx.T0.isZero()) {
-    ctx.T0 = o.u(0xFFFFFFFF, 0xFFFFFC00).plus(bitLen);
-    ctx.T1 = ctx.T1.minus(o.u(0, 1));
-  }
-  else {
-    ctx.T0 = ctx.T0.minus(o.u(0, 1024).minus(bitLen));
-  }
-  if (bitLen.lo <= 894) {
-    o.bufferSet(buf, ptr + 1, 0, 111 - ptr);
-    buf[111] |= 1;
-    h.bufferEncode64(buf, 112, th);
-    h.bufferEncode64(buf, 120, tl);
-    blake(ctx, buf.slice(ptr), 128 - ptr);
-  }
-  else {
-    o.bufferSet(u.buf, ptr + 1, 0, 127 - ptr);
-    blake(ctx, buf.slice(ptr), 128 - ptr);
-    ctx.T0 = o.u(0xFFFFFFFF,0xFFFFFC00);
-    ctx.T1 = o.u(0xFFFFFFFF,0xFFFFFFFF);
-    o.bufferSet(buf, 0, 0, 112);
-    buf[111] = 1;
-    h.bufferEncode64(buf, 112, th);
-    h.bufferEncode64(buf, 120, tl);
-    blake(ctx, buf, 128);
-  }
-  var out = new Array(16);
-  for (var u = 0; u < 8; u++) {
-    out[2 * u] = ctx.state[u].hi;
-    out[2 * u + 1] = ctx.state[u].lo;
-  }
-  return out;
-}
+    var buf = new Array(128);
+    var ptr = ctx.ptr;
+    var bitLen = (o.u(0, ptr)).shiftLeft(3);
+    var tl = ctx.T0.plus(bitLen);
+    var th = ctx.T1.clone();
+    buf[ptr] = 0x80;
+    if (ptr === 0) {
+        ctx.T0 = o.u(0xFFFFFFFF, 0xFFFFFC00);
+        ctx.T1 = o.u(0xFFFFFFFF, 0xFFFFFFFF);
+    }
+    else if (ctx.T0.isZero()) {
+        ctx.T0 = o.u(0xFFFFFFFF, 0xFFFFFC00).plus(bitLen);
+        ctx.T1 = ctx.T1.minus(o.u(0, 1));
+    }
+    else {
+        ctx.T0 = ctx.T0.minus(o.u(0, 1024).minus(bitLen));
+    }
+    if (bitLen.lo <= 894) {
+        o.bufferSet(buf, ptr + 1, 0, 111 - ptr);
+        buf[111] |= 1;
+        h.bufferEncode64(buf, 112, th);
+        h.bufferEncode64(buf, 120, tl);
+        blake(ctx, buf.slice(ptr), 128 - ptr);
+    }
+    else {
+        o.bufferSet(u.buf, ptr + 1, 0, 127 - ptr);
+        blake(ctx, buf.slice(ptr), 128 - ptr);
+        ctx.T0 = o.u(0xFFFFFFFF,0xFFFFFC00);
+        ctx.T1 = o.u(0xFFFFFFFF,0xFFFFFFFF);
+        o.bufferSet(buf, 0, 0, 112);
+        buf[111] = 1;
+        h.bufferEncode64(buf, 112, th);
+        h.bufferEncode64(buf, 120, tl);
+        blake(ctx, buf, 128);
+    }
+    var out = new Array(16);
+    for (var u = 0; u < 8; u++) {
+        out[2 * u] = ctx.state[u].hi;
+        out[2 * u + 1] = ctx.state[u].lo;
+    }
+    return out;
+};
 
 
 module.exports = function(input, format, output) {
-  var msg;
-  if (format === 1) {
-    msg = input;
-  }
-  else if (format === 2) {
-    msg = h.int32Buffer2Bytes(input);
-  }
-  else {
-    msg = h.string2bytes(input);
-  }
-  var ctx = {};
-  ctx.state = o.clone64Array(initialValues);
-  var zero = o.u(0,0);
-  ctx.salt = [zero, zero, zero, zero];
-  ctx.T0 = zero.clone();
-  ctx.T1 = zero.clone();
-  ctx.ptr = 0;
-  ctx.buffer = new Array(128);
-  blake(ctx, msg, msg.length);
-  var r = blakeClose(ctx, 0, 0);
-  var out;
-  if (output === 2) {
-    out = r;
-  }
-  else if (output === 1) {
-    out = h.int32Buffer2Bytes(r)
-  }
-  else {
-    out = h.int32ArrayToHexString(r)
-  }
-  return out;
-}
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = h.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = h.string2bytes(input);
+    }
+    var ctx = {};
+    ctx.state = o.clone64Array(initialValues);
+    var zero = o.u(0,0);
+    ctx.salt = [zero, zero, zero, zero];
+    ctx.T0 = zero.clone();
+    ctx.T1 = zero.clone();
+    ctx.ptr = 0;
+    ctx.buffer = new Array(128);
+    blake(ctx, msg, msg.length);
+    var r = blakeClose(ctx, 0, 0);
+    var out;
+    if (output === 2) {
+        out = r;
+    }
+    else if (output === 1) {
+        out = h.int32Buffer2Bytes(r);
+    }
+    else {
+        out = h.int32ArrayToHexString(r);
+    }
+    return out;
+};
+
 },{"./helper":7,"./op":11}],3:[function(require,module,exports){
+'use strict';
 /////////////////////////////////////
 //////////////  BMW /////////////////
 
@@ -542,7 +543,7 @@ var h = require('./helper');
 //   o.u(0xF0F1F2F3, 0xF4F5F6F7), o.u(0xF8F9FAFB, 0xFCFDFEFF)
 // ];
 
-var V_INIT = h.bytes2Int64Buffer(h.b64Decode("gIGCg4SFhoeIiYqLjI2Oj5CRkpOUlZaXmJmam5ydnp+goaKjpKWmp6ipqqusra6vsLGys7S1tre4ubq7vL2+v8DBwsPExcbHyMnKy8zNzs/Q0dLT1NXW19jZ2tvc3d7f4OHi4+Tl5ufo6err7O3u7/Dx8vP09fb3+Pn6+/z9/v8="));
+var V_INIT = h.bytes2Int64Buffer(h.b64Decode('gIGCg4SFhoeIiYqLjI2Oj5CRkpOUlZaXmJmam5ydnp+goaKjpKWmp6ipqqusra6vsLGys7S1tre4ubq7vL2+v8DBwsPExcbHyMnKy8zNzs/Q0dLT1NXW19jZ2tvc3d7f4OHi4+Tl5ufo6err7O3u7/Dx8vP09fb3+Pn6+/z9/v8='));
 
 // var final = [
 //   o.u(0xaaaaaaaa, 0xaaaaaaa0), o.u(0xaaaaaaaa, 0xaaaaaaa1),
@@ -555,7 +556,7 @@ var V_INIT = h.bytes2Int64Buffer(h.b64Decode("gIGCg4SFhoeIiYqLjI2Oj5CRkpOUlZaXmJ
 //   o.u(0xaaaaaaaa, 0xaaaaaaae), o.u(0xaaaaaaaa, 0xaaaaaaaf)
 // ];
 
-var final = h.bytes2Int64Buffer(h.b64Decode("qqqqqqqqqqCqqqqqqqqqoaqqqqqqqqqiqqqqqqqqqqOqqqqqqqqqpKqqqqqqqqqlqqqqqqqqqqaqqqqqqqqqp6qqqqqqqqqoqqqqqqqqqqmqqqqqqqqqqqqqqqqqqqqrqqqqqqqqqqyqqqqqqqqqraqqqqqqqqquqqqqqqqqqq8="));
+var final = h.bytes2Int64Buffer(h.b64Decode('qqqqqqqqqqCqqqqqqqqqoaqqqqqqqqqiqqqqqqqqqqOqqqqqqqqqpKqqqqqqqqqlqqqqqqqqqqaqqqqqqqqqp6qqqqqqqqqoqqqqqqqqqqmqqqqqqqqqqqqqqqqqqqqrqqqqqqqqqqyqqqqqqqqqraqqqqqqqqquqqqqqqqqqq8='));
 
 var sb_a = [1, 1, 2, 2, 1, 2];
 var sb_b = [3, 2, 1, 2];
@@ -601,287 +602,294 @@ M16.push([14, 15, 1, 2, 5, 8, 9]);
 M16.push([15, 16, 2, 3, 6, 9, 10]);
 
 var sb = function(n, x) {
-  //xOriginal must be of type u64
-  if (n < 4) {
-    return o.xor64(x.shiftRight(sb_a[n]), x.shiftLeft(sb_b[n]), x.rotateLeft(sb_c[n]), x.rotateLeft(sb_d[n]));
-  }
-  else {
+    //xOriginal must be of type u64
+    if (n < 4) {
+        return o.xor64(x.shiftRight(sb_a[n]), x.shiftLeft(sb_b[n]), x.rotateLeft(sb_c[n]), x.rotateLeft(sb_d[n]));
+    }
+
     return x.shiftRight(sb_a[n]).xor(x);
-  }
-}
+
+};
 
 
 var rbn = [0, 5, 11, 27, 32, 37, 43, 53];
 
 var rb = function(n, x) {
-  //x must be of type u64
-  return x.rotateLeft(rbn[n]);
-}
+    //x must be of type u64
+    return x.rotateLeft(rbn[n]);
+};
 
 var makeW = function(M,H,i, op) {
-  var a = M[i[0]].xor(H[i[0]]);
-  var b = M[i[1]].xor(H[i[1]]);
-  var c = M[i[2]].xor(H[i[2]]);
-  var d = M[i[3]].xor(H[i[3]]);
-  var e = M[i[4]].xor(H[i[4]]);
-  var w = op[3](op[2](op[1](op[0](a,b),c),d),e);
+    var a = M[i[0]].xor(H[i[0]]);
+    var b = M[i[1]].xor(H[i[1]]);
+    var c = M[i[2]].xor(H[i[2]]);
+    var d = M[i[3]].xor(H[i[3]]);
+    var e = M[i[4]].xor(H[i[4]]);
+    var w = op[3](op[2](op[1](op[0](a,b),c),d),e);
 
-  return w;
-}
+    return w;
+};
 
 var wbn = [
-  [5, 7, 10, 13, 14],
-  [6, 8, 11, 14, 15],
-  [0, 7, 9, 12, 15],
-  [0, 1, 8, 10, 13],
-  [1, 2, 9, 11, 14],
-  [3, 2, 10, 12, 15],
-  [4, 0, 3, 11, 13],
-  [1, 4, 5, 12, 14],
-  [2, 5, 6, 13, 15],
-  [0, 3, 6, 7, 14],
-  [8, 1, 4, 7, 15],
-  [8, 0, 2, 5, 9],
-  [1, 3, 6, 9, 10],
-  [2, 4, 7, 10, 11],
-  [3, 5, 8, 11, 12],
-  [12, 4, 6, 9, 13],
+    [5, 7, 10, 13, 14],
+    [6, 8, 11, 14, 15],
+    [0, 7, 9, 12, 15],
+    [0, 1, 8, 10, 13],
+    [1, 2, 9, 11, 14],
+    [3, 2, 10, 12, 15],
+    [4, 0, 3, 11, 13],
+    [1, 4, 5, 12, 14],
+    [2, 5, 6, 13, 15],
+    [0, 3, 6, 7, 14],
+    [8, 1, 4, 7, 15],
+    [8, 0, 2, 5, 9],
+    [1, 3, 6, 9, 10],
+    [2, 4, 7, 10, 11],
+    [3, 5, 8, 11, 12],
+    [12, 4, 6, 9, 13],
 ];
 
 var plus = function(a,b) {
-  return a.plus(b);
-}
+    return a.plus(b);
+};
 
 var minus = function(a,b) {
-  return a.minus(b);
-}
+    return a.minus(b);
+};
 
 var wboperators = [
-  [minus, plus, plus, plus],
-  [minus, plus, plus, minus],
-  [plus, plus, minus, plus],
-  [minus, plus, minus, plus],
-  [plus, plus, minus, minus],
-  [minus, plus, minus, plus],
-  [minus, minus, minus, plus],
-  [minus, minus, minus, minus],
-  [minus, minus, plus, minus],
-  [minus, plus, minus, plus],
-  [minus, minus, minus, plus],
-  [minus, minus, minus, plus],
-  [plus, minus, minus, plus],
-  [plus, plus, plus, plus],
-  [minus, plus, minus, minus],
-  [minus, minus, minus, plus],
-]
+    [minus, plus, plus, plus],
+    [minus, plus, plus, minus],
+    [plus, plus, minus, plus],
+    [minus, plus, minus, plus],
+    [plus, plus, minus, minus],
+    [minus, plus, minus, plus],
+    [minus, minus, minus, plus],
+    [minus, minus, minus, minus],
+    [minus, minus, plus, minus],
+    [minus, plus, minus, plus],
+    [minus, minus, minus, plus],
+    [minus, minus, minus, plus],
+    [plus, minus, minus, plus],
+    [plus, plus, plus, plus],
+    [minus, plus, minus, minus],
+    [minus, minus, minus, plus],
+];
 
 var wb = function(M,H,i) {
-  return makeW(M,H,wbn[i],wboperators[i]);
-}
+    return makeW(M,H,wbn[i],wboperators[i]);
+};
 
 var kb = function(j) {
-  var fives = o.u(0x05555555, 0x55555555);
-  return fives.multiply(j);
-}
+    var fives = o.u(0x05555555, 0x55555555);
+    return fives.multiply(j);
+};
 
 
 var addElt = function(buffer64, state, mVars, i) {
-  var k = kb(i);
-  var elt =  buffer64[mVars[0]].rotateLeft(mVars[1])
-     .add(buffer64[mVars[2]].rotateLeft(mVars[3]))
-     .minus(buffer64[mVars[5]].rotateLeft(mVars[6]))
-     .add(k)
-     .xor(state[mVars[4]]);
+    var k = kb(i);
+    var elt = buffer64[mVars[0]].rotateLeft(mVars[1])
+        .add(buffer64[mVars[2]].rotateLeft(mVars[3]))
+        .minus(buffer64[mVars[5]].rotateLeft(mVars[6]))
+        .add(k)
+        .xor(state[mVars[4]]);
     return elt;
-}
+};
 
 var expand2Inner = function(qt, mf, state, i, iVars, mVars) {
-  return qt[iVars[0]]
-    .plus(rb(1, qt[iVars[1]]))
-    .add(qt[iVars[2]])
-    .add(rb(2, qt[iVars[3]]))
-    .add(qt[iVars[4]])
-    .add(rb(3, qt[iVars[5]]))
-    .add(qt[iVars[6]])
-    .add(rb(4, qt[iVars[7]]))
-    .add(qt[iVars[8]])
-    .add(rb(5, qt[iVars[9]]))
-    .add(qt[iVars[10]])
-    .add(rb(6, qt[iVars[11]]))
-    .add(qt[iVars[12]])
-    .add(rb(7, qt[iVars[13]]))
-    .add(sb(4, qt[iVars[14]]))
-    .add(sb(5, qt[iVars[15]]))
-    .add(addElt(mf, state, mVars, i));
-}
+    return qt[iVars[0]]
+        .plus(rb(1, qt[iVars[1]]))
+        .add(qt[iVars[2]])
+        .add(rb(2, qt[iVars[3]]))
+        .add(qt[iVars[4]])
+        .add(rb(3, qt[iVars[5]]))
+        .add(qt[iVars[6]])
+        .add(rb(4, qt[iVars[7]]))
+        .add(qt[iVars[8]])
+        .add(rb(5, qt[iVars[9]]))
+        .add(qt[iVars[10]])
+        .add(rb(6, qt[iVars[11]]))
+        .add(qt[iVars[12]])
+        .add(rb(7, qt[iVars[13]]))
+        .add(sb(4, qt[iVars[14]]))
+        .add(sb(5, qt[iVars[15]]))
+        .add(addElt(mf, state, mVars, i));
+};
 
 var expand1Inner = function(qt, mf, state, i, iVars, mVars) {
-  return sb(1, qt[iVars[0]])
-    .add(sb(2, qt[iVars[1]]))
-    .add(sb(3, qt[iVars[2]]))
-    .add(sb(0, qt[iVars[3]]))
-    .add(sb(1, qt[iVars[4]]))
-    .add(sb(2, qt[iVars[5]]))
-    .add(sb(3, qt[iVars[6]]))
-    .add(sb(0, qt[iVars[7]]))
-    .add(sb(1, qt[iVars[8]]))
-    .add(sb(2, qt[iVars[9]]))
-    .add(sb(3, qt[iVars[10]]))
-    .add(sb(0, qt[iVars[11]]))
-    .add(sb(1, qt[iVars[12]]))
-    .add(sb(2, qt[iVars[13]]))
-    .add(sb(3, qt[iVars[14]]))
-    .add(sb(0, qt[iVars[15]]))
-    .add(addElt(mf, state, mVars, i));
-}
+    return sb(1, qt[iVars[0]])
+        .add(sb(2, qt[iVars[1]]))
+        .add(sb(3, qt[iVars[2]]))
+        .add(sb(0, qt[iVars[3]]))
+        .add(sb(1, qt[iVars[4]]))
+        .add(sb(2, qt[iVars[5]]))
+        .add(sb(3, qt[iVars[6]]))
+        .add(sb(0, qt[iVars[7]]))
+        .add(sb(1, qt[iVars[8]]))
+        .add(sb(2, qt[iVars[9]]))
+        .add(sb(3, qt[iVars[10]]))
+        .add(sb(0, qt[iVars[11]]))
+        .add(sb(1, qt[iVars[12]]))
+        .add(sb(2, qt[iVars[13]]))
+        .add(sb(3, qt[iVars[14]]))
+        .add(sb(0, qt[iVars[15]]))
+        .add(addElt(mf, state, mVars, i));
+};
 
 var expand1b = function(qt, mf, state, i) {
-  var iVars = I16[i];
-  var mVars = M16[i];
-  return expand1Inner(qt, mf, state, i, iVars, mVars);
-}
+    var iVars = I16[i];
+    var mVars = M16[i];
+    return expand1Inner(qt, mf, state, i, iVars, mVars);
+};
 
 var expand2b = function(qt, mf, state, i) {
-  var iVars = I16[i];
-  var mVars = M16[i];
-  return expand2Inner(qt, mf, state, i, iVars, mVars);
-}
+    var iVars = I16[i];
+    var mVars = M16[i];
+    return expand2Inner(qt, mf, state, i, iVars, mVars);
+};
 
 var makeQ = function(mf, state) {
-  var qt = new Array(32);
-  for (var i = 0; i < 16; i++) {
-    var w = wb(mf,state,i);
-    var s = sb(i % 5, w);
-    qt[i] = s.plus(state[(i + 1) % 16]);
-  }
-  qt[16] = expand1b(qt, mf, state, 16);
-  qt[17] = expand1b(qt, mf, state, 17);
-  for (var i = 18; i < 32; i++) {
-    qt[i] = expand2b(qt, mf, state, i);
-  }
-  return qt;
-}
+    var qt = new Array(32);
+    for (var i = 0; i < 16; i++) {
+        var w = wb(mf,state,i);
+        var s = sb(i % 5, w);
+        qt[i] = s.plus(state[(i + 1) % 16]);
+    }
+    qt[16] = expand1b(qt, mf, state, 16);
+    qt[17] = expand1b(qt, mf, state, 17);
+    for (var i = 18; i < 32; i++) {
+        qt[i] = expand2b(qt, mf, state, i);
+    }
+    return qt;
+};
 
 var fold = function(int64Buffer, state) {
-  var out = new Array(16);
-  var qt = makeQ(int64Buffer, state);
-  var xl = o.xor64(qt[16], qt[17], qt[18], qt[19], qt[20], qt[21], qt[22], qt[23]);
-  var xh = o.xor64(xl, qt[24], qt[25], qt[26], qt[27], qt[28], qt[29], qt[30], qt[31]);
-  out[0] = o.xor64(xh.shiftLeft(5), qt[16].shiftRight(5), int64Buffer[0]).add(o.xor64(xl, qt[24], qt[0]));
-  out[1] = o.xor64(xh.shiftRight(7), qt[17].shiftLeft(8), int64Buffer[1]).add(o.xor64(xl, qt[25], qt[1]));
-  out[2] = o.xor64(xh.shiftRight(5), qt[18].shiftLeft(5), int64Buffer[2]).add(o.xor64(xl, qt[26], qt[2]));
-  out[3] = o.xor64(xh.shiftRight(1), qt[19].shiftLeft(5), int64Buffer[3]).add(o.xor64(xl, qt[27], qt[3]));
-  out[4] = o.xor64(xh.shiftRight(3), qt[20], int64Buffer[4]).add(o.xor64(xl, qt[28], qt[4]));
-  out[5] = o.xor64(xh.shiftLeft(6), qt[21].shiftRight(6), int64Buffer[5]).add(o.xor64(xl, qt[29], qt[5]));
-  out[6] = o.xor64(xh.shiftRight(4), qt[22].shiftLeft(6), int64Buffer[6]).add(o.xor64(xl, qt[30], qt[6]));
-  out[7] = o.xor64(xh.shiftRight(11), qt[23].shiftLeft(2), int64Buffer[7]).add(o.xor64(xl, qt[31], qt[7]));
-  out[8] = out[4].rotateLeft(9).add(o.xor64(xh, qt[24], int64Buffer[8])).add(o.xor64(xl.shiftLeft(8), qt[23], qt[8]));
-  out[9] = out[5].rotateLeft(10).add(o.xor64(xh, qt[25], int64Buffer[9])).add(o.xor64(xl.shiftRight(6), qt[16], qt[9]));
-  out[10] = out[6].rotateLeft(11).add(o.xor64(xh, qt[26], int64Buffer[10])).add(o.xor64(xl.shiftLeft(6), qt[17], qt[10]));
-  out[11] = out[7].rotateLeft(12).add(o.xor64(xh, qt[27], int64Buffer[11])).add(o.xor64(xl.shiftLeft(4), qt[18], qt[11]));
-  out[12] = out[0].rotateLeft(13).add(o.xor64(xh, qt[28], int64Buffer[12])).add(o.xor64(xl.shiftRight(3), qt[19], qt[12]));
-  out[13] = out[1].rotateLeft(14).add(o.xor64(xh, qt[29], int64Buffer[13])).add(o.xor64(xl.shiftRight(4), qt[20], qt[13]));
-  out[14] = out[2].rotateLeft(15).add(o.xor64(xh, qt[30], int64Buffer[14])).add(o.xor64(xl.shiftRight(7), qt[21], qt[14]));
-  out[15] = out[3].rotateLeft(16).add(o.xor64(xh, qt[31], int64Buffer[15])).add(o.xor64(xl.shiftRight(2), qt[22], qt[15]));
-  return out;
-}
+    var out = new Array(16);
+    var qt = makeQ(int64Buffer, state);
+    var xl = o.xor64(qt[16], qt[17], qt[18], qt[19], qt[20], qt[21], qt[22], qt[23]);
+    var xh = o.xor64(xl, qt[24], qt[25], qt[26], qt[27], qt[28], qt[29], qt[30], qt[31]);
+    out[0] = o.xor64(xh.shiftLeft(5), qt[16].shiftRight(5), int64Buffer[0]).add(o.xor64(xl, qt[24], qt[0]));
+    out[1] = o.xor64(xh.shiftRight(7), qt[17].shiftLeft(8), int64Buffer[1]).add(o.xor64(xl, qt[25], qt[1]));
+    out[2] = o.xor64(xh.shiftRight(5), qt[18].shiftLeft(5), int64Buffer[2]).add(o.xor64(xl, qt[26], qt[2]));
+    out[3] = o.xor64(xh.shiftRight(1), qt[19].shiftLeft(5), int64Buffer[3]).add(o.xor64(xl, qt[27], qt[3]));
+    out[4] = o.xor64(xh.shiftRight(3), qt[20], int64Buffer[4]).add(o.xor64(xl, qt[28], qt[4]));
+    out[5] = o.xor64(xh.shiftLeft(6), qt[21].shiftRight(6), int64Buffer[5]).add(o.xor64(xl, qt[29], qt[5]));
+    out[6] = o.xor64(xh.shiftRight(4), qt[22].shiftLeft(6), int64Buffer[6]).add(o.xor64(xl, qt[30], qt[6]));
+    out[7] = o.xor64(xh.shiftRight(11), qt[23].shiftLeft(2), int64Buffer[7]).add(o.xor64(xl, qt[31], qt[7]));
+    out[8] = out[4].rotateLeft(9).add(o.xor64(xh, qt[24], int64Buffer[8]))
+        .add(o.xor64(xl.shiftLeft(8), qt[23], qt[8]));
+    out[9] = out[5].rotateLeft(10).add(o.xor64(xh, qt[25], int64Buffer[9]))
+        .add(o.xor64(xl.shiftRight(6), qt[16], qt[9]));
+    out[10] = out[6].rotateLeft(11).add(o.xor64(xh, qt[26], int64Buffer[10]))
+        .add(o.xor64(xl.shiftLeft(6), qt[17], qt[10]));
+    out[11] = out[7].rotateLeft(12).add(o.xor64(xh, qt[27], int64Buffer[11]))
+        .add(o.xor64(xl.shiftLeft(4), qt[18], qt[11]));
+    out[12] = out[0].rotateLeft(13).add(o.xor64(xh, qt[28], int64Buffer[12]))
+        .add(o.xor64(xl.shiftRight(3), qt[19], qt[12]));
+    out[13] = out[1].rotateLeft(14).add(o.xor64(xh, qt[29], int64Buffer[13]))
+        .add(o.xor64(xl.shiftRight(4), qt[20], qt[13]));
+    out[14] = out[2].rotateLeft(15).add(o.xor64(xh, qt[30], int64Buffer[14]))
+        .add(o.xor64(xl.shiftRight(7), qt[21], qt[14]));
+    out[15] = out[3].rotateLeft(16).add(o.xor64(xh, qt[31], int64Buffer[15]))
+        .add(o.xor64(xl.shiftRight(2), qt[22], qt[15]));
+    return out;
+};
 
 var compress = function(buf, state) {
-  var int64Buf = h.bytes2Int64BufferLeAligned(buf);
-  return fold(int64Buf, state);
-}
+    var int64Buf = h.bytes2Int64BufferLeAligned(buf);
+    return fold(int64Buf, state);
+};
 
 var bmw = function(ctx, data) {
-  var htmp = new Array(16);
-  var len = data.length;
-  var lenL3 = o.u(0, len);
-  lenL3 = lenL3.shiftLeft(3);
-  ctx.bitCount.add(lenL3);
-  var buf = ctx.buffer;
-  var ptr = ctx.ptr;
-  var h1 = ctx.state;
-  var h2 = htmp;
-  while (len > 0) {
-    var clen = ctx.buffer.length - ptr;
-    if (clen > len)
-      clen = len;
-    o.bufferInsert(buf, ptr, data, clen);
-    data = data.slice(clen);
-    len -= clen;
-    ptr += clen;
-    if (ptr === ctx.buffer.length) {
-      var ht;
-      h2 = compress(buf, h1);
-      ht = h1;
-      h1 = h2;
-      h2 = ht;
-      ptr = 0;
+    var htmp = new Array(16);
+    var len = data.length;
+    var lenL3 = o.u(0, len);
+    lenL3 = lenL3.shiftLeft(3);
+    ctx.bitCount.add(lenL3);
+    var buf = ctx.buffer;
+    var ptr = ctx.ptr;
+    var h1 = ctx.state;
+    var h2 = htmp;
+    while (len > 0) {
+        var clen = ctx.buffer.length - ptr;
+        if (clen > len) clen = len;
+        o.bufferInsert(buf, ptr, data, clen);
+        data = data.slice(clen);
+        len -= clen;
+        ptr += clen;
+        if (ptr === ctx.buffer.length) {
+            var ht;
+            h2 = compress(buf, h1);
+            ht = h1;
+            h1 = h2;
+            h2 = ht;
+            ptr = 0;
+        }
     }
-  }
-  ctx.ptr = ptr;
-  if (h1 !== ctx.state)
-    o.bufferInsert(ctx.state, 0, h1, ctx.state.length);
-}
+    ctx.ptr = ptr;
+    if (h1 !== ctx.state) o.bufferInsert(ctx.state, 0, h1, ctx.state.length);
+};
 
 var bmwClose = function(ctx) {
-  var h1;
-  var h2 = new Array(16);
+    var h1;
+    var h2 = new Array(16);
 
-  var buf = ctx.buffer;
-  var ptr = ctx.ptr;
-  var len = buf.length;
-  buf[ptr++] = 0x80;
-  var hState = ctx.state;
-  if (ptr > len - 8) {
-    o.bufferSet(buf, ptr, 0, len - ptr);
-    hState = compress(buf, hState);
-    ptr = 0;
-  }
-  o.bufferSet(buf, ptr, 0, len - 8 - ptr);
-  h.bufferEncode64leAligned(buf, len - 8, ctx.bitCount);
-  h2 = compress(buf, hState);
-  for (u = 0; u < 16; u++)
-    h.bufferEncode64leAligned(buf, 8 * u, h2[u]);
-  h1 = compress(buf, final);
-  var out = new Array(16);
-  for (var u = 0, v = 8; u < 8; u++, v++) {
-    out[2 * u] = o.swap32(h1[v].lo);
-    out[2 * u + 1] = o.swap32(h1[v].hi);
-  }
-  return out;
-}
+    var buf = ctx.buffer;
+    var ptr = ctx.ptr;
+    var len = buf.length;
+    buf[ptr++] = 0x80;
+    var hState = ctx.state;
+    if (ptr > len - 8) {
+        o.bufferSet(buf, ptr, 0, len - ptr);
+        hState = compress(buf, hState);
+        ptr = 0;
+    }
+    o.bufferSet(buf, ptr, 0, len - 8 - ptr);
+    h.bufferEncode64leAligned(buf, len - 8, ctx.bitCount);
+    h2 = compress(buf, hState);
+    for (u = 0; u < 16; u++) h.bufferEncode64leAligned(buf, 8 * u, h2[u]);
+    h1 = compress(buf, final);
+    var out = new Array(16);
+    for (var u = 0, v = 8; u < 8; u++, v++) {
+        out[2 * u] = o.swap32(h1[v].lo);
+        out[2 * u + 1] = o.swap32(h1[v].hi);
+    }
+    return out;
+};
 
 module.exports = function(input, format, output) {
-  var msg;
-  if (format === 1) {
-    msg = input;
-  }
-  else if (format === 2) {
-    msg = h.int32Buffer2Bytes(input);
-  }
-  else {
-    msg = h.string2bytes(input);
-  }
-  var ctx = {};
-  ctx.state = o.clone64Array(V_INIT);
-  ctx.ptr = 0;
-  ctx.bitCount = o.u(0,0);
-  ctx.buffer = new Array(128);
-  bmw(ctx, msg);
-  var r = bmwClose(ctx, 0, 0);
-  var out;
-  if (output === 2) {
-    out = r;
-  }
-  else if (output === 1) {
-    out = h.int32Buffer2Bytes(r)
-  }
-  else {
-    out = h.int32ArrayToHexString(r)
-  }
-  return out;
-}
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = h.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = h.string2bytes(input);
+    }
+    var ctx = {};
+    ctx.state = o.clone64Array(V_INIT);
+    ctx.ptr = 0;
+    ctx.bitCount = o.u(0,0);
+    ctx.buffer = new Array(128);
+    bmw(ctx, msg);
+    var r = bmwClose(ctx, 0, 0);
+    var out;
+    if (output === 2) {
+        out = r;
+    }
+    else if (output === 1) {
+        out = h.int32Buffer2Bytes(r);
+    }
+    else {
+        out = h.int32ArrayToHexString(r);
+    }
+    return out;
+};
+
 },{"./helper":7,"./op":11}],4:[function(require,module,exports){
+'use strict';
 /////////////////////////////////////
 ////////////  Cubehash //////////////
 
@@ -897,323 +905,323 @@ var Cubehash_BlockSize = 32;
 var Cubehash_StateSize = 32;
 
 var IV512 = [
-	0x2AEA2A61, 0x50F494D4, 0x2D538B8B,
-	0x4167D83E, 0x3FEE2313, 0xC701CF8C,
-	0xCC39968E, 0x50AC5695, 0x4D42C787,
-	0xA647A8B3, 0x97CF0BEF, 0x825B4537,
-	0xEEF864D2, 0xF22090C4, 0xD0E5CD33,
-	0xA23911AE, 0xFCD398D9, 0x148FE485,
-	0x1B017BEF, 0xB6444532, 0x6A536159,
-	0x2FF5781C, 0x91FA7934, 0x0DBADEA9,
-	0xD65C8A2B, 0xA5A70E75, 0xB1C62456,
-	0xBC796576, 0x1921C8F7, 0xE7989AF1,
-	0x7795D246, 0xD43E3B44,
+    0x2AEA2A61, 0x50F494D4, 0x2D538B8B,
+    0x4167D83E, 0x3FEE2313, 0xC701CF8C,
+    0xCC39968E, 0x50AC5695, 0x4D42C787,
+    0xA647A8B3, 0x97CF0BEF, 0x825B4537,
+    0xEEF864D2, 0xF22090C4, 0xD0E5CD33,
+    0xA23911AE, 0xFCD398D9, 0x148FE485,
+    0x1B017BEF, 0xB6444532, 0x6A536159,
+    0x2FF5781C, 0x91FA7934, 0x0DBADEA9,
+    0xD65C8A2B, 0xA5A70E75, 0xB1C62456,
+    0xBC796576, 0x1921C8F7, 0xE7989AF1,
+    0x7795D246, 0xD43E3B44,
 ];
 
 var ROUND_EVEN = function(x) {
-	x[16] = 0xFFFFFFFF & (x[0] + x[16]);
-	x[0] = op.rotl32(x[0], 7);
-	x[17] = 0xFFFFFFFF & (x[1] + x[17]);
-	x[1] = op.rotl32(x[1], 7);
-	x[18] = 0xFFFFFFFF & (x[2] + x[18]);
-	x[2] = op.rotl32(x[2], 7);
-	x[19] = 0xFFFFFFFF & (x[3] + x[19]);
-	x[3] = op.rotl32(x[3], 7);
-	x[20] = 0xFFFFFFFF & (x[4] + x[20]);
-	x[4] = op.rotl32(x[4], 7);
-	x[21] = 0xFFFFFFFF & (x[5] + x[21]);
-	x[5] = op.rotl32(x[5], 7);
-	x[22] = 0xFFFFFFFF & (x[6] + x[22]);
-	x[6] = op.rotl32(x[6], 7);
-	x[23] = 0xFFFFFFFF & (x[7] + x[23]);
-	x[7] = op.rotl32(x[7], 7);
-	x[24] = 0xFFFFFFFF & (x[8] + x[24]);
-	x[8] = op.rotl32(x[8], 7);
-	x[25] = 0xFFFFFFFF & (x[9] + x[25]);
-	x[9] = op.rotl32(x[9], 7);
-	x[26] = 0xFFFFFFFF & (x[10] + x[26]);
-	x[10] = op.rotl32(x[10], 7);
-	x[27] = 0xFFFFFFFF & (x[11] + x[27]);
-	x[11] = op.rotl32(x[11], 7);
-	x[28] = 0xFFFFFFFF & (x[12] + x[28]);
-	x[12] = op.rotl32(x[12], 7);
-	x[29] = 0xFFFFFFFF & (x[13] + x[29]);
-	x[13] = op.rotl32(x[13], 7);
-	x[30] = 0xFFFFFFFF & (x[14] + x[30]);
-	x[14] = op.rotl32(x[14], 7);
-	x[31] = 0xFFFFFFFF & (x[15] + x[31]);
-	x[15] = op.rotl32(x[15], 7);
-	x[8] ^= x[16];
-	x[9] ^= x[17];
-	x[10] ^= x[18];
-	x[11] ^= x[19];
-	x[12] ^= x[20];
-	x[13] ^= x[21];
-	x[14] ^= x[22];
-	x[15] ^= x[23];
-	x[0] ^= x[24];
-	x[1] ^= x[25];
-	x[2] ^= x[26];
-	x[3] ^= x[27];
-	x[4] ^= x[28];
-	x[5] ^= x[29];
-	x[6] ^= x[30];
-	x[7] ^= x[31];
-	x[18] = 0xFFFFFFFF & (x[8] + x[18]);
-	x[8] = op.rotl32(x[8], 11);
-	x[19] = 0xFFFFFFFF & (x[9] + x[19]);
-	x[9] = op.rotl32(x[9], 11);
-	x[16] = 0xFFFFFFFF & (x[10] + x[16]);
-	x[10] = op.rotl32(x[10], 11);
-	x[17] = 0xFFFFFFFF & (x[11] + x[17]);
-	x[11] = op.rotl32(x[11], 11);
-	x[22] = 0xFFFFFFFF & (x[12] + x[22]);
-	x[12] = op.rotl32(x[12], 11);
-	x[23] = 0xFFFFFFFF & (x[13] + x[23]);
-	x[13] = op.rotl32(x[13], 11);
-	x[20] = 0xFFFFFFFF & (x[14] + x[20]);
-	x[14] = op.rotl32(x[14], 11);
-	x[21] = 0xFFFFFFFF & (x[15] + x[21]);
-	x[15] = op.rotl32(x[15], 11);
-	x[26] = 0xFFFFFFFF & (x[0] + x[26]);
-	x[0] = op.rotl32(x[0], 11);
-	x[27] = 0xFFFFFFFF & (x[1] + x[27]);
-	x[1] = op.rotl32(x[1], 11);
-	x[24] = 0xFFFFFFFF & (x[2] + x[24]);
-	x[2] = op.rotl32(x[2], 11);
-	x[25] = 0xFFFFFFFF & (x[3] + x[25]);
-	x[3] = op.rotl32(x[3], 11);
-	x[30] = 0xFFFFFFFF & (x[4] + x[30]);
-	x[4] = op.rotl32(x[4], 11);
-	x[31] = 0xFFFFFFFF & (x[5] + x[31]);
-	x[5] = op.rotl32(x[5], 11);
-	x[28] = 0xFFFFFFFF & (x[6] + x[28]);
-	x[6] = op.rotl32(x[6], 11);
-	x[29] = 0xFFFFFFFF & (x[7] + x[29]);
-	x[7] = op.rotl32(x[7], 11);
-	x[12] ^= x[18];
-	x[13] ^= x[19];
-	x[14] ^= x[16];
-	x[15] ^= x[17];
-	x[8] ^= x[22];
-	x[9] ^= x[23];
-	x[10] ^= x[20];
-	x[11] ^= x[21];
-	x[4] ^= x[26];
-	x[5] ^= x[27];
-	x[6] ^= x[24];
-	x[7] ^= x[25];
-	x[0] ^= x[30];
-	x[1] ^= x[31];
-	x[2] ^= x[28];
-	x[3] ^= x[29];
-}
+    x[16] = 0xFFFFFFFF & (x[0] + x[16]);
+    x[0] = op.rotl32(x[0], 7);
+    x[17] = 0xFFFFFFFF & (x[1] + x[17]);
+    x[1] = op.rotl32(x[1], 7);
+    x[18] = 0xFFFFFFFF & (x[2] + x[18]);
+    x[2] = op.rotl32(x[2], 7);
+    x[19] = 0xFFFFFFFF & (x[3] + x[19]);
+    x[3] = op.rotl32(x[3], 7);
+    x[20] = 0xFFFFFFFF & (x[4] + x[20]);
+    x[4] = op.rotl32(x[4], 7);
+    x[21] = 0xFFFFFFFF & (x[5] + x[21]);
+    x[5] = op.rotl32(x[5], 7);
+    x[22] = 0xFFFFFFFF & (x[6] + x[22]);
+    x[6] = op.rotl32(x[6], 7);
+    x[23] = 0xFFFFFFFF & (x[7] + x[23]);
+    x[7] = op.rotl32(x[7], 7);
+    x[24] = 0xFFFFFFFF & (x[8] + x[24]);
+    x[8] = op.rotl32(x[8], 7);
+    x[25] = 0xFFFFFFFF & (x[9] + x[25]);
+    x[9] = op.rotl32(x[9], 7);
+    x[26] = 0xFFFFFFFF & (x[10] + x[26]);
+    x[10] = op.rotl32(x[10], 7);
+    x[27] = 0xFFFFFFFF & (x[11] + x[27]);
+    x[11] = op.rotl32(x[11], 7);
+    x[28] = 0xFFFFFFFF & (x[12] + x[28]);
+    x[12] = op.rotl32(x[12], 7);
+    x[29] = 0xFFFFFFFF & (x[13] + x[29]);
+    x[13] = op.rotl32(x[13], 7);
+    x[30] = 0xFFFFFFFF & (x[14] + x[30]);
+    x[14] = op.rotl32(x[14], 7);
+    x[31] = 0xFFFFFFFF & (x[15] + x[31]);
+    x[15] = op.rotl32(x[15], 7);
+    x[8] ^= x[16];
+    x[9] ^= x[17];
+    x[10] ^= x[18];
+    x[11] ^= x[19];
+    x[12] ^= x[20];
+    x[13] ^= x[21];
+    x[14] ^= x[22];
+    x[15] ^= x[23];
+    x[0] ^= x[24];
+    x[1] ^= x[25];
+    x[2] ^= x[26];
+    x[3] ^= x[27];
+    x[4] ^= x[28];
+    x[5] ^= x[29];
+    x[6] ^= x[30];
+    x[7] ^= x[31];
+    x[18] = 0xFFFFFFFF & (x[8] + x[18]);
+    x[8] = op.rotl32(x[8], 11);
+    x[19] = 0xFFFFFFFF & (x[9] + x[19]);
+    x[9] = op.rotl32(x[9], 11);
+    x[16] = 0xFFFFFFFF & (x[10] + x[16]);
+    x[10] = op.rotl32(x[10], 11);
+    x[17] = 0xFFFFFFFF & (x[11] + x[17]);
+    x[11] = op.rotl32(x[11], 11);
+    x[22] = 0xFFFFFFFF & (x[12] + x[22]);
+    x[12] = op.rotl32(x[12], 11);
+    x[23] = 0xFFFFFFFF & (x[13] + x[23]);
+    x[13] = op.rotl32(x[13], 11);
+    x[20] = 0xFFFFFFFF & (x[14] + x[20]);
+    x[14] = op.rotl32(x[14], 11);
+    x[21] = 0xFFFFFFFF & (x[15] + x[21]);
+    x[15] = op.rotl32(x[15], 11);
+    x[26] = 0xFFFFFFFF & (x[0] + x[26]);
+    x[0] = op.rotl32(x[0], 11);
+    x[27] = 0xFFFFFFFF & (x[1] + x[27]);
+    x[1] = op.rotl32(x[1], 11);
+    x[24] = 0xFFFFFFFF & (x[2] + x[24]);
+    x[2] = op.rotl32(x[2], 11);
+    x[25] = 0xFFFFFFFF & (x[3] + x[25]);
+    x[3] = op.rotl32(x[3], 11);
+    x[30] = 0xFFFFFFFF & (x[4] + x[30]);
+    x[4] = op.rotl32(x[4], 11);
+    x[31] = 0xFFFFFFFF & (x[5] + x[31]);
+    x[5] = op.rotl32(x[5], 11);
+    x[28] = 0xFFFFFFFF & (x[6] + x[28]);
+    x[6] = op.rotl32(x[6], 11);
+    x[29] = 0xFFFFFFFF & (x[7] + x[29]);
+    x[7] = op.rotl32(x[7], 11);
+    x[12] ^= x[18];
+    x[13] ^= x[19];
+    x[14] ^= x[16];
+    x[15] ^= x[17];
+    x[8] ^= x[22];
+    x[9] ^= x[23];
+    x[10] ^= x[20];
+    x[11] ^= x[21];
+    x[4] ^= x[26];
+    x[5] ^= x[27];
+    x[6] ^= x[24];
+    x[7] ^= x[25];
+    x[0] ^= x[30];
+    x[1] ^= x[31];
+    x[2] ^= x[28];
+    x[3] ^= x[29];
+};
 
 var ROUND_ODD = function(x) {
-	x[19] = 0xFFFFFFFF & (x[12] + x[19]);
-	x[12] = op.rotl32(x[12], 7);
-	x[18] = 0xFFFFFFFF & (x[13] + x[18]);
-	x[13] = op.rotl32(x[13], 7);
-	x[17] = 0xFFFFFFFF & (x[14] + x[17]);
-	x[14] = op.rotl32(x[14], 7);
-	x[16] = 0xFFFFFFFF & (x[15] + x[16]);
-	x[15] = op.rotl32(x[15], 7);
-	x[23] = 0xFFFFFFFF & (x[8] + x[23]);
-	x[8] = op.rotl32(x[8], 7);
-	x[22] = 0xFFFFFFFF & (x[9] + x[22]);
-	x[9] = op.rotl32(x[9], 7);
-	x[21] = 0xFFFFFFFF & (x[10] + x[21]);
-	x[10] = op.rotl32(x[10], 7);
-	x[20] = 0xFFFFFFFF & (x[11] + x[20]);
-	x[11] = op.rotl32(x[11], 7);
-	x[27] = 0xFFFFFFFF & (x[4] + x[27]);
-	x[4] = op.rotl32(x[4], 7);
-	x[26] = 0xFFFFFFFF & (x[5] + x[26]);
-	x[5] = op.rotl32(x[5], 7);
-	x[25] = 0xFFFFFFFF & (x[6] + x[25]);
-	x[6] = op.rotl32(x[6], 7);
-	x[24] = 0xFFFFFFFF & (x[7] + x[24]);
-	x[7] = op.rotl32(x[7], 7);
-	x[31] = 0xFFFFFFFF & (x[0] + x[31]);
-	x[0] = op.rotl32(x[0], 7);
-	x[30] = 0xFFFFFFFF & (x[1] + x[30]);
-	x[1] = op.rotl32(x[1], 7);
-	x[29] = 0xFFFFFFFF & (x[2] + x[29]);
-	x[2] = op.rotl32(x[2], 7);
-	x[28] = 0xFFFFFFFF & (x[3] + x[28]);
-	x[3] = op.rotl32(x[3], 7);
-	x[4] ^= x[19];
-	x[5] ^= x[18];
-	x[6] ^= x[17];
-	x[7] ^= x[16];
-	x[0] ^= x[23];
-	x[1] ^= x[22];
-	x[2] ^= x[21];
-	x[3] ^= x[20];
-	x[12] ^= x[27];
-	x[13] ^= x[26];
-	x[14] ^= x[25];
-	x[15] ^= x[24];
-	x[8] ^= x[31];
-	x[9] ^= x[30];
-	x[10] ^= x[29];
-	x[11] ^= x[28];
-	x[17] = 0xFFFFFFFF & (x[4] + x[17]);
-	x[4] = op.rotl32(x[4], 11);
-	x[16] = 0xFFFFFFFF & (x[5] + x[16]);
-	x[5] = op.rotl32(x[5], 11);
-	x[19] = 0xFFFFFFFF & (x[6] + x[19]);
-	x[6] = op.rotl32(x[6], 11);
-	x[18] = 0xFFFFFFFF & (x[7] + x[18]);
-	x[7] = op.rotl32(x[7], 11);
-	x[21] = 0xFFFFFFFF & (x[0] + x[21]);
-	x[0] = op.rotl32(x[0], 11);
-	x[20] = 0xFFFFFFFF & (x[1] + x[20]);
-	x[1] = op.rotl32(x[1], 11);
-	x[23] = 0xFFFFFFFF & (x[2] + x[23]);
-	x[2] = op.rotl32(x[2], 11);
-	x[22] = 0xFFFFFFFF & (x[3] + x[22]);
-	x[3] = op.rotl32(x[3], 11);
-	x[25] = 0xFFFFFFFF & (x[12] + x[25]);
-	x[12] = op.rotl32(x[12], 11);
-	x[24] = 0xFFFFFFFF & (x[13] + x[24]);
-	x[13] = op.rotl32(x[13], 11);
-	x[27] = 0xFFFFFFFF & (x[14] + x[27]);
-	x[14] = op.rotl32(x[14], 11);
-	x[26] = 0xFFFFFFFF & (x[15] + x[26]);
-	x[15] = op.rotl32(x[15], 11);
-	x[29] = 0xFFFFFFFF & (x[8] + x[29]);
-	x[8] = op.rotl32(x[8], 11);
-	x[28] = 0xFFFFFFFF & (x[9] + x[28]);
-	x[9] = op.rotl32(x[9], 11);
-	x[31] = 0xFFFFFFFF & (x[10] + x[31]);
-	x[10] = op.rotl32(x[10], 11);
-	x[30] = 0xFFFFFFFF & (x[11] + x[30]);
-	x[11] = op.rotl32(x[11], 11);
-	x[0] ^= x[17];
-	x[1] ^= x[16];
-	x[2] ^= x[19];
-	x[3] ^= x[18];
-	x[4] ^= x[21];
-	x[5] ^= x[20];
-	x[6] ^= x[23];
-	x[7] ^= x[22];
-	x[8] ^= x[25];
-	x[9] ^= x[24];
-	x[10] ^= x[27];
-	x[11] ^= x[26];
-	x[12] ^= x[29];
-	x[13] ^= x[28];
-	x[14] ^= x[31];
-	x[15] ^= x[30];
-}
+    x[19] = 0xFFFFFFFF & (x[12] + x[19]);
+    x[12] = op.rotl32(x[12], 7);
+    x[18] = 0xFFFFFFFF & (x[13] + x[18]);
+    x[13] = op.rotl32(x[13], 7);
+    x[17] = 0xFFFFFFFF & (x[14] + x[17]);
+    x[14] = op.rotl32(x[14], 7);
+    x[16] = 0xFFFFFFFF & (x[15] + x[16]);
+    x[15] = op.rotl32(x[15], 7);
+    x[23] = 0xFFFFFFFF & (x[8] + x[23]);
+    x[8] = op.rotl32(x[8], 7);
+    x[22] = 0xFFFFFFFF & (x[9] + x[22]);
+    x[9] = op.rotl32(x[9], 7);
+    x[21] = 0xFFFFFFFF & (x[10] + x[21]);
+    x[10] = op.rotl32(x[10], 7);
+    x[20] = 0xFFFFFFFF & (x[11] + x[20]);
+    x[11] = op.rotl32(x[11], 7);
+    x[27] = 0xFFFFFFFF & (x[4] + x[27]);
+    x[4] = op.rotl32(x[4], 7);
+    x[26] = 0xFFFFFFFF & (x[5] + x[26]);
+    x[5] = op.rotl32(x[5], 7);
+    x[25] = 0xFFFFFFFF & (x[6] + x[25]);
+    x[6] = op.rotl32(x[6], 7);
+    x[24] = 0xFFFFFFFF & (x[7] + x[24]);
+    x[7] = op.rotl32(x[7], 7);
+    x[31] = 0xFFFFFFFF & (x[0] + x[31]);
+    x[0] = op.rotl32(x[0], 7);
+    x[30] = 0xFFFFFFFF & (x[1] + x[30]);
+    x[1] = op.rotl32(x[1], 7);
+    x[29] = 0xFFFFFFFF & (x[2] + x[29]);
+    x[2] = op.rotl32(x[2], 7);
+    x[28] = 0xFFFFFFFF & (x[3] + x[28]);
+    x[3] = op.rotl32(x[3], 7);
+    x[4] ^= x[19];
+    x[5] ^= x[18];
+    x[6] ^= x[17];
+    x[7] ^= x[16];
+    x[0] ^= x[23];
+    x[1] ^= x[22];
+    x[2] ^= x[21];
+    x[3] ^= x[20];
+    x[12] ^= x[27];
+    x[13] ^= x[26];
+    x[14] ^= x[25];
+    x[15] ^= x[24];
+    x[8] ^= x[31];
+    x[9] ^= x[30];
+    x[10] ^= x[29];
+    x[11] ^= x[28];
+    x[17] = 0xFFFFFFFF & (x[4] + x[17]);
+    x[4] = op.rotl32(x[4], 11);
+    x[16] = 0xFFFFFFFF & (x[5] + x[16]);
+    x[5] = op.rotl32(x[5], 11);
+    x[19] = 0xFFFFFFFF & (x[6] + x[19]);
+    x[6] = op.rotl32(x[6], 11);
+    x[18] = 0xFFFFFFFF & (x[7] + x[18]);
+    x[7] = op.rotl32(x[7], 11);
+    x[21] = 0xFFFFFFFF & (x[0] + x[21]);
+    x[0] = op.rotl32(x[0], 11);
+    x[20] = 0xFFFFFFFF & (x[1] + x[20]);
+    x[1] = op.rotl32(x[1], 11);
+    x[23] = 0xFFFFFFFF & (x[2] + x[23]);
+    x[2] = op.rotl32(x[2], 11);
+    x[22] = 0xFFFFFFFF & (x[3] + x[22]);
+    x[3] = op.rotl32(x[3], 11);
+    x[25] = 0xFFFFFFFF & (x[12] + x[25]);
+    x[12] = op.rotl32(x[12], 11);
+    x[24] = 0xFFFFFFFF & (x[13] + x[24]);
+    x[13] = op.rotl32(x[13], 11);
+    x[27] = 0xFFFFFFFF & (x[14] + x[27]);
+    x[14] = op.rotl32(x[14], 11);
+    x[26] = 0xFFFFFFFF & (x[15] + x[26]);
+    x[15] = op.rotl32(x[15], 11);
+    x[29] = 0xFFFFFFFF & (x[8] + x[29]);
+    x[8] = op.rotl32(x[8], 11);
+    x[28] = 0xFFFFFFFF & (x[9] + x[28]);
+    x[9] = op.rotl32(x[9], 11);
+    x[31] = 0xFFFFFFFF & (x[10] + x[31]);
+    x[10] = op.rotl32(x[10], 11);
+    x[30] = 0xFFFFFFFF & (x[11] + x[30]);
+    x[11] = op.rotl32(x[11], 11);
+    x[0] ^= x[17];
+    x[1] ^= x[16];
+    x[2] ^= x[19];
+    x[3] ^= x[18];
+    x[4] ^= x[21];
+    x[5] ^= x[20];
+    x[6] ^= x[23];
+    x[7] ^= x[22];
+    x[8] ^= x[25];
+    x[9] ^= x[24];
+    x[10] ^= x[27];
+    x[11] ^= x[26];
+    x[12] ^= x[29];
+    x[13] ^= x[28];
+    x[14] ^= x[31];
+    x[15] ^= x[30];
+};
 
 var SIXTEEN_ROUNDS = function(x) {
-	ROUND_EVEN(x);
-	ROUND_ODD(x);
-	ROUND_EVEN(x);
-	ROUND_ODD(x);
-	ROUND_EVEN(x);
-	ROUND_ODD(x);
-	ROUND_EVEN(x);
-	ROUND_ODD(x);
-	ROUND_EVEN(x);
-	ROUND_ODD(x);
-	ROUND_EVEN(x);
-	ROUND_ODD(x);
-	ROUND_EVEN(x);
-	ROUND_ODD(x);
-	ROUND_EVEN(x);
-	ROUND_ODD(x);
-}
+    ROUND_EVEN(x);
+    ROUND_ODD(x);
+    ROUND_EVEN(x);
+    ROUND_ODD(x);
+    ROUND_EVEN(x);
+    ROUND_ODD(x);
+    ROUND_EVEN(x);
+    ROUND_ODD(x);
+    ROUND_EVEN(x);
+    ROUND_ODD(x);
+    ROUND_EVEN(x);
+    ROUND_ODD(x);
+    ROUND_EVEN(x);
+    ROUND_ODD(x);
+    ROUND_EVEN(x);
+    ROUND_ODD(x);
+};
 
 var cubehash = function(ctx, data) {
-	var buf, ptr;
-	//create a local copy of states
-	var x = new Array(Cubehash_StateSize);
-	buf = ctx.buffer;
-	ptr = ctx.ptr;
-	var len = data.length;
-	if (len < ctx.buffer.length - ptr) {
-		op.bufferInsert(buf, ptr, data, data.length);
-		ptr += data.length;
-		ctx.ptr = ptr;
-		return;
-	}
-	//perform a deep copy of current state
-	for (var i = 0; i < Cubehash_StateSize; i++) {
-		x[i] = ctx.state[i];
-	}
-	while (len > 0) {
-		var clen = ctx.buffer.length - ptr;
-		if (clen > len) clen = len;
-		op.bufferInsert(buf, ptr, data, clen);
-		ptr += clen;
-		data = data.slice(clen);
-		len -= clen;
-		if (ptr === ctx.buffer.length) {
-			var int32Buf = op.swap32Array(h.bytes2Int32Buffer(buf));
-			op.bufferXORInsert(x, 0, int32Buf,0, 8)
-			SIXTEEN_ROUNDS(x);
-			ptr = 0;
-		}
-	}
-	ctx.state = x;
-	ctx.ptr = ptr;
-}
+    var buf, ptr;
+    //create a local copy of states
+    var x = new Array(Cubehash_StateSize);
+    buf = ctx.buffer;
+    ptr = ctx.ptr;
+    var len = data.length;
+    if (len < ctx.buffer.length - ptr) {
+        op.bufferInsert(buf, ptr, data, data.length);
+        ptr += data.length;
+        ctx.ptr = ptr;
+        return;
+    }
+    //perform a deep copy of current state
+    for (var i = 0; i < Cubehash_StateSize; i++) {
+        x[i] = ctx.state[i];
+    }
+    while (len > 0) {
+        var clen = ctx.buffer.length - ptr;
+        if (clen > len) clen = len;
+        op.bufferInsert(buf, ptr, data, clen);
+        ptr += clen;
+        data = data.slice(clen);
+        len -= clen;
+        if (ptr === ctx.buffer.length) {
+            var int32Buf = op.swap32Array(h.bytes2Int32Buffer(buf));
+            op.bufferXORInsert(x, 0, int32Buf,0, 8);
+            SIXTEEN_ROUNDS(x);
+            ptr = 0;
+        }
+    }
+    ctx.state = x;
+    ctx.ptr = ptr;
+};
 var cubehashClose = function(ctx) {
-	var buf = ctx.buffer;
-	var ptr = ctx.ptr;
-	var x = new Array(Cubehash_StateSize);
-	buf[ptr++] = 0x80;
-	op.bufferSet(buf, ptr, 0, ctx.buffer.length - ptr);
-	for (var i = 0; i < Cubehash_StateSize; i++) {
-		x[i] = ctx.state[i];
-	}
-	var int32Buf = op.swap32Array(h.bytes2Int32Buffer(buf));
-	op.bufferXORInsert(x, 0, int32Buf,0, 8)
-	for (i = 0; i < 11; i++) {
-		SIXTEEN_ROUNDS(x);
-		if (i == 0)
-			x[31] ^= 0xFFFFFFFF & (1);
-	}
-	ctx.state = x;
-	var out = new Array(16);
-	for (var u = 0; u < 16; u++)
-		out[u] = op.swap32(ctx.state[u]);
-	return out;
-}
+    var buf = ctx.buffer;
+    var ptr = ctx.ptr;
+    var x = new Array(Cubehash_StateSize);
+    buf[ptr++] = 0x80;
+    op.bufferSet(buf, ptr, 0, ctx.buffer.length - ptr);
+    for (var i = 0; i < Cubehash_StateSize; i++) {
+        x[i] = ctx.state[i];
+    }
+    var int32Buf = op.swap32Array(h.bytes2Int32Buffer(buf));
+    op.bufferXORInsert(x, 0, int32Buf,0, 8);
+    for (i = 0; i < 11; i++) {
+        SIXTEEN_ROUNDS(x);
+        if (i === 0) x[31] ^= 0xFFFFFFFF & (1);
+    }
+    ctx.state = x;
+    var out = new Array(16);
+    for (var u = 0; u < 16; u++) out[u] = op.swap32(ctx.state[u]);
+    return out;
+};
 
 module.exports = function(input, format, output) {
-  var msg;
-  if (format === 1) {
-    msg = input;
-  }
-  else if (format === 2) {
-    msg = h.int32Buffer2Bytes(input);
-  }
-  else {
-    msg = h.string2bytes(input);
-  }
-	var ctx = {};
-	ctx.state = IV512;
-	ctx.ptr = 0;
-	ctx.buffer = new Array(Cubehash_BlockSize);
-	cubehash(ctx, msg);
-	var r = cubehashClose(ctx);
-  var out;
-  if (output === 2) {
-    out = r;
-  }
-  else if (output === 1) {
-    out = h.int32Buffer2Bytes(r)
-  }
-  else {
-    out = h.int32ArrayToHexString(r)
-  }
-  return out;
-}
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = h.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = h.string2bytes(input);
+    }
+    var ctx = {};
+    ctx.state = IV512;
+    ctx.ptr = 0;
+    ctx.buffer = new Array(Cubehash_BlockSize);
+    cubehash(ctx, msg);
+    var r = cubehashClose(ctx);
+    var out;
+    if (output === 2) {
+        out = r;
+    }
+    else if (output === 1) {
+        out = h.int32Buffer2Bytes(r);
+    }
+    else {
+        out = h.int32ArrayToHexString(r);
+    }
+    return out;
+};
+
 },{"./helper":7,"./op":11}],5:[function(require,module,exports){
+'use strict';
 /////////////////////////////////////
 ///////////////  Echo ///////////////
 
@@ -1229,277 +1237,275 @@ var aes = require('./aes');
 var ECHO_BlockSize = 128;
 
 var subWords = function(W, pK) {
-  for (var n = 0; n < 16; n++) {
-    var X = W[n];
-    var Y = new Array(4);
-    aes.AES_ROUND_LE(X, pK, Y);
-    aes.AES_ROUND_NOKEY_LE(Y, X);
-    if ((pK[0] = op.t32(pK[0] + 1)) === 0) {
-      if ((pK[1] = op.t32(pK[1] + 1)) === 0)
-        if ((pK[2] = op.t32(pK[2] + 1)) === 0)
-          pK[3] = op.t32(pK[3] + 1);
+    for (var n = 0; n < 16; n++) {
+        var X = W[n];
+        var Y = new Array(4);
+        aes.AES_ROUND_LE(X, pK, Y);
+        aes.AES_ROUND_NOKEY_LE(Y, X);
+        if ((pK[0] = op.t32(pK[0] + 1)) === 0) {
+            if ((pK[1] = op.t32(pK[1] + 1)) === 0) if ((pK[2] = op.t32(pK[2] + 1)) === 0) pK[3] = op.t32(pK[3] + 1);
+        }
     }
-  }
-}
+};
 
 var shiftRow1 = function(W, a, b, c, d) {
-  var tmp;
-  tmp = W[a][0];
-  W[a][0] = W[b][0];
-  W[b][0] = W[c][0];
-  W[c][0] = W[d][0];
-  W[d][0] = tmp;
-  tmp = W[a][1];
-  W[a][1] = W[b][1];
-  W[b][1] = W[c][1];
-  W[c][1] = W[d][1];
-  W[d][1] = tmp;
-  tmp = W[a][2];
-  W[a][2] = W[b][2];
-  W[b][2] = W[c][2];
-  W[c][2] = W[d][2];
-  W[d][2] = tmp;
-  tmp = W[a][3];
-  W[a][3] = W[b][3];
-  W[b][3] = W[c][3];
-  W[c][3] = W[d][3];
-  W[d][3] = tmp;
-}
+    var tmp;
+    tmp = W[a][0];
+    W[a][0] = W[b][0];
+    W[b][0] = W[c][0];
+    W[c][0] = W[d][0];
+    W[d][0] = tmp;
+    tmp = W[a][1];
+    W[a][1] = W[b][1];
+    W[b][1] = W[c][1];
+    W[c][1] = W[d][1];
+    W[d][1] = tmp;
+    tmp = W[a][2];
+    W[a][2] = W[b][2];
+    W[b][2] = W[c][2];
+    W[c][2] = W[d][2];
+    W[d][2] = tmp;
+    tmp = W[a][3];
+    W[a][3] = W[b][3];
+    W[b][3] = W[c][3];
+    W[c][3] = W[d][3];
+    W[d][3] = tmp;
+};
 
 var shiftRow2 = function(W, a, b, c, d) {
-  var tmp;
-  tmp = W[a][0];
-  W[a][0] = W[c][0];
-  W[c][0] = tmp;
-  tmp = W[b][0];
-  W[b][0] = W[d][0];
-  W[d][0] = tmp;
-  tmp = W[a][1];
-  W[a][1] = W[c][1];
-  W[c][1] = tmp;
-  tmp = W[b][1];
-  W[b][1] = W[d][1];
-  W[d][1] = tmp;
-  tmp = W[a][2];
-  W[a][2] = W[c][2];
-  W[c][2] = tmp;
-  tmp = W[b][2];
-  W[b][2] = W[d][2];
-  W[d][2] = tmp;
-  tmp = W[a][3];
-  W[a][3] = W[c][3];
-  W[c][3] = tmp;
-  tmp = W[b][3];
-  W[b][3] = W[d][3];
-  W[d][3] = tmp;
-}
+    var tmp;
+    tmp = W[a][0];
+    W[a][0] = W[c][0];
+    W[c][0] = tmp;
+    tmp = W[b][0];
+    W[b][0] = W[d][0];
+    W[d][0] = tmp;
+    tmp = W[a][1];
+    W[a][1] = W[c][1];
+    W[c][1] = tmp;
+    tmp = W[b][1];
+    W[b][1] = W[d][1];
+    W[d][1] = tmp;
+    tmp = W[a][2];
+    W[a][2] = W[c][2];
+    W[c][2] = tmp;
+    tmp = W[b][2];
+    W[b][2] = W[d][2];
+    W[d][2] = tmp;
+    tmp = W[a][3];
+    W[a][3] = W[c][3];
+    W[c][3] = tmp;
+    tmp = W[b][3];
+    W[b][3] = W[d][3];
+    W[d][3] = tmp;
+};
 
 var shiftRow3 = function(W, a, b, c, d) {
-  shiftRow1(W, d, c, b, a);
-}
+    shiftRow1(W, d, c, b, a);
+};
 
 var shiftRows = function(W) {
-  shiftRow1(W, 1, 5, 9, 13);
-  shiftRow2(W, 2, 6, 10, 14);
-  shiftRow3(W, 3, 7, 11, 15);
-}
+    shiftRow1(W, 1, 5, 9, 13);
+    shiftRow2(W, 2, 6, 10, 14);
+    shiftRow3(W, 3, 7, 11, 15);
+};
 
 var mixColumn = function(W, ia, ib, ic, id) {
-  for (var n = 0; n < 4; n++) {
-    var a = W[ia][n];
-    var b = W[ib][n];
-    var c = W[ic][n];
-    var d = W[id][n];
-    var ab = a ^ b;
-    var bc = b ^ c;
-    var cd = c ^ d;
-    var abx = ((ab & (0x80808080)) >>> 7) * 27 ^
+    for (var n = 0; n < 4; n++) {
+        var a = W[ia][n];
+        var b = W[ib][n];
+        var c = W[ic][n];
+        var d = W[id][n];
+        var ab = a ^ b;
+        var bc = b ^ c;
+        var cd = c ^ d;
+        var abx = ((ab & (0x80808080)) >>> 7) * 27 ^
       ((ab & (0x7F7F7F7F)) << 1);
-    var bcx = ((bc & (0x80808080)) >>> 7) * 27 ^
+        var bcx = ((bc & (0x80808080)) >>> 7) * 27 ^
       ((bc & (0x7F7F7F7F)) << 1);
-    var cdx = ((cd & (0x80808080)) >>> 7) * 27 ^
+        var cdx = ((cd & (0x80808080)) >>> 7) * 27 ^
       ((cd & (0x7F7F7F7F)) << 1);
-    W[ia][n] = abx ^ bc ^ d;
-    W[ib][n] = bcx ^ a ^ cd;
-    W[ic][n] = cdx ^ ab ^ d;
-    W[id][n] = abx ^ bcx ^ cdx ^ ab ^ c;
-  }
-}
+        W[ia][n] = abx ^ bc ^ d;
+        W[ib][n] = bcx ^ a ^ cd;
+        W[ic][n] = cdx ^ ab ^ d;
+        W[id][n] = abx ^ bcx ^ cdx ^ ab ^ c;
+    }
+};
 
 var finalize = function(ctx, W) {
-  var int32Buf = op.swap32Array(h.bytes2Int32Buffer(ctx.buffer));
-  for (var u = 0; u < 8; u++) {
-    for (var v = 0; v < 4; v++) {
-      ctx.state[u][v] ^= int32Buf[u * 4 + v] ^ W[u][v] ^ W[u + 8][v];
+    var int32Buf = op.swap32Array(h.bytes2Int32Buffer(ctx.buffer));
+    for (var u = 0; u < 8; u++) {
+        for (var v = 0; v < 4; v++) {
+            ctx.state[u][v] ^= int32Buf[u * 4 + v] ^ W[u][v] ^ W[u + 8][v];
+        }
     }
-  }
-}
+};
 
 var inputBlock = function(ctx, W) {
-  op.buffer2Insert(W, 0, 0, ctx.state, 8, 4);
-  var int32Buf = op.swap32Array(h.bytes2Int32Buffer(ctx.buffer));
-  for (var u = 0; u < 8; u++) {
-    W[u + 8][0] = (int32Buf[4 * u]);
-    W[u + 8][1] = (int32Buf[4 * u + 1]);
-    W[u + 8][2] = (int32Buf[4 * u + 2]);
-    W[u + 8][3] = (int32Buf[4 * u + 3]);
-  }
-}
+    op.buffer2Insert(W, 0, 0, ctx.state, 8, 4);
+    var int32Buf = op.swap32Array(h.bytes2Int32Buffer(ctx.buffer));
+    for (var u = 0; u < 8; u++) {
+        W[u + 8][0] = (int32Buf[4 * u]);
+        W[u + 8][1] = (int32Buf[4 * u + 1]);
+        W[u + 8][2] = (int32Buf[4 * u + 2]);
+        W[u + 8][3] = (int32Buf[4 * u + 3]);
+    }
+};
 
 var mixColumns = function(W) {
-  mixColumn(W, 0, 1, 2, 3);
-  mixColumn(W, 4, 5, 6, 7);
-  mixColumn(W, 8, 9, 10, 11);
-  mixColumn(W, 12, 13, 14, 15);
-}
+    mixColumn(W, 0, 1, 2, 3);
+    mixColumn(W, 4, 5, 6, 7);
+    mixColumn(W, 8, 9, 10, 11);
+    mixColumn(W, 12, 13, 14, 15);
+};
 
 var ROUND = function(W,K) {
-  subWords(W,K);
-  shiftRows(W);
-  mixColumns(W);
-}
+    subWords(W,K);
+    shiftRows(W);
+    mixColumns(W);
+};
 
 var compress = function(ctx) {
-  var W = new Array(16);
-  for (var i = 0; i < 16; i++) {
-    W[i] = new Array(4);
-  }
-  var K = new Array(4);
-  op.bufferInsert(K,0,ctx.C,4);
-  inputBlock(ctx, W);
-  for (var u = 0; u < 10; u++) {
-    ROUND(W,K);
-  }
-  finalize(ctx,W);
-}
+    var W = new Array(16);
+    for (var i = 0; i < 16; i++) {
+        W[i] = new Array(4);
+    }
+    var K = new Array(4);
+    op.bufferInsert(K,0,ctx.C,4);
+    inputBlock(ctx, W);
+    for (var u = 0; u < 10; u++) {
+        ROUND(W,K);
+    }
+    finalize(ctx,W);
+};
 
 var incrCounter = function(ctx, val) {
-  ctx.C[0] = op.t32(ctx.C[0] + op.t32(val));
-  if (ctx.C[0] < op.t32(val)) {
-    if ((ctx.C[1] = op.t32(ctx.C[1] + 1)) === 0) {
-      if ((ctx.C[2] = op.t32(ctx.C[2] + 1)) === 0) {
-        ctx.C[3] = op.t32(ctx.C[3] + 1);
-      }
+    ctx.C[0] = op.t32(ctx.C[0] + op.t32(val));
+    if (ctx.C[0] < op.t32(val)) {
+        if ((ctx.C[1] = op.t32(ctx.C[1] + 1)) === 0) {
+            if ((ctx.C[2] = op.t32(ctx.C[2] + 1)) === 0) {
+                ctx.C[3] = op.t32(ctx.C[3] + 1);
+            }
+        }
     }
-  }
-}
+};
 
 var echoInit = function(ctx) {
-  ctx.state = new Array(8);
-  for (var i = 0; i < 8; i++) {
-    ctx.state[i] = new Array(4);
-  }
-  ctx.state[0][0] = 512;
-  ctx.state[0][1] = ctx.state[0][2] = ctx.state[0][3] = 0;
-  ctx.state[1][0] = 512;
-  ctx.state[1][1] = ctx.state[1][2] = ctx.state[1][3] = 0;
-  ctx.state[2][0] = 512;
-  ctx.state[2][1] = ctx.state[2][2] = ctx.state[2][3] = 0;
-  ctx.state[3][0] = 512;
-  ctx.state[3][1] = ctx.state[3][2] = ctx.state[3][3] = 0;
-  ctx.state[4][0] = 512;
-  ctx.state[4][1] = ctx.state[4][2] = ctx.state[4][3] = 0;
-  ctx.state[5][0] = 512;
-  ctx.state[5][1] = ctx.state[5][2] = ctx.state[5][3] = 0;
-  ctx.state[6][0] = 512;
-  ctx.state[6][1] = ctx.state[6][2] = ctx.state[6][3] = 0;
-  ctx.state[7][0] = 512;
-  ctx.state[7][1] = ctx.state[7][2] = ctx.state[7][3] = 0;
-  ctx.ptr = 0;
-  ctx.C = new Array(4);
-  op.bufferSet(ctx.C,0,0,4);
-  ctx.buffer = new Array(ECHO_BlockSize);
-}
+    ctx.state = new Array(8);
+    for (var i = 0; i < 8; i++) {
+        ctx.state[i] = new Array(4);
+    }
+    ctx.state[0][0] = 512;
+    ctx.state[0][1] = ctx.state[0][2] = ctx.state[0][3] = 0;
+    ctx.state[1][0] = 512;
+    ctx.state[1][1] = ctx.state[1][2] = ctx.state[1][3] = 0;
+    ctx.state[2][0] = 512;
+    ctx.state[2][1] = ctx.state[2][2] = ctx.state[2][3] = 0;
+    ctx.state[3][0] = 512;
+    ctx.state[3][1] = ctx.state[3][2] = ctx.state[3][3] = 0;
+    ctx.state[4][0] = 512;
+    ctx.state[4][1] = ctx.state[4][2] = ctx.state[4][3] = 0;
+    ctx.state[5][0] = 512;
+    ctx.state[5][1] = ctx.state[5][2] = ctx.state[5][3] = 0;
+    ctx.state[6][0] = 512;
+    ctx.state[6][1] = ctx.state[6][2] = ctx.state[6][3] = 0;
+    ctx.state[7][0] = 512;
+    ctx.state[7][1] = ctx.state[7][2] = ctx.state[7][3] = 0;
+    ctx.ptr = 0;
+    ctx.C = new Array(4);
+    op.bufferSet(ctx.C,0,0,4);
+    ctx.buffer = new Array(ECHO_BlockSize);
+};
 
 var echo = function(ctx, data) {
-  var buf, ptr;
-  buf = ctx.buffer;
-  ptr = ctx.ptr;
-  var len = data.length;
-  if (len < ctx.buffer.length - ptr) {
-    op.bufferInsert(buf, ptr, data, data.length);
-    ptr += data.length;
-    ctx.ptr = ptr;
-    return;
-  }
-  while (len > 0) {
-    var clen = ctx.buffer.length - ptr;
-    if (clen > len) clen = len;
-    op.bufferInsert(buf, ptr, data, clen);
-    ptr += clen;
-    data = data.slice(clen);
-    len -= clen;
-    if (ptr === ctx.buffer.length) {
-      var int32Buf = h.bytes2Int32Buffer(buf);
-      incrCounter(ctx, 1024);
-      compress(ctx);
-      ptr = 0;
+    var buf, ptr;
+    buf = ctx.buffer;
+    ptr = ctx.ptr;
+    var len = data.length;
+    if (len < ctx.buffer.length - ptr) {
+        op.bufferInsert(buf, ptr, data, data.length);
+        ptr += data.length;
+        ctx.ptr = ptr;
+        return;
     }
-  }
-  ctx.ptr = ptr;
-}
+    while (len > 0) {
+        var clen = ctx.buffer.length - ptr;
+        if (clen > len) clen = len;
+        op.bufferInsert(buf, ptr, data, clen);
+        ptr += clen;
+        data = data.slice(clen);
+        len -= clen;
+        if (ptr === ctx.buffer.length) {
+            incrCounter(ctx, 1024);
+            compress(ctx);
+            ptr = 0;
+        }
+    }
+    ctx.ptr = ptr;
+};
 
 var echoClose = function(ctx) {
-  var out = new Array(16);
-  var buf = ctx.buffer;
-  var len = ctx.buffer.length;
-  var ptr = ctx.ptr;
-  var elen = (ptr << 3);
-  incrCounter(ctx, elen);
-  var cBytes = h.int32Buffer2Bytes(op.swap32Array(ctx.C));
-  /*
+    var out = new Array(16);
+    var buf = ctx.buffer;
+    var len = ctx.buffer.length;
+    var ptr = ctx.ptr;
+    var elen = (ptr << 3);
+    incrCounter(ctx, elen);
+    var cBytes = h.int32Buffer2Bytes(op.swap32Array(ctx.C));
+    /*
    * If elen is zero, then this block actually contains no message
    * bit, only the first padding bit.
    */
-  if (elen === 0) {
-    ctx.C[0] = ctx.C[1] = ctx.C[2] = ctx.C[3] = 0;
-  }
-  buf[ptr++] = 0x80;
-  
-  op.bufferSet(buf,ptr, 0, len - ptr);
-  if (ptr > (len - 18)) {
-    compress(ctx);
-    op.bufferSet(ctx.C,0,0,4);
-    op.bufferSet(buf, 0, 0,len);
-  }
-  buf[len - 17] = 2;
-  op.bufferInsert(buf,len - 16, cBytes, 16);
-  compress(ctx);
-  for (var u = 0; u < 4; u++) {
-    for (var v = 0; v < 4; v++) {
-      out[u*4 + v] = op.swap32(ctx.state[u][v]);
+    if (elen === 0) {
+        ctx.C[0] = ctx.C[1] = ctx.C[2] = ctx.C[3] = 0;
     }
-  }
-  return out;
-}
+    buf[ptr++] = 0x80;
+
+    op.bufferSet(buf,ptr, 0, len - ptr);
+    if (ptr > (len - 18)) {
+        compress(ctx);
+        op.bufferSet(ctx.C,0,0,4);
+        op.bufferSet(buf, 0, 0,len);
+    }
+    buf[len - 17] = 2;
+    op.bufferInsert(buf,len - 16, cBytes, 16);
+    compress(ctx);
+    for (var u = 0; u < 4; u++) {
+        for (var v = 0; v < 4; v++) {
+            out[u*4 + v] = op.swap32(ctx.state[u][v]);
+        }
+    }
+    return out;
+};
 
 module.exports = function(input, format, output) {
-  var msg;
-  if (format === 1) {
-    msg = input;
-  }
-  else if (format === 2) {
-    msg = h.int32Buffer2Bytes(input);
-  }
-  else {
-    msg = h.string2bytes(input);
-  }
-  var ctx = {};
-  echoInit(ctx);
-  echo(ctx, msg);
-  var r = echoClose(ctx);
-  var out;
-  if (output === 2) {
-    out = r;
-  }
-  else if (output === 1) {
-    out = h.int32Buffer2Bytes(r)
-  }
-  else {
-    out = h.int32ArrayToHexString(r)
-  }
-  return out;
-}
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = h.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = h.string2bytes(input);
+    }
+    var ctx = {};
+    echoInit(ctx);
+    echo(ctx, msg);
+    var r = echoClose(ctx);
+    var out;
+    if (output === 2) {
+        out = r;
+    }
+    else if (output === 1) {
+        out = h.int32Buffer2Bytes(r);
+    }
+    else {
+        out = h.int32ArrayToHexString(r);
+    }
+    return out;
+};
+
 },{"./aes":1,"./helper":7,"./op":11}],6:[function(require,module,exports){
 /////////////////////////////////////
 ////////////  groestl ///////////////
@@ -1512,14 +1518,14 @@ module.exports = function(input, format, output) {
 var o = require('./op');
 var h = require('./helper');
 
-var T0 = h.bytes2Int64Buffer(h.b64Decode("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"));
-var T1 = h.bytes2Int64Buffer(h.b64Decode("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"));
-var T2 = h.bytes2Int64Buffer(h.b64Decode("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"));
-var T3 = h.bytes2Int64Buffer(h.b64Decode("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"));
-var T4 = h.bytes2Int64Buffer(h.b64Decode("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"));
-var T5 = h.bytes2Int64Buffer(h.b64Decode("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"));
-var T6 = h.bytes2Int64Buffer(h.b64Decode("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"));
-var T7 = h.bytes2Int64Buffer(h.b64Decode("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"));
+var T0 = h.bytes2Int64Buffer(h.b64Decode('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'));
+var T1 = h.bytes2Int64Buffer(h.b64Decode('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'));
+var T2 = h.bytes2Int64Buffer(h.b64Decode('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'));
+var T3 = h.bytes2Int64Buffer(h.b64Decode('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'));
+var T4 = h.bytes2Int64Buffer(h.b64Decode('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'));
+var T5 = h.bytes2Int64Buffer(h.b64Decode('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'));
+var T6 = h.bytes2Int64Buffer(h.b64Decode('9KX0l6XGxjKXhJfrhPj4b7CZsMeZ7u5ejI2M94329noXDRflDf//6Ny93Le91tYKyLHIp7He3hb8VPw5VJGRbfBQ8MBQYGCQBQMFBAMCAgfgqeCHqc7OLod9h6x9VlbRKxkr1Rnn58ymYqZxYrW1EzHmMZrmTU18tZq1w5rs7FnPRc8FRY+PQLydvD6dHx+jwEDACUCJiUmSh5Lvh/r6aD8VP8UV7+/QJusmf+uyspRAyUAHyY6Ozh0LHe0L+/vmL+wvguxBQW6pZ6l9Z7OzGhz9HL79X19DJeoliupFRWDav9pGvyMj+QL3Aqb3U1NRoZah05bk5EXtW+0tW5ubdl3CXerCdXUoJBwk2Rzh4cXprul6rj091L5qvphqTEzy7lru2FpsbILDQcP8QX5+vQYCBvEC9fXz0U/RHU+Dg1LkXOTQXGhojAf0B6L0UVFWXDRcuTTR0Y0YCBjpCPn54a6Trt+T4uJMlXOVTXOrqz71U/XEU2Jil0E/QVQ/KiprFAwUEAwICBz2UvYxUpWVY69lr4xlRkbp4l7iIV6dnX94KHhgKDAwSPih+G6hNzfPEQ8RFA8KChvEtcRetS8v6xsJGxwJDg4VWjZaSDYkJH62m7Y2mxsbrUc9R6U939+YaiZqgSbNzae7abucaU5O9UzNTP7Nf38zup+6z5/q6lAtGy0kGxISP7meuTqeHR2knHScsHRYWMRyLnJoLjQ0Rnctd2wtNjZBzbLNo7Lc3BEp7ilz7rS0nRb7Frb7W1tNAfYBU/akpKXXTdfsTXZ2oaNho3Vht7cUSc5J+s59fTSNe42ke1JS30I+QqE+3d2fk3GTvHFeXs2il6ImlxMTsQT1BFf1pqaiuGi4aWi5uQEAAAAAAAAAAHQsdJkswcG1oGCggGBAQOAhHyHdH+PjwkPIQ/LIeXk6LO0sd+22tprZvtmzvtTUDcpGygFGjY1HcNlwztlnZxfdS93kS3Jyr3neeTPelJTtZ9RnK9SYmP8j6CN76LCwk95K3hFKhYVbvWu9bWu7uwZ+Kn6RKsXFuzTlNJ7lT097OhY6wRbt7ddUxVQXxYaG0mLXYi/Xmpr4/1X/zFVmZpmnlKcilBERtkrPSg/PiorAMBAwyRDp6dkKBgoIBgQEDpiBmOeB/v5mC/ALW/CgoKvMRMzwRHh4tNW61Uq6JSXwPuM+luNLS3UO8w5f86KirBn+Gbr+XV1EW8BbG8CAgNuFioUKigUFgOyt7H6tPz/T37zfQrwhIf7YSNjgSHBwqAwEDPkE8fH9et96xt9jYxlYwVjuwXd3L591n0V1r68wpWOlhGNCQudQMFBAMCAgcC4aLtEa5eXLEg4S4Q79/e+3bbdlbb+/CNRM1BlMgYFVPBQ8MBQYGCRfNV9MNSYmeXEvcZ0vw8OyOOE4Z+G+vob9ov1qojU1yE/MTwvMiIjHSzlLXDkuLmX5V/k9V5OTag3yDaryVVVYnYKd44L8/GHJR8n0R3p6s++s74usyMgnMucyb+e6uoh9K31kKzIyT6SVpNeV5uZC+6D7m6DAwDuzmLMymBkZqmjRaCfRnp72gX+BXX+joyKqZqqIZkRE7oJ+gqh+VFTW5qvmdqs7O92eg54WgwsLlUXKRQPKjIzJeyl7lSnHx7xu027W02trBUQ8RFA8KChsi3mLVXmnpyw94j1j4ry8gScdJywdFhYxmnaaQXatrTdNO02tO9vblvpW+shWZGSe0k7S6E50dKYiHiIoHhQUNnbbdj/bkpLkHgoeGAoMDBK0bLSQbEhI/DfkN2vkuLiP513nJV2fn3iybrJhbr29DyrvKobvQ0Np8abxk6bExDXjqONyqDk52vek92KkMTHGWTdZvTfT04qGi4b/i/LydFYyVrEy1dWDxUPFDUOLi07rWevcWW5uhcK3wq+32toYj4yPAowBAY6sZKx5ZLGxHW3SbSPSnJzxO+A7kuBJSXLHtMertNjYHxX6FUP6rKy5CQcJ/Qfz8/pvJW+FJc/PoOqv6o+vysogiY6J84709H0g6SCO6UdHZygYKCAYEBA4ZNVk3tVvbwuDiIP7iPDwc7FvsZRvSkr7lnKWuHJcXMpsJGxwJDg4VAjxCK7xV1dfUsdS5sdzcyHzUfM1UZeXZGUjZY0jy8uuhHyEWXyhoSW/nL/LnOjoV2MhY3whPj5dfN18N92Wlup/3H/C3GFhHpGGkRqGDQ2clIWUHoUPD5urkKvbkODgS8ZCxvhCfHy6V8RX4sRxcSblquWDqszMKXPYczvYkJDjDwUPDAUGBgkDAQP1Aff39DYSNjgSHBwq/qP+n6PCwjzhX+HUX2pqixD5EEf5rq6+a9Br0tBpaQKokagukRcXv+hY6ClYmZlxaSdpdCc6OlPQudBOuScn90g4SKk42dmRNRM1zRPr697Os85Wsysr5VUzVUQzIiJ31rvWv7vS0gSQcJBJcKmpOYCJgA6JBweH8qfyZqczM8HBtsFati0t7GYiZngiPDxarZKtKpIVFbhgIGCJIMnJqdtJ2xVJh4dcGv8aT/+qqrCIeIigeFBQ2I56jlF6paUrio+KBo8DA4kT+BOy+FlZSpuAmxKACQmSORc5NBcaGiN12nXK2mVlEFMxU7Ux19eEUcZRE8aEhNXTuNO7uNDQA17DXh/DgoLcy7DLUrApKeKZd5m0d1pawzMRMzwRHh4tRstG9st7ez0f/B9L/Kiot2HWYdrWbW0MTjpOWDosLGI='));
+var T7 = h.bytes2Int64Buffer(h.b64Decode('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'));
 
 // var T0 = [
 //   o.u(0xc632f4a5, 0xf497a5c6), o.u(0xf86f9784, 0x97eb84f8),
@@ -2570,185 +2576,185 @@ var T7 = h.bytes2Int64Buffer(h.b64Decode("MvSl9JelxsZvl4SX64T4+F6wmbDHme7ueoyNjP
 // ];
 
 var B64 = function(n, x) {
-  if (n === 7) {
-    return x.lo & 0xFF;
-  }
-  var bits = (7 - n) * 8;
-  if (bits >= 32) { //faster than >= 32
-    return (x.hi >>> (bits - 32)) & 0xFF;
-  }
-  else {
+    if (n === 7) {
+        return x.lo & 0xFF;
+    }
+    var bits = (7 - n) * 8;
+    if (bits >= 32) { //faster than >= 32
+        return (x.hi >>> (bits - 32)) & 0xFF;
+    }
+
     var bitsOff32 = 32 - bits,
-      toMoveDown = this.hi << bitsOff32 >>> bitsOff32;
+        toMoveDown = this.hi << bitsOff32 >>> bitsOff32;
     return (x.lo >>> bits | (toMoveDown << bitsOff32)) & 0xFF;
-  }
-}
+
+};
 
 var j64 = [o.u(0, 0), o.u(0, 0x10), o.u(0, 0x20), o.u(0, 0x30), o.u(0, 0x40), o.u(0, 0x50), o.u(0, 0x60),
-  o.u(0, 0x70), o.u(0, 0x80), o.u(0, 0x90), o.u(0, 0xA0), o.u(0, 0xB0), o.u(0, 0xC0),
-  o.u(0, 0xD0), o.u(0, 0xE0), o.u(0, 0xF0)
+    o.u(0, 0x70), o.u(0, 0x80), o.u(0, 0x90), o.u(0, 0xA0), o.u(0, 0xB0), o.u(0, 0xC0),
+    o.u(0, 0xD0), o.u(0, 0xE0), o.u(0, 0xF0)
 ];
 
 var nj64 = [o.u(0xFFFFFFFF, 0xFFFFFFFF), o.u(0xFFFFFFFF, 0xFFFFFFEF), o.u(0xFFFFFFFF, 0xFFFFFFDF), o.u(0xFFFFFFFF, 0xFFFFFFCF), o.u(0xFFFFFFFF, 0xFFFFFFBF), o.u(0xFFFFFFFF, 0xFFFFFFAF), o.u(0xFFFFFFFF, 0xFFFFFF9F),
-  o.u(0xFFFFFFFF, 0xFFFFFF8F), o.u(0xFFFFFFFF, 0xFFFFFF7F), o.u(0xFFFFFFFF, 0xFFFFFF6F), o.u(0xFFFFFFFF, 0xFFFFFF5F), o.u(0xFFFFFFFF, 0xFFFFFF4F), o.u(0xFFFFFFFF, 0xFFFFFF3F),
-  o.u(0xFFFFFFFF, 0xFFFFFF2F), o.u(0xFFFFFFFF, 0xFFFFFF1F), o.u(0xFFFFFFFF, 0xFFFFFF0F)
+    o.u(0xFFFFFFFF, 0xFFFFFF8F), o.u(0xFFFFFFFF, 0xFFFFFF7F), o.u(0xFFFFFFFF, 0xFFFFFF6F), o.u(0xFFFFFFFF, 0xFFFFFF5F), o.u(0xFFFFFFFF, 0xFFFFFF4F), o.u(0xFFFFFFFF, 0xFFFFFF3F),
+    o.u(0xFFFFFFFF, 0xFFFFFF2F), o.u(0xFFFFFFFF, 0xFFFFFF1F), o.u(0xFFFFFFFF, 0xFFFFFF0F)
 ];
 
 var r64 = [o.u(0, 0), o.u(0, 1), o.u(0, 2), o.u(0, 3), o.u(0, 4), o.u(0, 5), o.u(0, 6), o.u(0, 7),
-  o.u(0, 8), o.u(0, 9), o.u(0, 10), o.u(0, 11), o.u(0, 12), o.u(0, 13)
+    o.u(0, 8), o.u(0, 9), o.u(0, 10), o.u(0, 11), o.u(0, 12), o.u(0, 13)
 ];
 
 var compress = function(int64buf, state) {
-  var g = new Array(16);
-  var m = new Array(16);
-  for (var u = 0; u < 16; u++) {
-    m[u] = int64buf[u];
-    g[u] = m[u].xor(state[u]);
-  }
-  var t = new Array(16);
-  for (var r = 0; r < 14; r++) {
-    for (var i = 0; i < 16; i++) {
-      g[i].setxor64(j64[i].plus(r64[r]).setShiftLeft(56));
+    var g = new Array(16);
+    var m = new Array(16);
+    for (var u = 0; u < 16; u++) {
+        m[u] = int64buf[u];
+        g[u] = m[u].xor(state[u]);
     }
+    var t = new Array(16);
+    for (var r = 0; r < 14; r++) {
+        for (var i = 0; i < 16; i++) {
+            g[i].setxor64(j64[i].plus(r64[r]).setShiftLeft(56));
+        }
 
+        for (var u = 0; u < 16; u++) {
+            t[u] = o.xor64(T0[B64(0, g[u])], T1[B64(1, g[(u + 1) & 0xF])], T2[B64(2, g[(u + 2) & 0xF])], T3[B64(3, g[(u + 3) & 0xF])], T4[B64(4, g[(u + 4) & 0xF])], T5[B64(5, g[(u + 5) & 0xF])], T6[B64(6, g[(u + 6) & 0xF])], T7[B64(7, g[(u + 11) & 0xF])]);
+        }
+        var temp = g;
+        g = t;
+        t = temp;
+    }
+    for (var r = 0; r < 14; r++) {
+        for (var i = 0; i < 16; i++) {
+            m[i].setxor64(r64[r], nj64[i]);
+        }
+        for (var u = 0; u < 16; u++) {
+            t[u] = o.xor64(T0[B64(0, m[(u + 1) & 0xF])], T1[B64(1, m[(u + 3) & 0xF])], T2[B64(2, m[(u + 5) & 0xF])], T3[B64(3, m[(u + 11) & 0xF])], T4[B64(4, m[(u + 0) & 0xF])], T5[B64(5, m[(u + 2) & 0xF])], T6[B64(6, m[(u + 4) & 0xF])], T7[B64(7, m[(u + 6) & 0xF])]);
+        }
+        var temp = m;
+        m = t;
+        t = temp;
+    }
     for (var u = 0; u < 16; u++) {
-      t[u] = o.xor64(T0[B64(0, g[u])], T1[B64(1, g[(u + 1) & 0xF])], T2[B64(2, g[(u + 2) & 0xF])], T3[B64(3, g[(u + 3) & 0xF])], T4[B64(4, g[(u + 4) & 0xF])], T5[B64(5, g[(u + 5) & 0xF])], T6[B64(6, g[(u + 6) & 0xF])], T7[B64(7, g[(u + 11) & 0xF])]);
+        state[u].setxor64(g[u], m[u]);
     }
-    var temp = g;
-    g = t;
-    t = temp;
-  }
-  for (var r = 0; r < 14; r++) {
-    for (var i = 0; i < 16; i++) {
-      m[i].setxor64(r64[r], nj64[i]);
-    }
-    for (var u = 0; u < 16; u++) {
-      t[u] = o.xor64(T0[B64(0, m[(u + 1) & 0xF])], T1[B64(1, m[(u + 3) & 0xF])], T2[B64(2, m[(u + 5) & 0xF])], T3[B64(3, m[(u + 11) & 0xF])], T4[B64(4, m[(u + 0) & 0xF])], T5[B64(5, m[(u + 2) & 0xF])], T6[B64(6, m[(u + 4) & 0xF])], T7[B64(7, m[(u + 6) & 0xF])]);
-    }
-    var temp = m;
-    m = t;
-    t = temp;
-  }
-  for (var u = 0; u < 16; u++) {
-    state[u].setxor64(g[u], m[u]);
-  }
-}
+};
 
 var final = function(state) {
-  var g = new Array(16);
-  o.bufferInsert64(g, 0, state, 16);
-  var t = new Array(16);
-  for (var r = 0; r < 14; r++) {
-    
-    for (var i = 0; i < 16; i++) {
-      g[i].setxor64(j64[i].plus(r64[r]).setShiftLeft(56));
-    }
+    var g = new Array(16);
+    o.bufferInsert64(g, 0, state, 16);
+    var t = new Array(16);
+    for (var r = 0; r < 14; r++) {
 
-    for (var u = 0; u < 16; u++) {
-      t[u] = o.xor64(T0[B64(0, g[u])], T1[B64(1, g[(u + 1) & 0xF])], T2[B64(2, g[(u + 2) & 0xF])], T3[B64(3, g[(u + 3) & 0xF])], T4[B64(4, g[(u + 4) & 0xF])], T5[B64(5, g[(u + 5) & 0xF])], T6[B64(6, g[(u + 6) & 0xF])], T7[B64(7, g[(u + 11) & 0xF])]);
+        for (var i = 0; i < 16; i++) {
+            g[i].setxor64(j64[i].plus(r64[r]).setShiftLeft(56));
+        }
+
+        for (var u = 0; u < 16; u++) {
+            t[u] = o.xor64(T0[B64(0, g[u])], T1[B64(1, g[(u + 1) & 0xF])], T2[B64(2, g[(u + 2) & 0xF])], T3[B64(3, g[(u + 3) & 0xF])], T4[B64(4, g[(u + 4) & 0xF])], T5[B64(5, g[(u + 5) & 0xF])], T6[B64(6, g[(u + 6) & 0xF])], T7[B64(7, g[(u + 11) & 0xF])]);
+        }
+        var temp = g;
+        g = t;
+        t = temp;
     }
-    var temp = g;
-    g = t;
-    t = temp;
-  }
-  for (var u = 0; u < 16; u++)
-    state[u].setxor64(g[u]);
-}
+    for (var u = 0; u < 16; u++) state[u].setxor64(g[u]);
+};
 
 var groestl = function(ctx, data, len) {
-  var buf, ptr;
-  //create a local copy of states
-  var V = new Array(16);
-  buf = ctx.buffer;
-  ptr = ctx.ptr;
-  if (len < ctx.buffer.length - ptr) {
-    o.bufferInsert(buf, ptr, data, data.length);
-    ptr += data.length;
-    ctx.ptr = ptr;
-    return;
-  }
-  //perform a deep copy of current state
-  o.bufferInsert(V, 0, ctx.state, 16);
-  while (len > 0) {
-    var clen = ctx.buffer.length - ptr;
-    if (clen > len) clen = len;
-    o.bufferInsert(buf, ptr, data, clen);
-    ptr += clen;
-    data = data.slice(clen);
-    len -= clen;
-    if (ptr === ctx.buffer.length) {
-      var int64Buf = h.bytes2Int64Buffer(buf);
-      compress(int64Buf, V);
-      ctx.count.addOne();
-      ptr = 0;
+    var buf, ptr;
+    //create a local copy of states
+    var V = new Array(16);
+    buf = ctx.buffer;
+    ptr = ctx.ptr;
+    if (len < ctx.buffer.length - ptr) {
+        o.bufferInsert(buf, ptr, data, data.length);
+        ptr += data.length;
+        ctx.ptr = ptr;
+        return;
     }
-  }
-  ctx.state = V;
-  ctx.ptr = ptr;
-}
+    //perform a deep copy of current state
+    o.bufferInsert(V, 0, ctx.state, 16);
+    while (len > 0) {
+        var clen = ctx.buffer.length - ptr;
+        if (clen > len) clen = len;
+        o.bufferInsert(buf, ptr, data, clen);
+        ptr += clen;
+        data = data.slice(clen);
+        len -= clen;
+        if (ptr === ctx.buffer.length) {
+            var int64Buf = h.bytes2Int64Buffer(buf);
+            compress(int64Buf, V);
+            ctx.count.addOne();
+            ptr = 0;
+        }
+    }
+    ctx.state = V;
+    ctx.ptr = ptr;
+};
 
 var groestlClose = function(ctx) {
-  var buf = ctx.buffer;
-  var ptr = ctx.ptr;
-  var pad = new Array(136);
-  var len = buf.length;
-  var padLen;
-  var count;
-  pad[0] = 0x80;
-  if (ptr < 120) {
-    padLen = 128 - ptr;
-    count = ctx.count.plus(o.u(0, 1));
-  }
-  else {
-    padLen = 256 - ptr;
-    count = ctx.count.plus(o.u(0, 2));
-  }
-  o.bufferSet(pad, 1, 0, padLen - 9);
-  h.bufferEncode64(pad, padLen - 8, count);
-  groestl(ctx, pad, padLen);
-  final(ctx.state);
-  var out = new Array(16);
-  for (var u = 0, v = 8; u < 8; u++, v++) {
-    out[2 * u] = ctx.state[v].hi;
-    out[2 * u + 1] = ctx.state[v].lo;
-  }
-  return out;
-}
+    var buf = ctx.buffer;
+    var ptr = ctx.ptr;
+    var pad = new Array(136);
+    var len = buf.length;
+    var padLen;
+    var count;
+    pad[0] = 0x80;
+    if (ptr < 120) {
+        padLen = 128 - ptr;
+        count = ctx.count.plus(o.u(0, 1));
+    }
+    else {
+        padLen = 256 - ptr;
+        count = ctx.count.plus(o.u(0, 2));
+    }
+    o.bufferSet(pad, 1, 0, padLen - 9);
+    h.bufferEncode64(pad, padLen - 8, count);
+    groestl(ctx, pad, padLen);
+    final(ctx.state);
+    var out = new Array(16);
+    for (var u = 0, v = 8; u < 8; u++, v++) {
+        out[2 * u] = ctx.state[v].hi;
+        out[2 * u + 1] = ctx.state[v].lo;
+    }
+    return out;
+};
 
 module.exports = function(input, format, output) {
-  var msg;
-  if (format === 1) {
-    msg = input;
-  }
-  else if (format === 2) {
-    msg = h.int32Buffer2Bytes(input);
-  }
-  else {
-    msg = h.string2bytes(input);
-  }
-  var ctx = {};
-  ctx.state = new Array(16);
-  for (var i = 0; i < 15; i++) {
-    ctx.state[i] = new o.u64(0, 0);
-  }
-  ctx.state[15] = new o.u64(0, 512);
-  ctx.ptr = 0;
-  ctx.count = new o.u64(0,0);
-  ctx.buffer = new Array(128);
-  groestl(ctx, msg, msg.length);
-  var r = groestlClose(ctx, 0, 0);
-  var out;
-  if (output === 2) {
-    out = r;
-  }
-  else if (output === 1) {
-    out = h.int32Buffer2Bytes(r)
-  }
-  else {
-    out = h.int32ArrayToHexString(r)
-  }
-  return out;
-}
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = h.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = h.string2bytes(input);
+    }
+    var ctx = {};
+    ctx.state = new Array(16);
+    for (var i = 0; i < 15; i++) {
+        ctx.state[i] = new o.u64(0, 0);
+    }
+    ctx.state[15] = new o.u64(0, 512);
+    ctx.ptr = 0;
+    ctx.count = new o.u64(0,0);
+    ctx.buffer = new Array(128);
+    groestl(ctx, msg, msg.length);
+    var r = groestlClose(ctx, 0, 0);
+    var out;
+    if (output === 2) {
+        out = r;
+    }
+    else if (output === 1) {
+        out = h.int32Buffer2Bytes(r);
+    }
+    else {
+        out = h.int32ArrayToHexString(r);
+    }
+    return out;
+};
+
 },{"./helper":7,"./op":11}],7:[function(require,module,exports){
 'use strict';
 // String functions
@@ -2756,84 +2762,65 @@ module.exports = function(input, format, output) {
 var op = require('./op.js');
 
 module.exports.int8ArrayToHexString = function toString(array) {
-	var string = '',
-		i = 0,
-		len = array.length;
-	while (i < len) {
-		if (array[i] < 16) {
-			string += '0' + array[i].toString(16);
-		}
-		else {
-			string += array[i].toString(16);
-		}
-		i++;
-	}
-	return string;
-}
+    var string = '';
+
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] < 16) {
+            string += '0' + array[i].toString(16);
+        }
+        else {
+            string += array[i].toString(16);
+        }
+    }
+    return string;
+};
 
 module.exports.int32ArrayToHexString = function toString(array) {
-	var string = '',
-		i = 0,
-		len = array.length,
-		padding = 8;
-	while (i < len) {
-		var s = array[i];
-		if (s < 0) {
-			s = 0xFFFFFFFF + array[i] + 1;
-		}
-		var l = s.toString(16);
-		while (l.length < padding) {
-			l = "0" + l;
-		}
-		string += l;
-		i++
-	}
-	return string;
-}
-/*
+    var string = '';
+    var len = array.length;
+    for (var i = 0; i < len; i++) {
+        var s = array[i];
+        if (s < 0) {
+            s = 0xFFFFFFFF + array[i] + 1;
+        }
+        var l = s.toString(16);
+        var padding = 8;
+        while (l.length < padding) {
+            l = '0' + l;
+        }
+        string += l;
+    }
+    return string;
+};
+
 module.exports.hex2string = function toString(s) {
-	var c = [],
-		len = s.length,
-		i = 0;
-	while ( i < len) {
-		c.push(String.fromCharCode(parseInt(s.substring(i, i + 2), 16)));
-		i += 2;
-	}
-	return c.join('');
-}
+    for (var c = [], len = s.length, i = 0; i < len; i += 2) c.push(String.fromCharCode(parseInt(s.substring(i, i + 2), 16)));
+    return c.join('');
+};
 
 module.exports.hex2bytes = function toString(s) {
-	var c = [],
-		len = s.length,
-		i = 0;
-	while ( i < len) {
-		c.push(parseInt(s.substring(i, i + 2), 16));
-		i += 2;
-	}
-	return c;
-}
-
+    for (var c = [], len = s.length, i = 0; i < len; i += 2) c.push(parseInt(s.substring(i, i + 2), 16));
+    return c;
+};
+/*
 module.exports.string2hex = function toString(s) {
-	var c = [],
-		len = s.length,
-		i = 0;
-	while ( i < len) {
-		c.push((256 + s.charCodeAt(i)).toString(16).substring(1));
-		i++;
+
+	for (var p = [], len = s.length, i = 0; i < len; i++) {
+		p.push((256 + s.charCodeAt(i)).toString(16).substring(1));
 	}
-	return c.join('');
+	return p.join('');
 }
 */
 module.exports.string2bytes = function(s) {
-	var b = [],
-		len = s.length,
-		i = 0;
-	while ( i < len) {
-		b[i] = s.charCodeAt(i);
-		i++;
-	}
-	return b;
-}
+    var len = s.length;
+    var b = new Array(len);
+    var i = 0;
+    while (i < len) {
+        b[i] = s.charCodeAt(i);
+        i++;
+    }
+    return b;
+};
 /*
 module.exports.bytes2Int16Buffer = function(b) {
 	var len = b.length;
@@ -2849,99 +2836,96 @@ module.exports.bytes2Int16Buffer = function(b) {
 	return buffer;
 }
 */
+
 module.exports.bytes2Int32Buffer = function(b) {
-	var len = b.length;
-	if (!len) return [];
-	var bufferLength = len ? (((len - 1) >>> 2) + 1) : 0;
-	var buffer = new Array(bufferLength);
-	var j = 0;
-	while (j < bufferLength) {
-		buffer[j] = (b[j * 4] << 24) | (b[j * 4 + 1] << 16) | (b[j * 4 + 2] << 8) | b[j * 4 + 3];
-		j++;
-	}
-	return buffer;
-}
+    if (!b) return [];
+    var len = b.length ? (((b.length - 1) >>> 2) + 1) : 0;
+    var buffer = new Array(len);
+    var j = 0;
+    while (j < len) {
+        buffer[j] = (b[j * 4] << 24) | (b[j * 4 + 1] << 16) | (b[j * 4 + 2] << 8) | b[j * 4 + 3];
+        j++;
+    }
+    return buffer;
+};
 /*
 module.exports.bytes2Int32BufferLeAligned = function(b) {
 	var len = b.length;
 	if (!len) return [];
-	var bufferLength = len ? (((len - 1) >>> 2) + 1) : 0;
-	var buffer = new Array(bufferLength);
-	for (var j = 0; j < bufferLength; j++) {
+	var len2 = len ? (((len - 1) >>> 2) + 1) : 0;
+	var buffer = new Array(len);
+	var j = 0;
+	while (j < len2) {
 		buffer[j] = (b[j * 4 + 3] << 24) | (b[j * 4 + 2] << 16) | (b[j * 4 + 1] << 8) | b[j * 4];
-	}
+		j++;
+	};
 	return buffer;
 }
 */
 module.exports.bytes2Int64Buffer = function(b) {
-	var len = b.length;
-	if (!len) return [];
-	var bufferLength = len ? (((len - 1) >>> 3) + 1) : 0,
-		buffer = new Array(bufferLength),
-		j = 0;
-	while (j < bufferLength) {
-		buffer[j] = new op.u64((b[j * 8] << 24) | (b[j * 8 + 1] << 16) | (b[j * 8 + 2] << 8) | b[j * 8 + 3], (b[j * 8 + 4] << 24) | (b[j * 8 + 5] << 16) | (b[j * 8 + 6] << 8) | b[j * 8 + 7]);
-		j++;
-	}
-	return buffer;
-}
+    if (!b) return [];
+    var len = b.length ? (((b.length - 1) >>> 3) + 1) : 0;
+    var buffer = new Array(len);
+    var j = 0;
+    while (j < len) {
+        buffer[j] = new op.u64((b[j * 8] << 24) | (b[j * 8 + 1] << 16) | (b[j * 8 + 2] << 8) | b[j * 8 + 3], (b[j * 8 + 4] << 24) | (b[j * 8 + 5] << 16) | (b[j * 8 + 6] << 8) | b[j * 8 + 7]);
+        j++;
+    }
+    return buffer;
+};
 
 module.exports.bytes2Int64BufferLeAligned = function(b) {
-	var len = b.length;
-	if (!len) return [];
-	var bufferLength = len ? (((len - 1) >>> 3) + 1) : 0,
-		buffer = new Array(bufferLength),
-		j = 0;
-	while (j < bufferLength) {
-		buffer[j] = new op.u64((b[j * 8 + 7] << 24) | (b[j * 8 + 6] << 16) | (b[j * 8 + 5] << 8) | b[j * 8 + 4], (b[j * 8 + 3] << 24) | (b[j * 8 + 2] << 16) | (b[j * 8 + 1] << 8) | b[j * 8]);
-		j++;
-	}
-	return buffer;
-}
+    if (!b) return [];
+    var len = b.length ? ((( b.length - 1) >>> 3) + 1) : 0;
+    var buffer = new Array(len);
+    var j = 0;
+    while (j < len) {
+        buffer[j] = new op.u64((b[j * 8 + 7] << 24) | (b[j * 8 + 6] << 16) | (b[j * 8 + 5] << 8) | b[j * 8 + 4], (b[j * 8 + 3] << 24) | (b[j * 8 + 2] << 16) | (b[j * 8 + 1] << 8) | b[j * 8]);
+        j++;
+    }
+    return buffer;
+};
 
 module.exports.bufferEncode64leAligned = function(buffer, offset, uint64) {
-	buffer[offset + 7] = uint64.hi >>> 24;
-	buffer[offset + 6] = uint64.hi >>> 16 & 0xFF;
-	buffer[offset + 5] = uint64.hi >>> 8 & 0xFF;
-	buffer[offset + 4] = uint64.hi & 0xFF;
-	buffer[offset + 3] = uint64.lo >>> 24;
-	buffer[offset + 2] = uint64.lo >>> 16 & 0xFF;
-	buffer[offset + 1] = uint64.lo >>> 8 & 0xFF;
-	buffer[offset + 0] = uint64.lo & 0xFF;
-}
+    buffer[offset + 7] = uint64.hi >>> 24;
+    buffer[offset + 6] = uint64.hi >>> 16 & 0xFF;
+    buffer[offset + 5] = uint64.hi >>> 8 & 0xFF;
+    buffer[offset + 4] = uint64.hi & 0xFF;
+    buffer[offset + 3] = uint64.lo >>> 24;
+    buffer[offset + 2] = uint64.lo >>> 16 & 0xFF;
+    buffer[offset + 1] = uint64.lo >>> 8 & 0xFF;
+    buffer[offset + 0] = uint64.lo & 0xFF;
+};
 
 module.exports.bufferEncode64 = function(buffer, offset, uint64) {
-	buffer[offset] = uint64.hi >>> 24;
-	buffer[offset + 1] = uint64.hi >>> 16 & 0xFF;
-	buffer[offset + 2] = uint64.hi >>> 8 & 0xFF;
-	buffer[offset + 3] = uint64.hi & 0xFF;
-	buffer[offset + 4] = uint64.lo >>> 24;
-	buffer[offset + 5] = uint64.lo >>> 16 & 0xFF;
-	buffer[offset + 6] = uint64.lo >>> 8 & 0xFF;
-	buffer[offset + 7] = uint64.lo & 0xFF;
-}
+    buffer[offset] = uint64.hi >>> 24;
+    buffer[offset + 1] = uint64.hi >>> 16 & 0xFF;
+    buffer[offset + 2] = uint64.hi >>> 8 & 0xFF;
+    buffer[offset + 3] = uint64.hi & 0xFF;
+    buffer[offset + 4] = uint64.lo >>> 24;
+    buffer[offset + 5] = uint64.lo >>> 16 & 0xFF;
+    buffer[offset + 6] = uint64.lo >>> 8 & 0xFF;
+    buffer[offset + 7] = uint64.lo & 0xFF;
+};
 
 module.exports.int32Buffer2Bytes = function(b) {
-	var len = b.length,
-		bufferLength = len * 4,
-		buffer = new Array(bufferLength),
-		i = 0;
-	while (i < len) {
-		buffer[i * 4] = (b[i] & 0xFF000000) >>> 24;
-		buffer[i * 4 + 1] = (b[i] & 0x00FF0000) >>> 16;
-		buffer[i * 4 + 2] = (b[i] & 0x0000FF00) >>> 8;
-		buffer[i * 4 + 3] = (b[i] & 0x000000FF);
-		i++;
-	}
-	return buffer;
-}
-
+    var buffer = new Array(b.length);
+    var len = b.length;
+    var i = 0;
+    while (i < len) {
+        buffer[i * 4] = (b[i] & 0xFF000000) >>> 24;
+        buffer[i * 4 + 1] = (b[i] & 0x00FF0000) >>> 16;
+        buffer[i * 4 + 2] = (b[i] & 0x0000FF00) >>> 8;
+        buffer[i * 4 + 3] = (b[i] & 0x000000FF);
+        i++;
+    }
+    return buffer;
+};
+/*
 module.exports.int64Buffer2Bytes = function(b) {
-	var len = b.length,
-		bufferLength = len * 8,
-		buffer = new Array(bufferLength),
-		i = 0;
-	while (i < len) {
+	var buffer = new Array(b.length);
+	var i = 0;
+	while (i < b.length) {
 		buffer[i * 8] = (b[i].hi & 0xFF000000) >>> 24;
 		buffer[i * 8 + 1] = (b[i].hi & 0x00FF0000) >>> 16;
 		buffer[i * 8 + 2] = (b[i].hi & 0x0000FF00) >>> 8;
@@ -2954,74 +2938,78 @@ module.exports.int64Buffer2Bytes = function(b) {
 	}
 	return buffer;
 }
-
+*/
 
 module.exports.string2Int32Buffer = function(s) {
-	return this.bytes2Int32Buffer(this.string2bytes(s));
-}
+    return this.bytes2Int32Buffer(this.string2bytes(s));
+};
 
-var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
 module.exports.b64Encode = function(input) {
-	var output = "",
-		chr1, chr2, chr3, enc1, enc2, enc3, enc4,
-		i = 0;
+    var output = '';
+    var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+    var i = 0;
 
-	while (i < input.length) {
+    while (i < input.length) {
 
-		chr1 = input[i++];
-		chr2 = input[i++];
-		chr3 = input[i++];
+        chr1 = input[i++];
+        chr2 = input[i++];
+        chr3 = input[i++];
 
-		enc1 = chr1 >> 2;
-		enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-		enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-		enc4 = chr3 & 63;
+        enc1 = chr1 >> 2;
+        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+        enc4 = chr3 & 63;
 
-		if (isNaN(chr2)) {
-			enc3 = enc4 = 64;
-		}
-		else if (isNaN(chr3)) {
-			enc4 = 64;
-		}
-		output = output +
+        if (isNaN(chr2)) {
+            enc3 = enc4 = 64;
+        }
+        else if (isNaN(chr3)) {
+            enc4 = 64;
+        }
+
+        output +=
 			keyStr.charAt(enc1) + keyStr.charAt(enc2) +
 			keyStr.charAt(enc3) + keyStr.charAt(enc4);
-	}
-	return output;
+    }
+
+    return output;
 };
 
 module.exports.b64Decode = function(input) {
-	var output = [],
-		chr1, chr2, chr3, enc1, enc2, enc3, enc4,
-		i = 0;
+    var output = [];
+    var chr1, chr2, chr3;
+    var enc1, enc2, enc3, enc4;
+    var i = 0;
 
-	input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-	var len = input.length;
+    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
 
-	while (i < len) {
+    while (i < input.length) {
 
-		enc1 = keyStr.indexOf(input.charAt(i++));
-		enc2 = keyStr.indexOf(input.charAt(i++));
-		enc3 = keyStr.indexOf(input.charAt(i++));
-		enc4 = keyStr.indexOf(input.charAt(i++));
+        enc1 = keyStr.indexOf(input.charAt(i++));
+        enc2 = keyStr.indexOf(input.charAt(i++));
+        enc3 = keyStr.indexOf(input.charAt(i++));
+        enc4 = keyStr.indexOf(input.charAt(i++));
 
-		chr1 = (enc1 << 2) | (enc2 >> 4);
-		chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-		chr3 = ((enc3 & 3) << 6) | enc4;
+        chr1 = (enc1 << 2) | (enc2 >> 4);
+        chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+        chr3 = ((enc3 & 3) << 6) | enc4;
 
-		output.push(chr1);
+        output.push(chr1);
 
-		if (enc3 != 64) {
-			output.push(chr2);
-		}
-		if (enc4 != 64) {
-			output.push(chr3);
-		}
-	}
-	return output;
+        if (enc3 != 64) {
+            output.push(chr2);
+        }
+        if (enc4 != 64) {
+            output.push(chr3);
+        }
+    }
+    return output;
 };
+
 },{"./op.js":11}],8:[function(require,module,exports){
+'use strict';
 /////////////////////////////////////
 ///////////////  Jh /////////////////
 
@@ -3039,9 +3027,9 @@ var Jh_StateSize = 32;
 var JH_HX = 8;
 var JH_HY = 4;
 
-var IV512 = he.bytes2Int32Buffer(he.b64Decode("b9FLlj4Aqhdjai4FehXVQ4oiXo0Ml+8L6TQSWfKzw2GJHaDBU2+AHiqpBWvqK22AWI7M2yB1uqapDzp2uvg79wFp5gVB40ppRrWKji5v5loQR6fQwYQ8JDtucbEtWsGZz1f27J2x+FanBoh8VxaxVuPC/N/mhRf7VFpGeMyM3Us="));
+var IV512 = he.bytes2Int32Buffer(he.b64Decode('b9FLlj4Aqhdjai4FehXVQ4oiXo0Ml+8L6TQSWfKzw2GJHaDBU2+AHiqpBWvqK22AWI7M2yB1uqapDzp2uvg79wFp5gVB40ppRrWKji5v5loQR6fQwYQ8JDtucbEtWsGZz1f27J2x+FanBoh8VxaxVuPC/N/mhRf7VFpGeMyM3Us='));
 
-var C = he.bytes2Int32Buffer(he.b64Decode("ot7Vcmf4Fd8KFYR7VxUjt5DWq4H2h1pNxU+fTkAr0cPgOpjqnPpFXJnSxQOambJmtJYCZopTu/IaFFa1MaLbiFxaowPbDhmaCrI/QBBEwYeAGQUcHZWehK3rM2/czedekhO6EEFrvwIVZXjc0Ce79zmBLApQeKo30r8aP9ORAEENWi1CkH7M9pyfYt3Ol8CSC6dcGKxEK8fWZd/RI/zGYwNsbpcauOCefkUFIajsbES7A/Hu+mGOXbKXlv2XgYOUN4WOSi8wA9stjWcqlWqf+4Fz/opsabj4RnLHihRCf8CPFfTFxF7HvadvRHWAuxGPt3XeUryI5K4eALiC9KOmmDOP9I4VY6OpJFZfqon5t9Ug7fG2/eBafFrpyjY2LEIGQzUpzj2Y/k50+TpTp0uac1kf9dCGgU5vga2dDp9a2K9nBgWnamI07r4oC4snF7luJgd0Rz8QgMZvfqDge0h+xqUKVQ3ApPhKn+fjkZ7xjpeBcnaG1I1gUEFann5isOXz7B+f/HogVEAAGuTjhMn0zvWU10/YlfqdEX4uVaVUwyQoct9bKG7+veJ/9XiyxKUP73yJBS7TSe6Fk35Ef1ko6zdpX3BKMSSz8SiGXmXk1h0EdxvH5yC5UehD/nSKh9Qjo+gpffKUdpIJesvdwdkwm/swGx3gG9xbT0kk2r+CnPIxuuek/79wtAVEMg1IvPjeMvyuOznTu1PBw59FoIsp4P0FyeUPCa73EjRwlDTxkEIBt3Gile1E4zaOO+lKmC9PYx1AiBX2bKBLRMFH/69Sh/FKu34wxgrixbZwRuaMbsxWpNWkAMpPvUuEndquGD7IRc5Xc63RZDBozqboZyVcFPKM2qMW4Q7LWAbpM5qZlJogsmAfe4Rvwn+sztEYhdGgoVtZMtMZ3Y3AHJpQRrSlqmdjPZ+6awTkqxnK9n7uVgvqebEfdCEoqTX3venuUTY7WqxXHXbTUHX+wkY6AXB9o6/BNfdC2KSYIOzteHlna54VY4NBqNs66k07w/qDLIMyHztAp/NHJxw08EBZmnYtt2xOPuf9TyHSOY39uO9ZV9xJDJuN2utJK0nXolsNcPNo0K47fYRVjXrw6aX1ZY745PSiuKBTOxA2ngeoDFrsPnWSlGiRT4joVlVcsFtMvLr4mTu743uUh/PW9Np1XRxrciisrmRtszTcUKU0bHHbKLjy4mH4KlGNEDNk2+P8dd1Z8bysHKI/zkM80btnsEPoAspbCjN1oSmITRk0f1xTFrTDlDuSHk15Dtd1dHk/r+6299So6iE5Gr4JfvRcUScjTFMkoybSPDK6ShejRK3Vpm2mPh21CMnyr5g9WYNWPGuRoXz4TE1ghnLMPuJG9sduCLMzmC9edryxpWbWKyrmxO/otvQGNtTBvhWC7nRjIe+8DU7B/WnJU/TEWn2nJlhYBhYUwX4W+uAGPa+Qfj+dYyjj8snSDNKbADDOql8wDNS3FlEqdJgy4PLYMOsNmvjO43uexUuSefG1buZR/9NohgRXTSObMWeW5vOm5swFdQoX2YF2sc5sMhOEUhc8YqIF+LPLK/RHFUd4glRG/0hqkyMHWN84ZWVeTol8/PKOUIb8RC5wMYbKC9CiCUDwTkd4MDnuoGWDOPfRN+le9706LOQmspchb/gTAdHtRKPn3p/vFd+gi9mSJXb294U8vkLcEnzsp9h+sCer2n2NU96oPqqTziWq2GkCvf1D9lr5CHMa2u9fwKUZShczZk2XaiH9TDGYtDVwFUHbuw8e6ptUze2hY9CackCXUb+ddfbib0eR"));
+var C = he.bytes2Int32Buffer(he.b64Decode('ot7Vcmf4Fd8KFYR7VxUjt5DWq4H2h1pNxU+fTkAr0cPgOpjqnPpFXJnSxQOambJmtJYCZopTu/IaFFa1MaLbiFxaowPbDhmaCrI/QBBEwYeAGQUcHZWehK3rM2/czedekhO6EEFrvwIVZXjc0Ce79zmBLApQeKo30r8aP9ORAEENWi1CkH7M9pyfYt3Ol8CSC6dcGKxEK8fWZd/RI/zGYwNsbpcauOCefkUFIajsbES7A/Hu+mGOXbKXlv2XgYOUN4WOSi8wA9stjWcqlWqf+4Fz/opsabj4RnLHihRCf8CPFfTFxF7HvadvRHWAuxGPt3XeUryI5K4eALiC9KOmmDOP9I4VY6OpJFZfqon5t9Ug7fG2/eBafFrpyjY2LEIGQzUpzj2Y/k50+TpTp0uac1kf9dCGgU5vga2dDp9a2K9nBgWnamI07r4oC4snF7luJgd0Rz8QgMZvfqDge0h+xqUKVQ3ApPhKn+fjkZ7xjpeBcnaG1I1gUEFann5isOXz7B+f/HogVEAAGuTjhMn0zvWU10/YlfqdEX4uVaVUwyQoct9bKG7+veJ/9XiyxKUP73yJBS7TSe6Fk35Ef1ko6zdpX3BKMSSz8SiGXmXk1h0EdxvH5yC5UehD/nSKh9Qjo+gpffKUdpIJesvdwdkwm/swGx3gG9xbT0kk2r+CnPIxuuek/79wtAVEMg1IvPjeMvyuOznTu1PBw59FoIsp4P0FyeUPCa73EjRwlDTxkEIBt3Gile1E4zaOO+lKmC9PYx1AiBX2bKBLRMFH/69Sh/FKu34wxgrixbZwRuaMbsxWpNWkAMpPvUuEndquGD7IRc5Xc63RZDBozqboZyVcFPKM2qMW4Q7LWAbpM5qZlJogsmAfe4Rvwn+sztEYhdGgoVtZMtMZ3Y3AHJpQRrSlqmdjPZ+6awTkqxnK9n7uVgvqebEfdCEoqTX3venuUTY7WqxXHXbTUHX+wkY6AXB9o6/BNfdC2KSYIOzteHlna54VY4NBqNs66k07w/qDLIMyHztAp/NHJxw08EBZmnYtt2xOPuf9TyHSOY39uO9ZV9xJDJuN2utJK0nXolsNcPNo0K47fYRVjXrw6aX1ZY745PSiuKBTOxA2ngeoDFrsPnWSlGiRT4joVlVcsFtMvLr4mTu743uUh/PW9Np1XRxrciisrmRtszTcUKU0bHHbKLjy4mH4KlGNEDNk2+P8dd1Z8bysHKI/zkM80btnsEPoAspbCjN1oSmITRk0f1xTFrTDlDuSHk15Dtd1dHk/r+6299So6iE5Gr4JfvRcUScjTFMkoybSPDK6ShejRK3Vpm2mPh21CMnyr5g9WYNWPGuRoXz4TE1ghnLMPuJG9sduCLMzmC9edryxpWbWKyrmxO/otvQGNtTBvhWC7nRjIe+8DU7B/WnJU/TEWn2nJlhYBhYUwX4W+uAGPa+Qfj+dYyjj8snSDNKbADDOql8wDNS3FlEqdJgy4PLYMOsNmvjO43uexUuSefG1buZR/9NohgRXTSObMWeW5vOm5swFdQoX2YF2sc5sMhOEUhc8YqIF+LPLK/RHFUd4glRG/0hqkyMHWN84ZWVeTol8/PKOUIb8RC5wMYbKC9CiCUDwTkd4MDnuoGWDOPfRN+le9706LOQmspchb/gTAdHtRKPn3p/vFd+gi9mSJXb294U8vkLcEnzsp9h+sCer2n2NU96oPqqTziWq2GkCvf1D9lr5CHMa2u9fwKUZShczZk2XaiH9TDGYtDVwFUHbuw8e6ptUze2hY9CackCXUb+ddfbib0eR'));
 
 // var IV512 = [
 //   (0x6fd14b96), (0x3e00aa17), (0x636a2e05), (0x7a15d543),
@@ -3171,350 +3159,349 @@ var C = he.bytes2Int32Buffer(he.b64Decode("ot7Vcmf4Fd8KFYR7VxUjt5DWq4H2h1pNxU+fT
 // ];
 
 var Sb = function(x, c) {
-  x[3] = ~x[3];
-  x[0] ^= (c) & ~x[2];
-  var tmp = (c) ^ (x[0] & x[1]);
-  x[0] ^= x[2] & x[3];
-  x[3] ^= ~x[1] & x[2];
-  x[1] ^= x[0] & x[2];
-  x[2] ^= x[0] & ~x[3];
-  x[0] ^= x[1] | x[3];
-  x[3] ^= x[1] & x[2];
-  x[1] ^= tmp & x[0];
-  x[2] ^= tmp;
-  return x;
-}
+    x[3] = ~x[3];
+    x[0] ^= (c) & ~x[2];
+    var tmp = (c) ^ (x[0] & x[1]);
+    x[0] ^= x[2] & x[3];
+    x[3] ^= ~x[1] & x[2];
+    x[1] ^= x[0] & x[2];
+    x[2] ^= x[0] & ~x[3];
+    x[0] ^= x[1] | x[3];
+    x[3] ^= x[1] & x[2];
+    x[1] ^= tmp & x[0];
+    x[2] ^= tmp;
+    return x;
+};
 
 var Lb = function(x) {
-  x[4] ^= x[1];
-  x[5] ^= x[2];
-  x[6] ^= x[3] ^ x[0];
-  x[7] ^= x[0];
-  x[0] ^= x[5];
-  x[1] ^= x[6];
-  x[2] ^= x[7] ^ x[4];
-  x[3] ^= x[4];
-  return x;
-}
+    x[4] ^= x[1];
+    x[5] ^= x[2];
+    x[6] ^= x[3] ^ x[0];
+    x[7] ^= x[0];
+    x[0] ^= x[5];
+    x[1] ^= x[6];
+    x[2] ^= x[7] ^ x[4];
+    x[3] ^= x[4];
+    return x;
+};
 
 var Ceven = function(n, r) {
-  return C[((r) << 3) + 3 - n];
-}
+    return C[((r) << 3) + 3 - n];
+};
 
 var Codd = function(n, r) {
-  return C[((r) << 3) + 7 - n];
-}
+    return C[((r) << 3) + 7 - n];
+};
 
 var S = function(x0, x1, x2, x3, cb, r) {
-  var x = Sb([x0[3], x1[3], x2[3], x3[3]], cb(3, r));
-  x0[3] = x[0];
-  x1[3] = x[1];
-  x2[3] = x[2];
-  x3[3] = x[3];
-  x = Sb([x0[2], x1[2], x2[2], x3[2]], cb(2, r));
-  x0[2] = x[0];
-  x1[2] = x[1];
-  x2[2] = x[2];
-  x3[2] = x[3];
-  x = Sb([x0[1], x1[1], x2[1], x3[1]], cb(1, r));
-  x0[1] = x[0];
-  x1[1] = x[1];
-  x2[1] = x[2];
-  x3[1] = x[3];
-  x = Sb([x0[0], x1[0], x2[0], x3[0]], cb(0, r));
-  x0[0] = x[0];
-  x1[0] = x[1];
-  x2[0] = x[2];
-  x3[0] = x[3];
-}
+    var x = Sb([x0[3], x1[3], x2[3], x3[3]], cb(3, r));
+    x0[3] = x[0];
+    x1[3] = x[1];
+    x2[3] = x[2];
+    x3[3] = x[3];
+    x = Sb([x0[2], x1[2], x2[2], x3[2]], cb(2, r));
+    x0[2] = x[0];
+    x1[2] = x[1];
+    x2[2] = x[2];
+    x3[2] = x[3];
+    x = Sb([x0[1], x1[1], x2[1], x3[1]], cb(1, r));
+    x0[1] = x[0];
+    x1[1] = x[1];
+    x2[1] = x[2];
+    x3[1] = x[3];
+    x = Sb([x0[0], x1[0], x2[0], x3[0]], cb(0, r));
+    x0[0] = x[0];
+    x1[0] = x[1];
+    x2[0] = x[2];
+    x3[0] = x[3];
+};
 
 var L = function(x0, x1, x2, x3, x4, x5, x6, x7) {
-  var x = Lb([x0[3], x1[3], x2[3], x3[3], x4[3], x5[3], x6[3], x7[3]]);
-  x0[3] = x[0];
-  x1[3] = x[1];
-  x2[3] = x[2];
-  x3[3] = x[3];
-  x4[3] = x[4];
-  x5[3] = x[5];
-  x6[3] = x[6];
-  x7[3] = x[7];
-  x = Lb([x0[2], x1[2], x2[2], x3[2], x4[2], x5[2], x6[2], x7[2]]);
-  x0[2] = x[0];
-  x1[2] = x[1];
-  x2[2] = x[2];
-  x3[2] = x[3];
-  x4[2] = x[4];
-  x5[2] = x[5];
-  x6[2] = x[6];
-  x7[2] = x[7];
-  x = Lb([x0[1], x1[1], x2[1], x3[1], x4[1], x5[1], x6[1], x7[1]]);
-  x0[1] = x[0];
-  x1[1] = x[1];
-  x2[1] = x[2];
-  x3[1] = x[3];
-  x4[1] = x[4];
-  x5[1] = x[5];
-  x6[1] = x[6];
-  x7[1] = x[7];
-  x = Lb([x0[0], x1[0], x2[0], x3[0], x4[0], x5[0], x6[0], x7[0]]);
-  x0[0] = x[0];
-  x1[0] = x[1];
-  x2[0] = x[2];
-  x3[0] = x[3];
-  x4[0] = x[4];
-  x5[0] = x[5];
-  x6[0] = x[6];
-  x7[0] = x[7];
-}
+    var x = Lb([x0[3], x1[3], x2[3], x3[3], x4[3], x5[3], x6[3], x7[3]]);
+    x0[3] = x[0];
+    x1[3] = x[1];
+    x2[3] = x[2];
+    x3[3] = x[3];
+    x4[3] = x[4];
+    x5[3] = x[5];
+    x6[3] = x[6];
+    x7[3] = x[7];
+    x = Lb([x0[2], x1[2], x2[2], x3[2], x4[2], x5[2], x6[2], x7[2]]);
+    x0[2] = x[0];
+    x1[2] = x[1];
+    x2[2] = x[2];
+    x3[2] = x[3];
+    x4[2] = x[4];
+    x5[2] = x[5];
+    x6[2] = x[6];
+    x7[2] = x[7];
+    x = Lb([x0[1], x1[1], x2[1], x3[1], x4[1], x5[1], x6[1], x7[1]]);
+    x0[1] = x[0];
+    x1[1] = x[1];
+    x2[1] = x[2];
+    x3[1] = x[3];
+    x4[1] = x[4];
+    x5[1] = x[5];
+    x6[1] = x[6];
+    x7[1] = x[7];
+    x = Lb([x0[0], x1[0], x2[0], x3[0], x4[0], x5[0], x6[0], x7[0]]);
+    x0[0] = x[0];
+    x1[0] = x[1];
+    x2[0] = x[2];
+    x3[0] = x[3];
+    x4[0] = x[4];
+    x5[0] = x[5];
+    x6[0] = x[6];
+    x7[0] = x[7];
+};
 
 var Wz = function(x, c, n) {
-  var t = (x[3] & (c)) << (n);
-  x[3] = ((x[3] >> (n)) & (c)) | t;
-  t = (x[2] & (c)) << (n);
-  x[2] = ((x[2] >> (n)) & (c)) | t;
-  t = (x[1] & (c)) << (n);
-  x[1] = ((x[1] >> (n)) & (c)) | t;
-  t = (x[0] & (c)) << (n);
-  x[0] = ((x[0] >> (n)) & (c)) | t;
-}
+    var t = (x[3] & (c)) << (n);
+    x[3] = ((x[3] >> (n)) & (c)) | t;
+    t = (x[2] & (c)) << (n);
+    x[2] = ((x[2] >> (n)) & (c)) | t;
+    t = (x[1] & (c)) << (n);
+    x[1] = ((x[1] >> (n)) & (c)) | t;
+    t = (x[0] & (c)) << (n);
+    x[0] = ((x[0] >> (n)) & (c)) | t;
+};
 
 var W = function(ro, x) {
-  switch (ro) {
-    case 0:
-      return Wz(x, (0x55555555), 1);
-    case 1:
-      return Wz(x, (0x33333333), 2);
-    case 2:
-      return Wz(x, (0x0F0F0F0F), 4);
-    case 3:
-      return Wz(x, (0x00FF00FF), 8);
-    case 4:
-      return Wz(x, (0x0000FFFF), 16);
-    case 5:
-      {
-        var t = x[3];
-        x[3] = x[2];
-        x[2] = t;
-        t = x[1];
-        x[1] = x[0];
-        x[0] = t;
-        return;
-      }
-    case 6:
-      {
-        var t = x[3];
-        x[3] = x[1];
-        x[1] = t;
-        t = x[2];
-        x[2] = x[0];
-        x[0] = t;
-        return;
-      }
-  }
-}
+    switch (ro) {
+        case 0:
+            return Wz(x, (0x55555555), 1);
+        case 1:
+            return Wz(x, (0x33333333), 2);
+        case 2:
+            return Wz(x, (0x0F0F0F0F), 4);
+        case 3:
+            return Wz(x, (0x00FF00FF), 8);
+        case 4:
+            return Wz(x, (0x0000FFFF), 16);
+        case 5:
+        {
+            var t = x[3];
+            x[3] = x[2];
+            x[2] = t;
+            t = x[1];
+            x[1] = x[0];
+            x[0] = t;
+            return;
+        }
+        case 6:
+        {
+            var t = x[3];
+            x[3] = x[1];
+            x[1] = t;
+            t = x[2];
+            x[2] = x[0];
+            x[0] = t;
+
+        }
+    }
+};
 
 var SL = function(h, r, ro) {
-  S(h[0], h[2], h[4], h[6], Ceven, r);
-  S(h[1], h[3], h[5], h[7], Codd, r);
-  L(h[0], h[2], h[4], h[6], h[1], h[3], h[5], h[7]);
-  W(ro, h[1]);
-  W(ro, h[3]);
-  W(ro, h[5]);
-  W(ro, h[7]);
-}
+    S(h[0], h[2], h[4], h[6], Ceven, r);
+    S(h[1], h[3], h[5], h[7], Codd, r);
+    L(h[0], h[2], h[4], h[6], h[1], h[3], h[5], h[7]);
+    W(ro, h[1]);
+    W(ro, h[3]);
+    W(ro, h[5]);
+    W(ro, h[7]);
+};
 
 var READ_STATE = function(h, state) {
-  h[0][3] = state[0];
-  h[0][2] = state[1];
-  h[0][1] = state[2];
-  h[0][0] = state[3];
-  h[1][3] = state[4];
-  h[1][2] = state[5];
-  h[1][1] = state[6];
-  h[1][0] = state[7];
-  h[2][3] = state[8];
-  h[2][2] = state[9];
-  h[2][1] = state[10];
-  h[2][0] = state[11];
-  h[3][3] = state[12];
-  h[3][2] = state[13];
-  h[3][1] = state[14];
-  h[3][0] = state[15];
-  h[4][3] = state[16];
-  h[4][2] = state[17];
-  h[4][1] = state[18];
-  h[4][0] = state[19];
-  h[5][3] = state[20];
-  h[5][2] = state[21];
-  h[5][1] = state[22];
-  h[5][0] = state[23];
-  h[6][3] = state[24];
-  h[6][2] = state[25];
-  h[6][1] = state[26];
-  h[6][0] = state[27];
-  h[7][3] = state[28];
-  h[7][2] = state[29];
-  h[7][1] = state[30];
-  h[7][0] = state[31];
-}
+    h[0][3] = state[0];
+    h[0][2] = state[1];
+    h[0][1] = state[2];
+    h[0][0] = state[3];
+    h[1][3] = state[4];
+    h[1][2] = state[5];
+    h[1][1] = state[6];
+    h[1][0] = state[7];
+    h[2][3] = state[8];
+    h[2][2] = state[9];
+    h[2][1] = state[10];
+    h[2][0] = state[11];
+    h[3][3] = state[12];
+    h[3][2] = state[13];
+    h[3][1] = state[14];
+    h[3][0] = state[15];
+    h[4][3] = state[16];
+    h[4][2] = state[17];
+    h[4][1] = state[18];
+    h[4][0] = state[19];
+    h[5][3] = state[20];
+    h[5][2] = state[21];
+    h[5][1] = state[22];
+    h[5][0] = state[23];
+    h[6][3] = state[24];
+    h[6][2] = state[25];
+    h[6][1] = state[26];
+    h[6][0] = state[27];
+    h[7][3] = state[28];
+    h[7][2] = state[29];
+    h[7][1] = state[30];
+    h[7][0] = state[31];
+};
 
 var WRITE_STATE = function(h, state) {
-  state[0] = h[0][3];
-  state[1] = h[0][2];
-  state[2] = h[0][1];
-  state[3] = h[0][0];
-  state[4] = h[1][3];
-  state[5] = h[1][2];
-  state[6] = h[1][1];
-  state[7] = h[1][0];
-  state[8] = h[2][3];
-  state[9] = h[2][2];
-  state[10] = h[2][1];
-  state[11] = h[2][0];
-  state[12] = h[3][3];
-  state[13] = h[3][2];
-  state[14] = h[3][1];
-  state[15] = h[3][0];
-  state[16] = h[4][3];
-  state[17] = h[4][2];
-  state[18] = h[4][1];
-  state[19] = h[4][0];
-  state[20] = h[5][3];
-  state[21] = h[5][2];
-  state[22] = h[5][1];
-  state[23] = h[5][0];
-  state[24] = h[6][3];
-  state[25] = h[6][2];
-  state[26] = h[6][1];
-  state[27] = h[6][0];
-  state[28] = h[7][3];
-  state[29] = h[7][2];
-  state[30] = h[7][1];
-  state[31] = h[7][0];
-}
+    state[0] = h[0][3];
+    state[1] = h[0][2];
+    state[2] = h[0][1];
+    state[3] = h[0][0];
+    state[4] = h[1][3];
+    state[5] = h[1][2];
+    state[6] = h[1][1];
+    state[7] = h[1][0];
+    state[8] = h[2][3];
+    state[9] = h[2][2];
+    state[10] = h[2][1];
+    state[11] = h[2][0];
+    state[12] = h[3][3];
+    state[13] = h[3][2];
+    state[14] = h[3][1];
+    state[15] = h[3][0];
+    state[16] = h[4][3];
+    state[17] = h[4][2];
+    state[18] = h[4][1];
+    state[19] = h[4][0];
+    state[20] = h[5][3];
+    state[21] = h[5][2];
+    state[22] = h[5][1];
+    state[23] = h[5][0];
+    state[24] = h[6][3];
+    state[25] = h[6][2];
+    state[26] = h[6][1];
+    state[27] = h[6][0];
+    state[28] = h[7][3];
+    state[29] = h[7][2];
+    state[30] = h[7][1];
+    state[31] = h[7][0];
+};
 
 var E8 = function(h) {
-  for (var r = 0; r < 42; r += 7) {
-    SL(h, r + 0, 0);
-    SL(h, r + 1, 1);
-    SL(h, r + 2, 2);
-    SL(h, r + 3, 3);
-    SL(h, r + 4, 4);
-    SL(h, r + 5, 5);
-    SL(h, r + 6, 6);
-  }
-}
+    for (var r = 0; r < 42; r += 7) {
+        SL(h, r + 0, 0);
+        SL(h, r + 1, 1);
+        SL(h, r + 2, 2);
+        SL(h, r + 3, 3);
+        SL(h, r + 4, 4);
+        SL(h, r + 5, 5);
+        SL(h, r + 6, 6);
+    }
+};
 
 var bufferXORInsertBackwards = function(buffer, data, x, y, bufferOffsetX, bufferOffsetY) {
-  if (!bufferOffsetX) bufferOffsetX = 0;
-  if (!bufferOffsetY) bufferOffsetY = 0;
-  for (var i = 0; i < x; i++) {
-    for (var j = 0; j < x; j++) {
-      var m = i + bufferOffsetX;
-      var n = bufferOffsetY + y - 1 - j;
-      var xOr = buffer[m][n] ^ data[i * 4 + j];
-      buffer[m][n] = xOr;
+    if (!bufferOffsetX) bufferOffsetX = 0;
+    if (!bufferOffsetY) bufferOffsetY = 0;
+    for (var i = 0; i < x; i++) {
+        for (var j = 0; j < x; j++) {
+            var m = i + bufferOffsetX;
+            var n = bufferOffsetY + y - 1 - j;
+            var xOr = buffer[m][n] ^ data[i * 4 + j];
+            buffer[m][n] = xOr;
+        }
     }
-  }
-}
+};
 
 var jh = function(ctx, data, len) {
-  var buf, ptr;
-  //create a local copy of states
-  buf = ctx.buffer;
-  ptr = ctx.ptr;
-  if (!len) len = data.length;
-  if (len < ctx.buffer.length - ptr) {
-    op.bufferInsert(buf, ptr, data, data.length);
-    ptr += data.length;
-    ctx.ptr = ptr;
-    return;
-  }
-  var V = new Array(JH_HX);
-  for (var i = 0; i < JH_HX; i++) {
-    V[i] = new Array(JH_HY);
-  }
-  READ_STATE(V, ctx.state);
-  while (len > 0) {
-    var clen = ctx.buffer.length - ptr;
-    if (clen > len) clen = len;
-    op.bufferInsert(buf, ptr, data, clen);
-    ptr += clen;
-    data = data.slice(clen);
-    len -= clen;
-    if (ptr === ctx.buffer.length) {
-      var int32Buf = op.swap32Array(he.bytes2Int32Buffer(buf));
-
-      bufferXORInsertBackwards(V, int32Buf, 4, 4);
-      E8(V);
-      bufferXORInsertBackwards(V, int32Buf, 4, 4, 4, 0);
-      if ((ctx.blockCountLow = op.t32(ctx.blockCountLow + 1)) == 0)
-        ctx.blockCountHigh++;
-      ptr = 0;
+    var buf, ptr;
+    //create a local copy of states
+    buf = ctx.buffer;
+    ptr = ctx.ptr;
+    if (!len) len = data.length;
+    if (len < ctx.buffer.length - ptr) {
+        op.bufferInsert(buf, ptr, data, data.length);
+        ptr += data.length;
+        ctx.ptr = ptr;
+        return;
     }
-  }
-  WRITE_STATE(V, ctx.state);
-  ctx.ptr = ptr;
-}
+    var V = new Array(JH_HX);
+    for (var i = 0; i < JH_HX; i++) {
+        V[i] = new Array(JH_HY);
+    }
+    READ_STATE(V, ctx.state);
+    while (len > 0) {
+        var clen = ctx.buffer.length - ptr;
+        if (clen > len) clen = len;
+        op.bufferInsert(buf, ptr, data, clen);
+        ptr += clen;
+        data = data.slice(clen);
+        len -= clen;
+        if (ptr === ctx.buffer.length) {
+            var int32Buf = op.swap32Array(he.bytes2Int32Buffer(buf));
+
+            bufferXORInsertBackwards(V, int32Buf, 4, 4);
+            E8(V);
+            bufferXORInsertBackwards(V, int32Buf, 4, 4, 4, 0);
+            if ((ctx.blockCountLow = op.t32(ctx.blockCountLow + 1)) === 0) ctx.blockCountHigh++;
+            ptr = 0;
+        }
+    }
+    WRITE_STATE(V, ctx.state);
+    ctx.ptr = ptr;
+};
 
 var jhClose = function(ctx) {
-  var z;
-  var buf = new Array(128);
-  var numz, u;
-  var l = new Array(4);
-  buf[0] = 0x80;
-  if (ctx.ptr == 0) {
-    numz = 47;
-  }
-  else {
-    numz = 111 - ctx.ptr;
-  }
-  op.bufferSet(buf, 1, 0, numz);
-  l[0] = op.t32(ctx.blockCountLow << 9) + (ctx.ptr << 3);
-  l[1] = op.t32(ctx.blockCountLow >> 23) + op.t32(ctx.blockCountHigh << 9);
-  l[2] = op.t32(ctx.blockCountHigh >> 23);
-  l[3] = 0;
-  var lBytes = he.int32Buffer2Bytes(op.swap32Array(l));
-  op.bufferInsertBackwards(buf, 1 + numz, lBytes, 16);
-  jh(ctx, buf, numz + 17);
-  var out = new Array(16);
-  for (u = 0; u < 16; u++)
-    out[u] = op.swap32(ctx.state[u + 16]);
-  return out;
-}
+    var buf = new Array(128);
+    var numz, u;
+    var l = new Array(4);
+    buf[0] = 0x80;
+    if (ctx.ptr === 0) {
+        numz = 47;
+    }
+    else {
+        numz = 111 - ctx.ptr;
+    }
+    op.bufferSet(buf, 1, 0, numz);
+    l[0] = op.t32(ctx.blockCountLow << 9) + (ctx.ptr << 3);
+    l[1] = op.t32(ctx.blockCountLow >> 23) + op.t32(ctx.blockCountHigh << 9);
+    l[2] = op.t32(ctx.blockCountHigh >> 23);
+    l[3] = 0;
+    var lBytes = he.int32Buffer2Bytes(op.swap32Array(l));
+    op.bufferInsertBackwards(buf, 1 + numz, lBytes, 16);
+    jh(ctx, buf, numz + 17);
+    var out = new Array(16);
+    for (u = 0; u < 16; u++) out[u] = op.swap32(ctx.state[u + 16]);
+    return out;
+};
 
 module.exports = function(input, format, output) {
-  var msg;
-  if (format === 1) {
-    msg = input;
-  }
-  else if (format === 2) {
-    msg = he.int32Buffer2Bytes(input);
-  }
-  else {
-    msg = he.string2bytes(input);
-  }
-  var ctx = {};
-  ctx.state = op.swap32Array(IV512);
-  ctx.ptr = 0;
-  ctx.buffer = new Array(Jh_BlockSize);
-  ctx.blockCountHigh = 0;
-  ctx.blockCountLow = 0;
-  jh(ctx, msg);
-  var r = jhClose(ctx);
-  var out;
-  if (output === 2) {
-    out = r;
-  }
-  else if (output === 1) {
-    out = he.int32Buffer2Bytes(r)
-  }
-  else {
-    out = he.int32ArrayToHexString(r)
-  }
-  return out;
-}
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = he.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = he.string2bytes(input);
+    }
+    var ctx = {};
+    ctx.state = op.swap32Array(IV512);
+    ctx.ptr = 0;
+    ctx.buffer = new Array(Jh_BlockSize);
+    ctx.blockCountHigh = 0;
+    ctx.blockCountLow = 0;
+    jh(ctx, msg);
+    var r = jhClose(ctx);
+    var out;
+    if (output === 2) {
+        out = r;
+    }
+    else if (output === 1) {
+        out = he.int32Buffer2Bytes(r);
+    }
+    else {
+        out = he.int32ArrayToHexString(r);
+    }
+    return out;
+};
+
 },{"./helper":7,"./op":11}],9:[function(require,module,exports){
+'use strict';
 // Copyright 2015-2016 Chen, Yi-Cyuan
 
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -3540,10 +3527,10 @@ var HEX_CHARS = '0123456789abcdef'.split('');
 var KECCAK_PADDING = [1, 256, 65536, 16777216];
 var SHIFT = [0, 8, 16, 24];
 var RC = [1, 0, 32898, 0, 32906, 2147483648, 2147516416, 2147483648, 32907, 0, 2147483649,
-  0, 2147516545, 2147483648, 32777, 2147483648, 138, 0, 136, 0, 2147516425, 0,
-  2147483658, 0, 2147516555, 0, 139, 2147483648, 32905, 2147483648, 32771,
-  2147483648, 32770, 2147483648, 128, 2147483648, 32778, 0, 2147483658, 2147483648,
-  2147516545, 2147483648, 32896, 2147483648, 2147483649, 0, 2147516424, 2147483648
+    0, 2147516545, 2147483648, 32777, 2147483648, 138, 0, 136, 0, 2147516425, 0,
+    2147483658, 0, 2147516555, 0, 139, 2147483648, 32905, 2147483648, 32771,
+    2147483648, 32770, 2147483648, 128, 2147483648, 32778, 0, 2147483658, 2147483648,
+    2147516545, 2147483648, 32896, 2147483648, 2147483649, 0, 2147516424, 2147483648
 ];
 var BITS = [512];
 var OUTPUT_TYPES = ['hex', 'buffer', 'array'];
@@ -3551,451 +3538,453 @@ var OUTPUT_TYPES = ['hex', 'buffer', 'array'];
 var h = require('./helper');
 
 var createOutputMethod = function(bits, padding, outputType) {
-  return function(message) {
-    return new Keccak(bits, padding, bits).update(message)[outputType]();
-  }
+    return function(message) {
+        return new Keccak(bits, padding, bits).update(message)
+            [outputType]();
+    };
 };
 
 var createShakeOutputMethod = function(bits, padding, outputType) {
-  return function(message, outputBits) {
-    return new Keccak(bits, padding, outputBits).update(message)[outputType]();
-  }
+    return function(message, outputBits) {
+        return new Keccak(bits, padding, outputBits).update(message)
+            [outputType]();
+    };
 };
 
 var createMethod = function(bits, padding) {
-  var method = createOutputMethod(bits, padding, 'array');
-  method.create = function() {
-    return new Keccak(bits, padding, bits);
-  };
-  method.update = function(message) {
-    return method.create().update(message);
-  };
-  for (var i = 0; i < OUTPUT_TYPES.length; ++i) {
-    var type = OUTPUT_TYPES[i];
-    method[type] = createOutputMethod(bits, padding, type);
-  }
-  return method;
+    var method = createOutputMethod(bits, padding, 'array');
+    method.create = function() {
+        return new Keccak(bits, padding, bits);
+    };
+    method.update = function(message) {
+        return method.create().update(message);
+    };
+    for (var i = 0; i < OUTPUT_TYPES.length; ++i) {
+        var type = OUTPUT_TYPES[i];
+        method[type] = createOutputMethod(bits, padding, type);
+    }
+    return method;
 };
 
 var algorithms = [{
-  name: 'keccak',
-  padding: KECCAK_PADDING,
-  bits: BITS,
-  createMethod: createMethod
+    name: 'keccak',
+    padding: KECCAK_PADDING,
+    bits: BITS,
+    createMethod: createMethod
 }];
 
 var methods = {};
 
 for (var i = 0; i < algorithms.length; ++i) {
-  var algorithm = algorithms[i];
-  var bits = algorithm.bits;
-  var createMethod = algorithm.createMethod;
-  for (var j = 0; j < bits.length; ++j) {
-    var method = algorithm.createMethod(bits[j], algorithm.padding);
-    methods[algorithm.name + '_' + bits[j]] = method;
-  }
+    var algorithm = algorithms[i];
+    var bits = algorithm.bits;
+    var createMethod = algorithm.createMethod;
+    for (var j = 0; j < bits.length; ++j) {
+        var method = algorithm.createMethod(bits[j], algorithm.padding);
+        methods[algorithm.name + '_' + bits[j]] = method;
+    }
 }
 
 function Keccak(bits, padding, outputBits) {
-  this.blocks = [];
-  this.s = [];
-  this.padding = padding;
-  this.outputBits = outputBits;
-  this.reset = true;
-  this.block = 0;
-  this.start = 0;
-  this.blockCount = (1600 - (bits << 1)) >> 5;
-  this.byteCount = this.blockCount << 2;
-  this.outputBlocks = outputBits >> 5;
-  this.extraBytes = (outputBits & 31) >> 3;
+    this.blocks = [];
+    this.s = [];
+    this.padding = padding;
+    this.outputBits = outputBits;
+    this.reset = true;
+    this.block = 0;
+    this.start = 0;
+    this.blockCount = (1600 - (bits << 1)) >> 5;
+    this.byteCount = this.blockCount << 2;
+    this.outputBlocks = outputBits >> 5;
+    this.extraBytes = (outputBits & 31) >> 3;
 
-  for (var i = 0; i < 50; ++i) {
-    this.s[i] = 0;
-  }
-};
+    for (var i = 0; i < 50; ++i) {
+        this.s[i] = 0;
+    }
+}
 
 Keccak.prototype.update = function(message) {
-  var notString = typeof(message) != 'string';
-  if (notString && Object.prototype.toString.call(message.constructor) === "[object ArrayBuffer]") {
-    message = h.string2bytes(message);
-  }
-  var length = message.length,
-    blocks = this.blocks,
-    byteCount = this.byteCount,
-    blockCount = this.blockCount,
-    index = 0,
-    s = this.s,
-    i, code;
+    var notString = typeof(message) !== 'string';
+    if (notString && Object.prototype.toString.call(message.constructor) === '[object ArrayBuffer]') {
+        message = h.string2bytes(message);
+    }
+    var length = message.length,
+        blocks = this.blocks,
+        byteCount = this.byteCount,
+        blockCount = this.blockCount,
+        index = 0,
+        s = this.s,
+        i, code;
 
-  while (index < length) {
-    if (this.reset) {
-      this.reset = false;
-      blocks[0] = this.block;
-      for (i = 1; i < blockCount + 1; ++i) {
-        blocks[i] = 0;
-      }
-    }
-    if (notString) {
-      for (i = this.start; index < length && i < byteCount; ++index) {
-        blocks[i >> 2] |= message[index] << SHIFT[i++ & 3];
-      }
-    }
-    else {
-      for (i = this.start; index < length && i < byteCount; ++index) {
-        code = message.charCodeAt(index);
-        if (code < 0x80) {
-          blocks[i >> 2] |= code << SHIFT[i++ & 3];
+    while (index < length) {
+        if (this.reset) {
+            this.reset = false;
+            blocks[0] = this.block;
+            for (i = 1; i < blockCount + 1; ++i) {
+                blocks[i] = 0;
+            }
         }
-        else if (code < 0x800) {
-          blocks[i >> 2] |= (0xc0 | (code >> 6)) << SHIFT[i++ & 3];
-          blocks[i >> 2] |= (0x80 | (code & 0x3f)) << SHIFT[i++ & 3];
-        }
-        else if (code < 0xd800 || code >= 0xe000) {
-          blocks[i >> 2] |= (0xe0 | (code >> 12)) << SHIFT[i++ & 3];
-          blocks[i >> 2] |= (0x80 | ((code >> 6) & 0x3f)) << SHIFT[i++ & 3];
-          blocks[i >> 2] |= (0x80 | (code & 0x3f)) << SHIFT[i++ & 3];
+        if (notString) {
+            for (i = this.start; index < length && i < byteCount; ++index) {
+                blocks[i >> 2] |= message[index] << SHIFT[i++ & 3];
+            }
         }
         else {
-          code = 0x10000 + (((code & 0x3ff) << 10) | (message.charCodeAt(++index) & 0x3ff));
-          blocks[i >> 2] |= (0xf0 | (code >> 18)) << SHIFT[i++ & 3];
-          blocks[i >> 2] |= (0x80 | ((code >> 12) & 0x3f)) << SHIFT[i++ & 3];
-          blocks[i >> 2] |= (0x80 | ((code >> 6) & 0x3f)) << SHIFT[i++ & 3];
-          blocks[i >> 2] |= (0x80 | (code & 0x3f)) << SHIFT[i++ & 3];
+            for (i = this.start; index < length && i < byteCount; ++index) {
+                code = message.charCodeAt(index);
+                if (code < 0x80) {
+                    blocks[i >> 2] |= code << SHIFT[i++ & 3];
+                }
+                else if (code < 0x800) {
+                    blocks[i >> 2] |= (0xc0 | (code >> 6)) << SHIFT[i++ & 3];
+                    blocks[i >> 2] |= (0x80 | (code & 0x3f)) << SHIFT[i++ & 3];
+                }
+                else if (code < 0xd800 || code >= 0xe000) {
+                    blocks[i >> 2] |= (0xe0 | (code >> 12)) << SHIFT[i++ & 3];
+                    blocks[i >> 2] |= (0x80 | ((code >> 6) & 0x3f)) << SHIFT[i++ & 3];
+                    blocks[i >> 2] |= (0x80 | (code & 0x3f)) << SHIFT[i++ & 3];
+                }
+                else {
+                    code = 0x10000 + (((code & 0x3ff) << 10) | (message.charCodeAt(++index) & 0x3ff));
+                    blocks[i >> 2] |= (0xf0 | (code >> 18)) << SHIFT[i++ & 3];
+                    blocks[i >> 2] |= (0x80 | ((code >> 12) & 0x3f)) << SHIFT[i++ & 3];
+                    blocks[i >> 2] |= (0x80 | ((code >> 6) & 0x3f)) << SHIFT[i++ & 3];
+                    blocks[i >> 2] |= (0x80 | (code & 0x3f)) << SHIFT[i++ & 3];
+                }
+            }
         }
-      }
+        this.lastByteIndex = i;
+        if (i >= byteCount) {
+            this.start = i - byteCount;
+            this.block = blocks[blockCount];
+            for (i = 0; i < blockCount; ++i) {
+                s[i] ^= blocks[i];
+            }
+            f(s);
+            this.reset = true;
+        }
+        else {
+            this.start = i;
+        }
     }
-    this.lastByteIndex = i;
-    if (i >= byteCount) {
-      this.start = i - byteCount;
-      this.block = blocks[blockCount];
-      for (i = 0; i < blockCount; ++i) {
-        s[i] ^= blocks[i];
-      }
-      f(s);
-      this.reset = true;
-    }
-    else {
-      this.start = i;
-    }
-  }
-  return this;
+    return this;
 };
 
 Keccak.prototype.finalize = function() {
-  var blocks = this.blocks,
-    i = this.lastByteIndex,
-    blockCount = this.blockCount,
-    s = this.s;
-  blocks[i >> 2] |= this.padding[i & 3];
-  if (this.lastByteIndex == this.byteCount) {
-    blocks[0] = blocks[blockCount];
-    for (i = 1; i < blockCount + 1; ++i) {
-      blocks[i] = 0;
+    var blocks = this.blocks,
+        i = this.lastByteIndex,
+        blockCount = this.blockCount,
+        s = this.s;
+    blocks[i >> 2] |= this.padding[i & 3];
+    if (this.lastByteIndex == this.byteCount) {
+        blocks[0] = blocks[blockCount];
+        for (i = 1; i < blockCount + 1; ++i) {
+            blocks[i] = 0;
+        }
     }
-  }
-  blocks[blockCount - 1] |= 0x80000000;
-  for (i = 0; i < blockCount; ++i) {
-    s[i] ^= blocks[i];
-  }
-  f(s);
+    blocks[blockCount - 1] |= 0x80000000;
+    for (i = 0; i < blockCount; ++i) {
+        s[i] ^= blocks[i];
+    }
+    f(s);
 };
 
 Keccak.prototype.toString = Keccak.prototype.hex = function() {
-  this.finalize();
+    this.finalize();
 
-  var blockCount = this.blockCount,
-    s = this.s,
-    outputBlocks = this.outputBlocks,
-    extraBytes = this.extraBytes,
-    i = 0,
-    j = 0;
-  var hex = '',
-    block;
-  while (j < outputBlocks) {
-    for (i = 0; i < blockCount && j < outputBlocks; ++i, ++j) {
-      block = s[i];
-      hex += HEX_CHARS[(block >> 4) & 0x0F] + HEX_CHARS[block & 0x0F] +
+    var blockCount = this.blockCount,
+        s = this.s,
+        outputBlocks = this.outputBlocks,
+        extraBytes = this.extraBytes,
+        i = 0,
+        j = 0;
+    var hex = '',
+        block;
+    while (j < outputBlocks) {
+        for (i = 0; i < blockCount && j < outputBlocks; ++i, ++j) {
+            block = s[i];
+            hex += HEX_CHARS[(block >> 4) & 0x0F] + HEX_CHARS[block & 0x0F] +
         HEX_CHARS[(block >> 12) & 0x0F] + HEX_CHARS[(block >> 8) & 0x0F] +
         HEX_CHARS[(block >> 20) & 0x0F] + HEX_CHARS[(block >> 16) & 0x0F] +
         HEX_CHARS[(block >> 28) & 0x0F] + HEX_CHARS[(block >> 24) & 0x0F];
+        }
+        if (j % blockCount == 0) {
+            f(s);
+            i = 0;
+        }
     }
-    if (j % blockCount == 0) {
-      f(s);
-      i = 0;
+    if (extraBytes) {
+        block = s[i];
+        if (extraBytes > 0) {
+            hex += HEX_CHARS[(block >> 4) & 0x0F] + HEX_CHARS[block & 0x0F];
+        }
+        if (extraBytes > 1) {
+            hex += HEX_CHARS[(block >> 12) & 0x0F] + HEX_CHARS[(block >> 8) & 0x0F];
+        }
+        if (extraBytes > 2) {
+            hex += HEX_CHARS[(block >> 20) & 0x0F] + HEX_CHARS[(block >> 16) & 0x0F];
+        }
     }
-  }
-  if (extraBytes) {
-    block = s[i];
-    if (extraBytes > 0) {
-      hex += HEX_CHARS[(block >> 4) & 0x0F] + HEX_CHARS[block & 0x0F];
-    }
-    if (extraBytes > 1) {
-      hex += HEX_CHARS[(block >> 12) & 0x0F] + HEX_CHARS[(block >> 8) & 0x0F];
-    }
-    if (extraBytes > 2) {
-      hex += HEX_CHARS[(block >> 20) & 0x0F] + HEX_CHARS[(block >> 16) & 0x0F];
-    }
-  }
-  return hex;
+    return hex;
 };
 
 Keccak.prototype.buffer = function() {
-  this.finalize();
+    this.finalize();
 
-  var blockCount = this.blockCount,
-    s = this.s,
-    outputBlocks = this.outputBlocks,
-    extraBytes = this.extraBytes,
-    i = 0,
-    j = 0;
-  var bytes = this.outputBits >> 3;
-  var buffer;
-  if (extraBytes) {
-    buffer = new ArrayBuffer((outputBlocks + 1) << 2);
-  }
-  else {
-    buffer = new ArrayBuffer(bytes);
-  }
-  var array = new Uint32Array(buffer);
-  while (j < outputBlocks) {
-    for (i = 0; i < blockCount && j < outputBlocks; ++i, ++j) {
-      array[j] = s[i];
+    var blockCount = this.blockCount,
+        s = this.s,
+        outputBlocks = this.outputBlocks,
+        extraBytes = this.extraBytes,
+        i = 0,
+        j = 0;
+    var bytes = this.outputBits >> 3;
+    var buffer;
+    if (extraBytes) {
+        buffer = new ArrayBuffer((outputBlocks + 1) << 2);
     }
-    if (j % blockCount == 0) {
-      f(s);
+    else {
+        buffer = new ArrayBuffer(bytes);
     }
-  }
-  if (extraBytes) {
-    array[i] = s[i];
-    buffer = buffer.slice(0, bytes);
-  }
-  return buffer;
+    var array = new Uint32Array(buffer);
+    while (j < outputBlocks) {
+        for (i = 0; i < blockCount && j < outputBlocks; ++i, ++j) {
+            array[j] = s[i];
+        }
+        if (j % blockCount == 0) {
+            f(s);
+        }
+    }
+    if (extraBytes) {
+        array[i] = s[i];
+        buffer = buffer.slice(0, bytes);
+    }
+    return buffer;
 };
 
 Keccak.prototype.digest = Keccak.prototype.array = function() {
-  this.finalize();
+    this.finalize();
 
-  var blockCount = this.blockCount,
-    s = this.s,
-    outputBlocks = this.outputBlocks,
-    extraBytes = this.extraBytes,
-    i = 0,
-    j = 0;
-  var array = [],
-    offset, block;
-  while (j < outputBlocks) {
-    for (i = 0; i < blockCount && j < outputBlocks; ++i, ++j) {
-      offset = j << 2;
-      block = s[i];
-      array[offset] = block & 0xFF;
-      array[offset + 1] = (block >> 8) & 0xFF;
-      array[offset + 2] = (block >> 16) & 0xFF;
-      array[offset + 3] = (block >> 24) & 0xFF;
+    var blockCount = this.blockCount,
+        s = this.s,
+        outputBlocks = this.outputBlocks,
+        extraBytes = this.extraBytes,
+        i = 0,
+        j = 0;
+    var array = [],
+        offset, block;
+    while (j < outputBlocks) {
+        for (i = 0; i < blockCount && j < outputBlocks; ++i, ++j) {
+            offset = j << 2;
+            block = s[i];
+            array[offset] = block & 0xFF;
+            array[offset + 1] = (block >> 8) & 0xFF;
+            array[offset + 2] = (block >> 16) & 0xFF;
+            array[offset + 3] = (block >> 24) & 0xFF;
+        }
+        if (j % blockCount == 0) {
+            f(s);
+        }
     }
-    if (j % blockCount == 0) {
-      f(s);
+    if (extraBytes) {
+        offset = j << 2;
+        block = s[i];
+        if (extraBytes > 0) {
+            array[offset] = block & 0xFF;
+        }
+        if (extraBytes > 1) {
+            array[offset + 1] = (block >> 8) & 0xFF;
+        }
+        if (extraBytes > 2) {
+            array[offset + 2] = (block >> 16) & 0xFF;
+        }
     }
-  }
-  if (extraBytes) {
-    offset = j << 2;
-    block = s[i];
-    if (extraBytes > 0) {
-      array[offset] = block & 0xFF;
-    }
-    if (extraBytes > 1) {
-      array[offset + 1] = (block >> 8) & 0xFF;
-    }
-    if (extraBytes > 2) {
-      array[offset + 2] = (block >> 16) & 0xFF;
-    }
-  }
-  return array;
+    return array;
 };
 
 var f = function(s) {
-  var h, l, n, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9,
-    b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17,
-    b18, b19, b20, b21, b22, b23, b24, b25, b26, b27, b28, b29, b30, b31, b32, b33,
-    b34, b35, b36, b37, b38, b39, b40, b41, b42, b43, b44, b45, b46, b47, b48, b49;
-  for (n = 0; n < 48; n += 2) {
-    c0 = s[0] ^ s[10] ^ s[20] ^ s[30] ^ s[40];
-    c1 = s[1] ^ s[11] ^ s[21] ^ s[31] ^ s[41];
-    c2 = s[2] ^ s[12] ^ s[22] ^ s[32] ^ s[42];
-    c3 = s[3] ^ s[13] ^ s[23] ^ s[33] ^ s[43];
-    c4 = s[4] ^ s[14] ^ s[24] ^ s[34] ^ s[44];
-    c5 = s[5] ^ s[15] ^ s[25] ^ s[35] ^ s[45];
-    c6 = s[6] ^ s[16] ^ s[26] ^ s[36] ^ s[46];
-    c7 = s[7] ^ s[17] ^ s[27] ^ s[37] ^ s[47];
-    c8 = s[8] ^ s[18] ^ s[28] ^ s[38] ^ s[48];
-    c9 = s[9] ^ s[19] ^ s[29] ^ s[39] ^ s[49];
+    var h, l, n, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9,
+        b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17,
+        b18, b19, b20, b21, b22, b23, b24, b25, b26, b27, b28, b29, b30, b31, b32, b33,
+        b34, b35, b36, b37, b38, b39, b40, b41, b42, b43, b44, b45, b46, b47, b48, b49;
+    for (n = 0; n < 48; n += 2) {
+        c0 = s[0] ^ s[10] ^ s[20] ^ s[30] ^ s[40];
+        c1 = s[1] ^ s[11] ^ s[21] ^ s[31] ^ s[41];
+        c2 = s[2] ^ s[12] ^ s[22] ^ s[32] ^ s[42];
+        c3 = s[3] ^ s[13] ^ s[23] ^ s[33] ^ s[43];
+        c4 = s[4] ^ s[14] ^ s[24] ^ s[34] ^ s[44];
+        c5 = s[5] ^ s[15] ^ s[25] ^ s[35] ^ s[45];
+        c6 = s[6] ^ s[16] ^ s[26] ^ s[36] ^ s[46];
+        c7 = s[7] ^ s[17] ^ s[27] ^ s[37] ^ s[47];
+        c8 = s[8] ^ s[18] ^ s[28] ^ s[38] ^ s[48];
+        c9 = s[9] ^ s[19] ^ s[29] ^ s[39] ^ s[49];
 
-    h = c8 ^ ((c2 << 1) | (c3 >>> 31));
-    l = c9 ^ ((c3 << 1) | (c2 >>> 31));
-    s[0] ^= h;
-    s[1] ^= l;
-    s[10] ^= h;
-    s[11] ^= l;
-    s[20] ^= h;
-    s[21] ^= l;
-    s[30] ^= h;
-    s[31] ^= l;
-    s[40] ^= h;
-    s[41] ^= l;
-    h = c0 ^ ((c4 << 1) | (c5 >>> 31));
-    l = c1 ^ ((c5 << 1) | (c4 >>> 31));
-    s[2] ^= h;
-    s[3] ^= l;
-    s[12] ^= h;
-    s[13] ^= l;
-    s[22] ^= h;
-    s[23] ^= l;
-    s[32] ^= h;
-    s[33] ^= l;
-    s[42] ^= h;
-    s[43] ^= l;
-    h = c2 ^ ((c6 << 1) | (c7 >>> 31));
-    l = c3 ^ ((c7 << 1) | (c6 >>> 31));
-    s[4] ^= h;
-    s[5] ^= l;
-    s[14] ^= h;
-    s[15] ^= l;
-    s[24] ^= h;
-    s[25] ^= l;
-    s[34] ^= h;
-    s[35] ^= l;
-    s[44] ^= h;
-    s[45] ^= l;
-    h = c4 ^ ((c8 << 1) | (c9 >>> 31));
-    l = c5 ^ ((c9 << 1) | (c8 >>> 31));
-    s[6] ^= h;
-    s[7] ^= l;
-    s[16] ^= h;
-    s[17] ^= l;
-    s[26] ^= h;
-    s[27] ^= l;
-    s[36] ^= h;
-    s[37] ^= l;
-    s[46] ^= h;
-    s[47] ^= l;
-    h = c6 ^ ((c0 << 1) | (c1 >>> 31));
-    l = c7 ^ ((c1 << 1) | (c0 >>> 31));
-    s[8] ^= h;
-    s[9] ^= l;
-    s[18] ^= h;
-    s[19] ^= l;
-    s[28] ^= h;
-    s[29] ^= l;
-    s[38] ^= h;
-    s[39] ^= l;
-    s[48] ^= h;
-    s[49] ^= l;
+        h = c8 ^ ((c2 << 1) | (c3 >>> 31));
+        l = c9 ^ ((c3 << 1) | (c2 >>> 31));
+        s[0] ^= h;
+        s[1] ^= l;
+        s[10] ^= h;
+        s[11] ^= l;
+        s[20] ^= h;
+        s[21] ^= l;
+        s[30] ^= h;
+        s[31] ^= l;
+        s[40] ^= h;
+        s[41] ^= l;
+        h = c0 ^ ((c4 << 1) | (c5 >>> 31));
+        l = c1 ^ ((c5 << 1) | (c4 >>> 31));
+        s[2] ^= h;
+        s[3] ^= l;
+        s[12] ^= h;
+        s[13] ^= l;
+        s[22] ^= h;
+        s[23] ^= l;
+        s[32] ^= h;
+        s[33] ^= l;
+        s[42] ^= h;
+        s[43] ^= l;
+        h = c2 ^ ((c6 << 1) | (c7 >>> 31));
+        l = c3 ^ ((c7 << 1) | (c6 >>> 31));
+        s[4] ^= h;
+        s[5] ^= l;
+        s[14] ^= h;
+        s[15] ^= l;
+        s[24] ^= h;
+        s[25] ^= l;
+        s[34] ^= h;
+        s[35] ^= l;
+        s[44] ^= h;
+        s[45] ^= l;
+        h = c4 ^ ((c8 << 1) | (c9 >>> 31));
+        l = c5 ^ ((c9 << 1) | (c8 >>> 31));
+        s[6] ^= h;
+        s[7] ^= l;
+        s[16] ^= h;
+        s[17] ^= l;
+        s[26] ^= h;
+        s[27] ^= l;
+        s[36] ^= h;
+        s[37] ^= l;
+        s[46] ^= h;
+        s[47] ^= l;
+        h = c6 ^ ((c0 << 1) | (c1 >>> 31));
+        l = c7 ^ ((c1 << 1) | (c0 >>> 31));
+        s[8] ^= h;
+        s[9] ^= l;
+        s[18] ^= h;
+        s[19] ^= l;
+        s[28] ^= h;
+        s[29] ^= l;
+        s[38] ^= h;
+        s[39] ^= l;
+        s[48] ^= h;
+        s[49] ^= l;
 
-    b0 = s[0];
-    b1 = s[1];
-    b32 = (s[11] << 4) | (s[10] >>> 28);
-    b33 = (s[10] << 4) | (s[11] >>> 28);
-    b14 = (s[20] << 3) | (s[21] >>> 29);
-    b15 = (s[21] << 3) | (s[20] >>> 29);
-    b46 = (s[31] << 9) | (s[30] >>> 23);
-    b47 = (s[30] << 9) | (s[31] >>> 23);
-    b28 = (s[40] << 18) | (s[41] >>> 14);
-    b29 = (s[41] << 18) | (s[40] >>> 14);
-    b20 = (s[2] << 1) | (s[3] >>> 31);
-    b21 = (s[3] << 1) | (s[2] >>> 31);
-    b2 = (s[13] << 12) | (s[12] >>> 20);
-    b3 = (s[12] << 12) | (s[13] >>> 20);
-    b34 = (s[22] << 10) | (s[23] >>> 22);
-    b35 = (s[23] << 10) | (s[22] >>> 22);
-    b16 = (s[33] << 13) | (s[32] >>> 19);
-    b17 = (s[32] << 13) | (s[33] >>> 19);
-    b48 = (s[42] << 2) | (s[43] >>> 30);
-    b49 = (s[43] << 2) | (s[42] >>> 30);
-    b40 = (s[5] << 30) | (s[4] >>> 2);
-    b41 = (s[4] << 30) | (s[5] >>> 2);
-    b22 = (s[14] << 6) | (s[15] >>> 26);
-    b23 = (s[15] << 6) | (s[14] >>> 26);
-    b4 = (s[25] << 11) | (s[24] >>> 21);
-    b5 = (s[24] << 11) | (s[25] >>> 21);
-    b36 = (s[34] << 15) | (s[35] >>> 17);
-    b37 = (s[35] << 15) | (s[34] >>> 17);
-    b18 = (s[45] << 29) | (s[44] >>> 3);
-    b19 = (s[44] << 29) | (s[45] >>> 3);
-    b10 = (s[6] << 28) | (s[7] >>> 4);
-    b11 = (s[7] << 28) | (s[6] >>> 4);
-    b42 = (s[17] << 23) | (s[16] >>> 9);
-    b43 = (s[16] << 23) | (s[17] >>> 9);
-    b24 = (s[26] << 25) | (s[27] >>> 7);
-    b25 = (s[27] << 25) | (s[26] >>> 7);
-    b6 = (s[36] << 21) | (s[37] >>> 11);
-    b7 = (s[37] << 21) | (s[36] >>> 11);
-    b38 = (s[47] << 24) | (s[46] >>> 8);
-    b39 = (s[46] << 24) | (s[47] >>> 8);
-    b30 = (s[8] << 27) | (s[9] >>> 5);
-    b31 = (s[9] << 27) | (s[8] >>> 5);
-    b12 = (s[18] << 20) | (s[19] >>> 12);
-    b13 = (s[19] << 20) | (s[18] >>> 12);
-    b44 = (s[29] << 7) | (s[28] >>> 25);
-    b45 = (s[28] << 7) | (s[29] >>> 25);
-    b26 = (s[38] << 8) | (s[39] >>> 24);
-    b27 = (s[39] << 8) | (s[38] >>> 24);
-    b8 = (s[48] << 14) | (s[49] >>> 18);
-    b9 = (s[49] << 14) | (s[48] >>> 18);
+        b0 = s[0];
+        b1 = s[1];
+        b32 = (s[11] << 4) | (s[10] >>> 28);
+        b33 = (s[10] << 4) | (s[11] >>> 28);
+        b14 = (s[20] << 3) | (s[21] >>> 29);
+        b15 = (s[21] << 3) | (s[20] >>> 29);
+        b46 = (s[31] << 9) | (s[30] >>> 23);
+        b47 = (s[30] << 9) | (s[31] >>> 23);
+        b28 = (s[40] << 18) | (s[41] >>> 14);
+        b29 = (s[41] << 18) | (s[40] >>> 14);
+        b20 = (s[2] << 1) | (s[3] >>> 31);
+        b21 = (s[3] << 1) | (s[2] >>> 31);
+        b2 = (s[13] << 12) | (s[12] >>> 20);
+        b3 = (s[12] << 12) | (s[13] >>> 20);
+        b34 = (s[22] << 10) | (s[23] >>> 22);
+        b35 = (s[23] << 10) | (s[22] >>> 22);
+        b16 = (s[33] << 13) | (s[32] >>> 19);
+        b17 = (s[32] << 13) | (s[33] >>> 19);
+        b48 = (s[42] << 2) | (s[43] >>> 30);
+        b49 = (s[43] << 2) | (s[42] >>> 30);
+        b40 = (s[5] << 30) | (s[4] >>> 2);
+        b41 = (s[4] << 30) | (s[5] >>> 2);
+        b22 = (s[14] << 6) | (s[15] >>> 26);
+        b23 = (s[15] << 6) | (s[14] >>> 26);
+        b4 = (s[25] << 11) | (s[24] >>> 21);
+        b5 = (s[24] << 11) | (s[25] >>> 21);
+        b36 = (s[34] << 15) | (s[35] >>> 17);
+        b37 = (s[35] << 15) | (s[34] >>> 17);
+        b18 = (s[45] << 29) | (s[44] >>> 3);
+        b19 = (s[44] << 29) | (s[45] >>> 3);
+        b10 = (s[6] << 28) | (s[7] >>> 4);
+        b11 = (s[7] << 28) | (s[6] >>> 4);
+        b42 = (s[17] << 23) | (s[16] >>> 9);
+        b43 = (s[16] << 23) | (s[17] >>> 9);
+        b24 = (s[26] << 25) | (s[27] >>> 7);
+        b25 = (s[27] << 25) | (s[26] >>> 7);
+        b6 = (s[36] << 21) | (s[37] >>> 11);
+        b7 = (s[37] << 21) | (s[36] >>> 11);
+        b38 = (s[47] << 24) | (s[46] >>> 8);
+        b39 = (s[46] << 24) | (s[47] >>> 8);
+        b30 = (s[8] << 27) | (s[9] >>> 5);
+        b31 = (s[9] << 27) | (s[8] >>> 5);
+        b12 = (s[18] << 20) | (s[19] >>> 12);
+        b13 = (s[19] << 20) | (s[18] >>> 12);
+        b44 = (s[29] << 7) | (s[28] >>> 25);
+        b45 = (s[28] << 7) | (s[29] >>> 25);
+        b26 = (s[38] << 8) | (s[39] >>> 24);
+        b27 = (s[39] << 8) | (s[38] >>> 24);
+        b8 = (s[48] << 14) | (s[49] >>> 18);
+        b9 = (s[49] << 14) | (s[48] >>> 18);
 
-    s[0] = b0 ^ (~b2 & b4);
-    s[1] = b1 ^ (~b3 & b5);
-    s[10] = b10 ^ (~b12 & b14);
-    s[11] = b11 ^ (~b13 & b15);
-    s[20] = b20 ^ (~b22 & b24);
-    s[21] = b21 ^ (~b23 & b25);
-    s[30] = b30 ^ (~b32 & b34);
-    s[31] = b31 ^ (~b33 & b35);
-    s[40] = b40 ^ (~b42 & b44);
-    s[41] = b41 ^ (~b43 & b45);
-    s[2] = b2 ^ (~b4 & b6);
-    s[3] = b3 ^ (~b5 & b7);
-    s[12] = b12 ^ (~b14 & b16);
-    s[13] = b13 ^ (~b15 & b17);
-    s[22] = b22 ^ (~b24 & b26);
-    s[23] = b23 ^ (~b25 & b27);
-    s[32] = b32 ^ (~b34 & b36);
-    s[33] = b33 ^ (~b35 & b37);
-    s[42] = b42 ^ (~b44 & b46);
-    s[43] = b43 ^ (~b45 & b47);
-    s[4] = b4 ^ (~b6 & b8);
-    s[5] = b5 ^ (~b7 & b9);
-    s[14] = b14 ^ (~b16 & b18);
-    s[15] = b15 ^ (~b17 & b19);
-    s[24] = b24 ^ (~b26 & b28);
-    s[25] = b25 ^ (~b27 & b29);
-    s[34] = b34 ^ (~b36 & b38);
-    s[35] = b35 ^ (~b37 & b39);
-    s[44] = b44 ^ (~b46 & b48);
-    s[45] = b45 ^ (~b47 & b49);
-    s[6] = b6 ^ (~b8 & b0);
-    s[7] = b7 ^ (~b9 & b1);
-    s[16] = b16 ^ (~b18 & b10);
-    s[17] = b17 ^ (~b19 & b11);
-    s[26] = b26 ^ (~b28 & b20);
-    s[27] = b27 ^ (~b29 & b21);
-    s[36] = b36 ^ (~b38 & b30);
-    s[37] = b37 ^ (~b39 & b31);
-    s[46] = b46 ^ (~b48 & b40);
-    s[47] = b47 ^ (~b49 & b41);
-    s[8] = b8 ^ (~b0 & b2);
-    s[9] = b9 ^ (~b1 & b3);
-    s[18] = b18 ^ (~b10 & b12);
-    s[19] = b19 ^ (~b11 & b13);
-    s[28] = b28 ^ (~b20 & b22);
-    s[29] = b29 ^ (~b21 & b23);
-    s[38] = b38 ^ (~b30 & b32);
-    s[39] = b39 ^ (~b31 & b33);
-    s[48] = b48 ^ (~b40 & b42);
-    s[49] = b49 ^ (~b41 & b43);
+        s[0] = b0 ^ (~b2 & b4);
+        s[1] = b1 ^ (~b3 & b5);
+        s[10] = b10 ^ (~b12 & b14);
+        s[11] = b11 ^ (~b13 & b15);
+        s[20] = b20 ^ (~b22 & b24);
+        s[21] = b21 ^ (~b23 & b25);
+        s[30] = b30 ^ (~b32 & b34);
+        s[31] = b31 ^ (~b33 & b35);
+        s[40] = b40 ^ (~b42 & b44);
+        s[41] = b41 ^ (~b43 & b45);
+        s[2] = b2 ^ (~b4 & b6);
+        s[3] = b3 ^ (~b5 & b7);
+        s[12] = b12 ^ (~b14 & b16);
+        s[13] = b13 ^ (~b15 & b17);
+        s[22] = b22 ^ (~b24 & b26);
+        s[23] = b23 ^ (~b25 & b27);
+        s[32] = b32 ^ (~b34 & b36);
+        s[33] = b33 ^ (~b35 & b37);
+        s[42] = b42 ^ (~b44 & b46);
+        s[43] = b43 ^ (~b45 & b47);
+        s[4] = b4 ^ (~b6 & b8);
+        s[5] = b5 ^ (~b7 & b9);
+        s[14] = b14 ^ (~b16 & b18);
+        s[15] = b15 ^ (~b17 & b19);
+        s[24] = b24 ^ (~b26 & b28);
+        s[25] = b25 ^ (~b27 & b29);
+        s[34] = b34 ^ (~b36 & b38);
+        s[35] = b35 ^ (~b37 & b39);
+        s[44] = b44 ^ (~b46 & b48);
+        s[45] = b45 ^ (~b47 & b49);
+        s[6] = b6 ^ (~b8 & b0);
+        s[7] = b7 ^ (~b9 & b1);
+        s[16] = b16 ^ (~b18 & b10);
+        s[17] = b17 ^ (~b19 & b11);
+        s[26] = b26 ^ (~b28 & b20);
+        s[27] = b27 ^ (~b29 & b21);
+        s[36] = b36 ^ (~b38 & b30);
+        s[37] = b37 ^ (~b39 & b31);
+        s[46] = b46 ^ (~b48 & b40);
+        s[47] = b47 ^ (~b49 & b41);
+        s[8] = b8 ^ (~b0 & b2);
+        s[9] = b9 ^ (~b1 & b3);
+        s[18] = b18 ^ (~b10 & b12);
+        s[19] = b19 ^ (~b11 & b13);
+        s[28] = b28 ^ (~b20 & b22);
+        s[29] = b29 ^ (~b21 & b23);
+        s[38] = b38 ^ (~b30 & b32);
+        s[39] = b39 ^ (~b31 & b33);
+        s[48] = b48 ^ (~b40 & b42);
+        s[49] = b49 ^ (~b41 & b43);
 
-    s[0] ^= RC[n];
-    s[1] ^= RC[n + 1];
-  }
-}
+        s[0] ^= RC[n];
+        s[1] ^= RC[n + 1];
+    }
+};
 module.exports = methods;
 //   if (!root.JS_SHA3_TEST && NODE_JS) {
 //     module.exports = methods;
@@ -4027,7 +4016,9 @@ module.exports = methods;
 //     return new Keccak().update(msg).hex();
 //   }
 // }
+
 },{"./helper":7}],10:[function(require,module,exports){
+'use strict';
 /////////////////////////////////////
 //////////////  Luffa ///////////////
 
@@ -4040,806 +4031,802 @@ var o = require('./op');
 var h = require('./helper');
 
 var V_INIT = [
-  [
-    0x6d251e69, 0x44b051e0,
-    0x4eaa6fb4, 0xdbf78465,
-    0x6e292011, 0x90152df4,
-    0xee058139, 0xdef610bb
-  ],
-  [
-    0xc3b44b95, 0xd9d2f256,
-    0x70eee9a0, 0xde099fa3,
-    0x5d9b0557, 0x8fc944b3,
-    0xcf1ccf0e, 0x746cd581
-  ],
-  [
-    0xf7efc89d, 0x5dba5781,
-    0x04016ce5, 0xad659c05,
-    0x0306194f, 0x666d1836,
-    0x24aa230a, 0x8b264ae7
-  ],
-  [
-    0x858075d5, 0x36d79cce,
-    0xe571f7d7, 0x204b1f67,
-    0x35870c6a, 0x57e9e923,
-    0x14bcb808, 0x7cde72ce
-  ],
-  [
-    0x6c68e9be, 0x5ec41e22,
-    0xc825b7c7, 0xaffb4363,
-    0xf5df3999, 0x0fc688f1,
-    0xb07224cc, 0x03e86cea
-  ]
+    [
+        0x6d251e69, 0x44b051e0,
+        0x4eaa6fb4, 0xdbf78465,
+        0x6e292011, 0x90152df4,
+        0xee058139, 0xdef610bb
+    ],
+    [
+        0xc3b44b95, 0xd9d2f256,
+        0x70eee9a0, 0xde099fa3,
+        0x5d9b0557, 0x8fc944b3,
+        0xcf1ccf0e, 0x746cd581
+    ],
+    [
+        0xf7efc89d, 0x5dba5781,
+        0x04016ce5, 0xad659c05,
+        0x0306194f, 0x666d1836,
+        0x24aa230a, 0x8b264ae7
+    ],
+    [
+        0x858075d5, 0x36d79cce,
+        0xe571f7d7, 0x204b1f67,
+        0x35870c6a, 0x57e9e923,
+        0x14bcb808, 0x7cde72ce
+    ],
+    [
+        0x6c68e9be, 0x5ec41e22,
+        0xc825b7c7, 0xaffb4363,
+        0xf5df3999, 0x0fc688f1,
+        0xb07224cc, 0x03e86cea
+    ]
 ];
 
 var RC00 = [
-  0x303994a6, 0xc0e65299,
-  0x6cc33a12, 0xdc56983e,
-  0x1e00108f, 0x7800423d,
-  0x8f5b7882, 0x96e1db12
+    0x303994a6, 0xc0e65299,
+    0x6cc33a12, 0xdc56983e,
+    0x1e00108f, 0x7800423d,
+    0x8f5b7882, 0x96e1db12
 ];
 
 var RC04 = [
-  0xe0337818, 0x441ba90d,
-  0x7f34d442, 0x9389217f,
-  0xe5a8bce6, 0x5274baf4,
-  0x26889ba7, 0x9a226e9d
+    0xe0337818, 0x441ba90d,
+    0x7f34d442, 0x9389217f,
+    0xe5a8bce6, 0x5274baf4,
+    0x26889ba7, 0x9a226e9d
 ];
 
 var RC10 = [
-  0xb6de10ed, 0x70f47aae,
-  0x0707a3d4, 0x1c1e8f51,
-  0x707a3d45, 0xaeb28562,
-  0xbaca1589, 0x40a46f3e
+    0xb6de10ed, 0x70f47aae,
+    0x0707a3d4, 0x1c1e8f51,
+    0x707a3d45, 0xaeb28562,
+    0xbaca1589, 0x40a46f3e
 ];
 
 var RC14 = [
-  0x01685f3d, 0x05a17cf4,
-  0xbd09caca, 0xf4272b28,
-  0x144ae5cc, 0xfaa7ae2b,
-  0x2e48f1c1, 0xb923c704
+    0x01685f3d, 0x05a17cf4,
+    0xbd09caca, 0xf4272b28,
+    0x144ae5cc, 0xfaa7ae2b,
+    0x2e48f1c1, 0xb923c704
 ];
 
 var RC20 = [
-  0xfc20d9d2, 0x34552e25,
-  0x7ad8818f, 0x8438764a,
-  0xbb6de032, 0xedb780c8,
-  0xd9847356, 0xa2c78434
+    0xfc20d9d2, 0x34552e25,
+    0x7ad8818f, 0x8438764a,
+    0xbb6de032, 0xedb780c8,
+    0xd9847356, 0xa2c78434
 ];
 
 var RC24 = [
-  0xe25e72c1, 0xe623bb72,
-  0x5c58a4a4, 0x1e38e2e7,
-  0x78e38b9d, 0x27586719,
-  0x36eda57f, 0x703aace7
+    0xe25e72c1, 0xe623bb72,
+    0x5c58a4a4, 0x1e38e2e7,
+    0x78e38b9d, 0x27586719,
+    0x36eda57f, 0x703aace7
 ];
 
 var RC30 = [
-  0xb213afa5, 0xc84ebe95,
-  0x4e608a22, 0x56d858fe,
-  0x343b138f, 0xd0ec4e3d,
-  0x2ceb4882, 0xb3ad2208
+    0xb213afa5, 0xc84ebe95,
+    0x4e608a22, 0x56d858fe,
+    0x343b138f, 0xd0ec4e3d,
+    0x2ceb4882, 0xb3ad2208
 ];
 
 var RC34 = [
-  0xe028c9bf, 0x44756f91,
-  0x7e8fce32, 0x956548be,
-  0xfe191be2, 0x3cb226e5,
-  0x5944a28e, 0xa1c4c355
+    0xe028c9bf, 0x44756f91,
+    0x7e8fce32, 0x956548be,
+    0xfe191be2, 0x3cb226e5,
+    0x5944a28e, 0xa1c4c355
 ];
 
 var RC40 = [
-  0xf0d2e9e3, 0xac11d7fa,
-  0x1bcb66f2, 0x6f2d9bc9,
-  0x78602649, 0x8edae952,
-  0x3b6ba548, 0xedae9520
+    0xf0d2e9e3, 0xac11d7fa,
+    0x1bcb66f2, 0x6f2d9bc9,
+    0x78602649, 0x8edae952,
+    0x3b6ba548, 0xedae9520
 ];
 
 var RC44 = [
-  0x5090d577, 0x2d1925ab,
-  0xb46496ac, 0xd1925ab0,
-  0x29131ab6, 0x0fc053c3,
-  0x3f014f0c, 0xfc053c31
+    0x5090d577, 0x2d1925ab,
+    0xb46496ac, 0xd1925ab0,
+    0x29131ab6, 0x0fc053c3,
+    0x3f014f0c, 0xfc053c31
 ];
 
 var M2 = function(d, s) {
-  var tmp = s[7];
-  d[7] = s[6];
-  d[6] = s[5];
-  d[5] = s[4];
-  d[4] = s[3] ^ tmp;
-  d[3] = s[2] ^ tmp;
-  d[2] = s[1];
-  d[1] = s[0] ^ tmp;
-  d[0] = tmp;
-}
+    var tmp = s[7];
+    d[7] = s[6];
+    d[6] = s[5];
+    d[5] = s[4];
+    d[4] = s[3] ^ tmp;
+    d[3] = s[2] ^ tmp;
+    d[2] = s[1];
+    d[1] = s[0] ^ tmp;
+    d[0] = tmp;
+};
 
 //V is a table of states
 var MI5 = function(buf, V) {
-  var M = Array(8);
-  var a = Array(8);
-  var b = Array(8);
-  M[0] = buf[0];
-  M[1] = buf[1];
-  M[2] = buf[2];
-  M[3] = buf[3];
-  M[4] = buf[4];
-  M[5] = buf[5];
-  M[6] = buf[6];
-  M[7] = buf[7];
-  o.xORTable(a, V[0], V[1], 8);
-  o.xORTable(b, V[2], V[3], 8);
-  o.xORTable(a, a, b, 8);
-  o.xORTable(a, a, V[4], 8);
-  M2(a, a);
-  o.xORTable(V[0], a, V[0], 8);
-  o.xORTable(V[1], a, V[1], 8);
-  o.xORTable(V[2], a, V[2], 8);
-  o.xORTable(V[3], a, V[3], 8);
-  o.xORTable(V[4], a, V[4], 8);
-  M2(b, V[0]);
-  o.xORTable(b, b, V[1], 8);
-  M2(V[1], V[1]);
-  o.xORTable(V[1], V[1], V[2], 8);
-  M2(V[2], V[2]);
-  o.xORTable(V[2], V[2], V[3], 8);
-  M2(V[3], V[3]);
-  o.xORTable(V[3], V[3], V[4], 8);
-  M2(V[4], V[4]);
-  o.xORTable(V[4], V[4], V[0], 8);
-  M2(V[0], b);
-  o.xORTable(V[0], V[0], V[4], 8);
-  M2(V[4], V[4]);
-  o.xORTable(V[4], V[4], V[3], 8);
-  M2(V[3], V[3]);
-  o.xORTable(V[3], V[3], V[2], 8);
-  M2(V[2], V[2]);
-  o.xORTable(V[2], V[2], V[1], 8);
-  M2(V[1], V[1]);
-  o.xORTable(V[1], V[1], b, 8);
-  o.xORTable(V[0], V[0], M, 8);
-  M2(M, M);
-  o.xORTable(V[1], V[1], M, 8);
-  M2(M, M);
-  o.xORTable(V[2], V[2], M, 8);
-  M2(M, M);
-  o.xORTable(V[3], V[3], M, 8);
-  M2(M, M);
-  o.xORTable(V[4], V[4], M, 8);
-}
+    var M = Array(8);
+    var a = Array(8);
+    var b = Array(8);
+    M[0] = buf[0];
+    M[1] = buf[1];
+    M[2] = buf[2];
+    M[3] = buf[3];
+    M[4] = buf[4];
+    M[5] = buf[5];
+    M[6] = buf[6];
+    M[7] = buf[7];
+    o.xORTable(a, V[0], V[1], 8);
+    o.xORTable(b, V[2], V[3], 8);
+    o.xORTable(a, a, b, 8);
+    o.xORTable(a, a, V[4], 8);
+    M2(a, a);
+    o.xORTable(V[0], a, V[0], 8);
+    o.xORTable(V[1], a, V[1], 8);
+    o.xORTable(V[2], a, V[2], 8);
+    o.xORTable(V[3], a, V[3], 8);
+    o.xORTable(V[4], a, V[4], 8);
+    M2(b, V[0]);
+    o.xORTable(b, b, V[1], 8);
+    M2(V[1], V[1]);
+    o.xORTable(V[1], V[1], V[2], 8);
+    M2(V[2], V[2]);
+    o.xORTable(V[2], V[2], V[3], 8);
+    M2(V[3], V[3]);
+    o.xORTable(V[3], V[3], V[4], 8);
+    M2(V[4], V[4]);
+    o.xORTable(V[4], V[4], V[0], 8);
+    M2(V[0], b);
+    o.xORTable(V[0], V[0], V[4], 8);
+    M2(V[4], V[4]);
+    o.xORTable(V[4], V[4], V[3], 8);
+    M2(V[3], V[3]);
+    o.xORTable(V[3], V[3], V[2], 8);
+    M2(V[2], V[2]);
+    o.xORTable(V[2], V[2], V[1], 8);
+    M2(V[1], V[1]);
+    o.xORTable(V[1], V[1], b, 8);
+    o.xORTable(V[0], V[0], M, 8);
+    M2(M, M);
+    o.xORTable(V[1], V[1], M, 8);
+    M2(M, M);
+    o.xORTable(V[2], V[2], M, 8);
+    M2(M, M);
+    o.xORTable(V[3], V[3], M, 8);
+    M2(M, M);
+    o.xORTable(V[4], V[4], M, 8);
+};
 
 var TWEAK5 = function(V) {
-  V[1][4] = o.rotl32(V[1][4], 1);
-  V[1][5] = o.rotl32(V[1][5], 1);
-  V[1][6] = o.rotl32(V[1][6], 1);
-  V[1][7] = o.rotl32(V[1][7], 1);
-  V[2][4] = o.rotl32(V[2][4], 2);
-  V[2][5] = o.rotl32(V[2][5], 2);
-  V[2][6] = o.rotl32(V[2][6], 2);
-  V[2][7] = o.rotl32(V[2][7], 2);
-  V[3][4] = o.rotl32(V[3][4], 3);
-  V[3][5] = o.rotl32(V[3][5], 3);
-  V[3][6] = o.rotl32(V[3][6], 3);
-  V[3][7] = o.rotl32(V[3][7], 3);
-  V[4][4] = o.rotl32(V[4][4], 4);
-  V[4][5] = o.rotl32(V[4][5], 4);
-  V[4][6] = o.rotl32(V[4][6], 4);
-  V[4][7] = o.rotl32(V[4][7], 4);
-}
+    V[1][4] = o.rotl32(V[1][4], 1);
+    V[1][5] = o.rotl32(V[1][5], 1);
+    V[1][6] = o.rotl32(V[1][6], 1);
+    V[1][7] = o.rotl32(V[1][7], 1);
+    V[2][4] = o.rotl32(V[2][4], 2);
+    V[2][5] = o.rotl32(V[2][5], 2);
+    V[2][6] = o.rotl32(V[2][6], 2);
+    V[2][7] = o.rotl32(V[2][7], 2);
+    V[3][4] = o.rotl32(V[3][4], 3);
+    V[3][5] = o.rotl32(V[3][5], 3);
+    V[3][6] = o.rotl32(V[3][6], 3);
+    V[3][7] = o.rotl32(V[3][7], 3);
+    V[4][4] = o.rotl32(V[4][4], 4);
+    V[4][5] = o.rotl32(V[4][5], 4);
+    V[4][6] = o.rotl32(V[4][6], 4);
+    V[4][7] = o.rotl32(V[4][7], 4);
+};
 
 var SUB_CRUMB = function(a0, a1, a2, a3) {
-  var tmp;
-  tmp = (a0);
-  (a0) |= (a1);
-  (a2) ^= (a3);
-  (a1) = o.t32(~(a1));
-  (a0) ^= (a3);
-  (a3) &= tmp;
-  (a1) ^= (a3);
-  (a3) ^= (a2);
-  (a2) &= (a0);
-  (a0) = o.t32(~(a0));
-  (a2) ^= (a1);
-  (a1) |= (a3);
-  tmp ^= (a1);
-  (a3) ^= (a2);
-  (a2) &= (a1);
-  (a1) ^= (a0);
-  (a0) = tmp;
-  return [a0, a1, a2, a3];
-}
+    var tmp;
+    tmp = (a0);
+    (a0) |= (a1);
+    (a2) ^= (a3);
+    (a1) = o.t32(~(a1));
+    (a0) ^= (a3);
+    (a3) &= tmp;
+    (a1) ^= (a3);
+    (a3) ^= (a2);
+    (a2) &= (a0);
+    (a0) = o.t32(~(a0));
+    (a2) ^= (a1);
+    (a1) |= (a3);
+    tmp ^= (a1);
+    (a3) ^= (a2);
+    (a2) &= (a1);
+    (a1) ^= (a0);
+    (a0) = tmp;
+    return [a0, a1, a2, a3];
+};
 
 var MIX_WORD = function(u, v) {
-  (v) ^= (u);
-  (u) = o.rotl32((u), 2) ^ (v);
-  (v) = o.rotl32((v), 14) ^ (u);
-  (u) = o.rotl32((u), 10) ^ (v);
-  (v) = o.rotl32((v), 1);
-  return [u,v];
-}
+    (v) ^= (u);
+    (u) = o.rotl32((u), 2) ^ (v);
+    (v) = o.rotl32((v), 14) ^ (u);
+    (u) = o.rotl32((u), 10) ^ (v);
+    (v) = o.rotl32((v), 1);
+    return [u,v];
+};
 
 var P5 = function(V) {
-  TWEAK5(V);
-  var tmp;
-  for (var r = 0; r < 8; r++) {
-    tmp = SUB_CRUMB(V[0][0], V[0][1], V[0][2], V[0][3]);
-    V[0][0] = tmp[0];
-    V[0][1] = tmp[1];
-    V[0][2] = tmp[2];
-    V[0][3] = tmp[3];
-    tmp = SUB_CRUMB(V[0][5], V[0][6], V[0][7], V[0][4]);
-    V[0][5] = tmp[0];
-    V[0][6] = tmp[1];
-    V[0][7] = tmp[2];
-    V[0][4] = tmp[3];
-    tmp = MIX_WORD(V[0][0], V[0][4]);
-    V[0][0] = tmp[0];
-    V[0][4] = tmp[1];
-    tmp = MIX_WORD(V[0][1], V[0][5]);
-    V[0][1] = tmp[0];
-    V[0][5] = tmp[1];
-    tmp = MIX_WORD(V[0][2], V[0][6]);
-    V[0][2] = tmp[0];
-    V[0][6] = tmp[1];
-    tmp = MIX_WORD(V[0][3], V[0][7]);
-    V[0][3] = tmp[0];
-    V[0][7] = tmp[1];
-    V[0][0] ^= RC00[r];
-    V[0][4] ^= RC04[r];
-  }
-  for (var r = 0; r < 8; r++) {
-    tmp = SUB_CRUMB(V[1][0], V[1][1], V[1][2], V[1][3]);
-    V[1][0] = tmp[0];
-    V[1][1] = tmp[1];
-    V[1][2] = tmp[2];
-    V[1][3] = tmp[3];
-    tmp = SUB_CRUMB(V[1][5], V[1][6], V[1][7], V[1][4]);
-    V[1][5] = tmp[0];
-    V[1][6] = tmp[1];
-    V[1][7] = tmp[2];
-    V[1][4] = tmp[3];
-    tmp = MIX_WORD(V[1][0], V[1][4]);
-    V[1][0] = tmp[0];
-    V[1][4] = tmp[1];
-    tmp = MIX_WORD(V[1][1], V[1][5]);
-    V[1][1] = tmp[0];
-    V[1][5] = tmp[1];
-    tmp = MIX_WORD(V[1][2], V[1][6]);
-    V[1][2] = tmp[0];
-    V[1][6] = tmp[1];
-    tmp = MIX_WORD(V[1][3], V[1][7]);
-    V[1][3] = tmp[0];
-    V[1][7] = tmp[1];
-    V[1][0] ^= RC10[r];
-    V[1][4] ^= RC14[r];
-  }
-  for (var r = 0; r < 8; r++) {
-    tmp = SUB_CRUMB(V[2][0], V[2][1], V[2][2], V[2][3]);
-    V[2][0] = tmp[0];
-    V[2][1] = tmp[1];
-    V[2][2] = tmp[2];
-    V[2][3] = tmp[3];
-    tmp = SUB_CRUMB(V[2][5], V[2][6], V[2][7], V[2][4]);
-    V[2][5] = tmp[0];
-    V[2][6] = tmp[1];
-    V[2][7] = tmp[2];
-    V[2][4] = tmp[3];
-    tmp = MIX_WORD(V[2][0], V[2][4]);
-    V[2][0] = tmp[0];
-    V[2][4] = tmp[1];
-    tmp = MIX_WORD(V[2][1], V[2][5]);
-    V[2][1] = tmp[0];
-    V[2][5] = tmp[1];
-    tmp = MIX_WORD(V[2][2], V[2][6]);
-    V[2][2] = tmp[0];
-    V[2][6] = tmp[1];
-    tmp = MIX_WORD(V[2][3], V[2][7]);
-    V[2][3] = tmp[0];
-    V[2][7] = tmp[1];
-    V[2][0] ^= RC20[r];
-    V[2][4] ^= RC24[r];
-  }
-  for (var r = 0; r < 8; r++) {
-    tmp = SUB_CRUMB(V[3][0], V[3][1], V[3][2], V[3][3]);
-    V[3][0] = tmp[0];
-    V[3][1] = tmp[1];
-    V[3][2] = tmp[2];
-    V[3][3] = tmp[3];
-    tmp = SUB_CRUMB(V[3][5], V[3][6], V[3][7], V[3][4]);
-    V[3][5] = tmp[0];
-    V[3][6] = tmp[1];
-    V[3][7] = tmp[2];
-    V[3][4] = tmp[3];
-    tmp = MIX_WORD(V[3][0], V[3][4]);
-    V[3][0] = tmp[0];
-    V[3][4] = tmp[1];
-    tmp = MIX_WORD(V[3][1], V[3][5]);
-    V[3][1] = tmp[0];
-    V[3][5] = tmp[1];
-    tmp = MIX_WORD(V[3][2], V[3][6]);
-    V[3][2] = tmp[0];
-    V[3][6] = tmp[1];
-    tmp = MIX_WORD(V[3][3], V[3][7]);
-    V[3][3] = tmp[0];
-    V[3][7] = tmp[1];
-    V[3][0] ^= RC30[r];
-    V[3][4] ^= RC34[r];
-  }
-  for (var r = 0; r < 8; r++) {
-    tmp = SUB_CRUMB(V[4][0], V[4][1], V[4][2], V[4][3]);
-    V[4][0] = tmp[0];
-    V[4][1] = tmp[1];
-    V[4][2] = tmp[2];
-    V[4][3] = tmp[3];
-    tmp = SUB_CRUMB(V[4][5], V[4][6], V[4][7], V[4][4]);
-    V[4][5] = tmp[0];
-    V[4][6] = tmp[1];
-    V[4][7] = tmp[2];
-    V[4][4] = tmp[3];
-    tmp = MIX_WORD(V[4][0], V[4][4]);
-    V[4][0] = tmp[0];
-    V[4][4] = tmp[1];
-    tmp = MIX_WORD(V[4][1], V[4][5]);
-    V[4][1] = tmp[0];
-    V[4][5] = tmp[1];
-    tmp = MIX_WORD(V[4][2], V[4][6]);
-    V[4][2] = tmp[0];
-    V[4][6] = tmp[1];
-    tmp = MIX_WORD(V[4][3], V[4][7]);
-    V[4][3] = tmp[0];
-    V[4][7] = tmp[1];
-    V[4][0] ^= RC40[r];
-    V[4][4] ^= RC44[r];
-  }
-}
+    TWEAK5(V);
+    var tmp;
+    for (var r = 0; r < 8; r++) {
+        tmp = SUB_CRUMB(V[0][0], V[0][1], V[0][2], V[0][3]);
+        V[0][0] = tmp[0];
+        V[0][1] = tmp[1];
+        V[0][2] = tmp[2];
+        V[0][3] = tmp[3];
+        tmp = SUB_CRUMB(V[0][5], V[0][6], V[0][7], V[0][4]);
+        V[0][5] = tmp[0];
+        V[0][6] = tmp[1];
+        V[0][7] = tmp[2];
+        V[0][4] = tmp[3];
+        tmp = MIX_WORD(V[0][0], V[0][4]);
+        V[0][0] = tmp[0];
+        V[0][4] = tmp[1];
+        tmp = MIX_WORD(V[0][1], V[0][5]);
+        V[0][1] = tmp[0];
+        V[0][5] = tmp[1];
+        tmp = MIX_WORD(V[0][2], V[0][6]);
+        V[0][2] = tmp[0];
+        V[0][6] = tmp[1];
+        tmp = MIX_WORD(V[0][3], V[0][7]);
+        V[0][3] = tmp[0];
+        V[0][7] = tmp[1];
+        V[0][0] ^= RC00[r];
+        V[0][4] ^= RC04[r];
+    }
+    for (var r = 0; r < 8; r++) {
+        tmp = SUB_CRUMB(V[1][0], V[1][1], V[1][2], V[1][3]);
+        V[1][0] = tmp[0];
+        V[1][1] = tmp[1];
+        V[1][2] = tmp[2];
+        V[1][3] = tmp[3];
+        tmp = SUB_CRUMB(V[1][5], V[1][6], V[1][7], V[1][4]);
+        V[1][5] = tmp[0];
+        V[1][6] = tmp[1];
+        V[1][7] = tmp[2];
+        V[1][4] = tmp[3];
+        tmp = MIX_WORD(V[1][0], V[1][4]);
+        V[1][0] = tmp[0];
+        V[1][4] = tmp[1];
+        tmp = MIX_WORD(V[1][1], V[1][5]);
+        V[1][1] = tmp[0];
+        V[1][5] = tmp[1];
+        tmp = MIX_WORD(V[1][2], V[1][6]);
+        V[1][2] = tmp[0];
+        V[1][6] = tmp[1];
+        tmp = MIX_WORD(V[1][3], V[1][7]);
+        V[1][3] = tmp[0];
+        V[1][7] = tmp[1];
+        V[1][0] ^= RC10[r];
+        V[1][4] ^= RC14[r];
+    }
+    for (var r = 0; r < 8; r++) {
+        tmp = SUB_CRUMB(V[2][0], V[2][1], V[2][2], V[2][3]);
+        V[2][0] = tmp[0];
+        V[2][1] = tmp[1];
+        V[2][2] = tmp[2];
+        V[2][3] = tmp[3];
+        tmp = SUB_CRUMB(V[2][5], V[2][6], V[2][7], V[2][4]);
+        V[2][5] = tmp[0];
+        V[2][6] = tmp[1];
+        V[2][7] = tmp[2];
+        V[2][4] = tmp[3];
+        tmp = MIX_WORD(V[2][0], V[2][4]);
+        V[2][0] = tmp[0];
+        V[2][4] = tmp[1];
+        tmp = MIX_WORD(V[2][1], V[2][5]);
+        V[2][1] = tmp[0];
+        V[2][5] = tmp[1];
+        tmp = MIX_WORD(V[2][2], V[2][6]);
+        V[2][2] = tmp[0];
+        V[2][6] = tmp[1];
+        tmp = MIX_WORD(V[2][3], V[2][7]);
+        V[2][3] = tmp[0];
+        V[2][7] = tmp[1];
+        V[2][0] ^= RC20[r];
+        V[2][4] ^= RC24[r];
+    }
+    for (var r = 0; r < 8; r++) {
+        tmp = SUB_CRUMB(V[3][0], V[3][1], V[3][2], V[3][3]);
+        V[3][0] = tmp[0];
+        V[3][1] = tmp[1];
+        V[3][2] = tmp[2];
+        V[3][3] = tmp[3];
+        tmp = SUB_CRUMB(V[3][5], V[3][6], V[3][7], V[3][4]);
+        V[3][5] = tmp[0];
+        V[3][6] = tmp[1];
+        V[3][7] = tmp[2];
+        V[3][4] = tmp[3];
+        tmp = MIX_WORD(V[3][0], V[3][4]);
+        V[3][0] = tmp[0];
+        V[3][4] = tmp[1];
+        tmp = MIX_WORD(V[3][1], V[3][5]);
+        V[3][1] = tmp[0];
+        V[3][5] = tmp[1];
+        tmp = MIX_WORD(V[3][2], V[3][6]);
+        V[3][2] = tmp[0];
+        V[3][6] = tmp[1];
+        tmp = MIX_WORD(V[3][3], V[3][7]);
+        V[3][3] = tmp[0];
+        V[3][7] = tmp[1];
+        V[3][0] ^= RC30[r];
+        V[3][4] ^= RC34[r];
+    }
+    for (var r = 0; r < 8; r++) {
+        tmp = SUB_CRUMB(V[4][0], V[4][1], V[4][2], V[4][3]);
+        V[4][0] = tmp[0];
+        V[4][1] = tmp[1];
+        V[4][2] = tmp[2];
+        V[4][3] = tmp[3];
+        tmp = SUB_CRUMB(V[4][5], V[4][6], V[4][7], V[4][4]);
+        V[4][5] = tmp[0];
+        V[4][6] = tmp[1];
+        V[4][7] = tmp[2];
+        V[4][4] = tmp[3];
+        tmp = MIX_WORD(V[4][0], V[4][4]);
+        V[4][0] = tmp[0];
+        V[4][4] = tmp[1];
+        tmp = MIX_WORD(V[4][1], V[4][5]);
+        V[4][1] = tmp[0];
+        V[4][5] = tmp[1];
+        tmp = MIX_WORD(V[4][2], V[4][6]);
+        V[4][2] = tmp[0];
+        V[4][6] = tmp[1];
+        tmp = MIX_WORD(V[4][3], V[4][7]);
+        V[4][3] = tmp[0];
+        V[4][7] = tmp[1];
+        V[4][0] ^= RC40[r];
+        V[4][4] ^= RC44[r];
+    }
+};
 
 
 var luffa5 = function(ctx, data) {
-  var buf, ptr;
-  //create a local copy of states
-  var V = new Array(5);
-  for (var i = 0; i < 5; i++) {
-    V[i] = new Array(8);
-  }
-  buf = ctx.buffer;
-  ptr = ctx.ptr;
-  var len = data.length;
-  if (len < ctx.buffer.length - ptr) {
-    o.bufferInsert(buf, ptr, data, data.length);
-    ptr += data.length;
+    var buf, ptr;
+    //create a local copy of states
+    var V = new Array(5);
+    for (var i = 0; i < 5; i++) {
+        V[i] = new Array(8);
+    }
+    buf = ctx.buffer;
+    ptr = ctx.ptr;
+    var len = data.length;
+    if (len < ctx.buffer.length - ptr) {
+        o.bufferInsert(buf, ptr, data, data.length);
+        ptr += data.length;
+        ctx.ptr = ptr;
+        return;
+    }
+    //perform a deep copy of current state
+    for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 8; j++) {
+            V[i][j] = ctx.state[i][j];
+        }
+    }
+    while (len > 0) {
+        var clen = ctx.buffer.length - ptr;
+        if (clen > len) clen = len;
+        o.bufferInsert(buf, ptr, data, clen);
+        ptr += clen;
+        data = data.slice(clen);
+        len -= clen;
+        if (ptr === ctx.buffer.length) {
+            var int32Buf = h.bytes2Int32Buffer(buf);
+            MI5(int32Buf, V);
+            P5(V);
+            ptr = 0;
+        }
+    }
+    ctx.state = V;
     ctx.ptr = ptr;
-    return;
-  }
-  //perform a deep copy of current state
-  for (var i = 0; i < 5; i++) {
-    for (var j = 0; j < 8; j++) {
-      V[i][j] = ctx.state[i][j];
-    }
-  }
-  while (len > 0) {
-    var clen = ctx.buffer.length - ptr;
-    if (clen > len) clen = len;
-    o.bufferInsert(buf, ptr, data, clen);
-    ptr += clen;
-    data = data.slice(clen);
-    len -= clen;
-    if (ptr === ctx.buffer.length) {
-      var int32Buf = h.bytes2Int32Buffer(buf);
-      MI5(int32Buf, V);
-      P5(V);
-      ptr = 0;
-    }
-  }
-  ctx.state = V;
-  ctx.ptr = ptr;
-}
+};
 
 var luffa5Close = function(ctx, ub, n) {
-  var buf, out, ptr, z, i;
-  var V = new Array(5);
-  for (var i = 0; i < 5; i++) {
-    V[i] = new Array(8);
-  }
-  buf = ctx.buffer;
-  ptr = ctx.ptr;
-  z = 0x80 >> n;
-  buf[ptr++] = ((ub & -z) | z) & 0xFF;
-  o.bufferSet(buf, ptr, 0, ctx.buffer.length - ptr);
-  for (var i = 0; i < 5; i++) {
-    for (var j = 0; j < 8; j++) {
-      V[i][j] = ctx.state[i][j];
+    var buf, out, ptr, z, i;
+    var V = new Array(5);
+    for (var i = 0; i < 5; i++) {
+        V[i] = new Array(8);
     }
-  }
-  var out = new Array(16);
-  for (i = 0; i < 3; i++) {
-    var int32Buf = h.bytes2Int32Buffer(buf);
-    MI5(int32Buf, V);
-    P5(V);
-    switch (i) {
-      case 0:
-        o.bufferSet(buf, 0, 0, ctx.buffer.length);
-        break;
-      case 1:
-        out[0] = V[0][0] ^ V[1][0] ^ V[2][0] ^ V[3][0] ^ V[4][0];
-        out[1] = V[0][1] ^ V[1][1] ^ V[2][1] ^ V[3][1] ^ V[4][1];
-        out[2] = V[0][2] ^ V[1][2] ^ V[2][2] ^ V[3][2] ^ V[4][2];
-        out[3] = V[0][3] ^ V[1][3] ^ V[2][3] ^ V[3][3] ^ V[4][3];
-        out[4] = V[0][4] ^ V[1][4] ^ V[2][4] ^ V[3][4] ^ V[4][4];
-        out[5] = V[0][5] ^ V[1][5] ^ V[2][5] ^ V[3][5] ^ V[4][5];
-        out[6] = V[0][6] ^ V[1][6] ^ V[2][6] ^ V[3][6] ^ V[4][6];
-        out[7] = V[0][7] ^ V[1][7] ^ V[2][7] ^ V[3][7] ^ V[4][7];
-        break;
-      case 2:
-        out[8] = V[0][0] ^ V[1][0] ^ V[2][0] ^ V[3][0] ^ V[4][0];
-        out[9] = V[0][1] ^ V[1][1] ^ V[2][1] ^ V[3][1] ^ V[4][1];
-        out[10] = V[0][2] ^ V[1][2] ^ V[2][2] ^ V[3][2] ^ V[4][2];
-        out[11] = V[0][3] ^ V[1][3] ^ V[2][3] ^ V[3][3] ^ V[4][3];
-        out[12] = V[0][4] ^ V[1][4] ^ V[2][4] ^ V[3][4] ^ V[4][4];
-        out[13] = V[0][5] ^ V[1][5] ^ V[2][5] ^ V[3][5] ^ V[4][5];
-        out[14] = V[0][6] ^ V[1][6] ^ V[2][6] ^ V[3][6] ^ V[4][6];
-        out[15] = V[0][7] ^ V[1][7] ^ V[2][7] ^ V[3][7] ^ V[4][7];
-        break;
+    buf = ctx.buffer;
+    ptr = ctx.ptr;
+    z = 0x80 >> n;
+    buf[ptr++] = ((ub & -z) | z) & 0xFF;
+    o.bufferSet(buf, ptr, 0, ctx.buffer.length - ptr);
+    for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 8; j++) {
+            V[i][j] = ctx.state[i][j];
+        }
     }
-  }
-  return out;
-}
+    var out = new Array(16);
+    for (i = 0; i < 3; i++) {
+        var int32Buf = h.bytes2Int32Buffer(buf);
+        MI5(int32Buf, V);
+        P5(V);
+        switch (i) {
+            case 0:
+                o.bufferSet(buf, 0, 0, ctx.buffer.length);
+                break;
+            case 1:
+                out[0] = V[0][0] ^ V[1][0] ^ V[2][0] ^ V[3][0] ^ V[4][0];
+                out[1] = V[0][1] ^ V[1][1] ^ V[2][1] ^ V[3][1] ^ V[4][1];
+                out[2] = V[0][2] ^ V[1][2] ^ V[2][2] ^ V[3][2] ^ V[4][2];
+                out[3] = V[0][3] ^ V[1][3] ^ V[2][3] ^ V[3][3] ^ V[4][3];
+                out[4] = V[0][4] ^ V[1][4] ^ V[2][4] ^ V[3][4] ^ V[4][4];
+                out[5] = V[0][5] ^ V[1][5] ^ V[2][5] ^ V[3][5] ^ V[4][5];
+                out[6] = V[0][6] ^ V[1][6] ^ V[2][6] ^ V[3][6] ^ V[4][6];
+                out[7] = V[0][7] ^ V[1][7] ^ V[2][7] ^ V[3][7] ^ V[4][7];
+                break;
+            case 2:
+                out[8] = V[0][0] ^ V[1][0] ^ V[2][0] ^ V[3][0] ^ V[4][0];
+                out[9] = V[0][1] ^ V[1][1] ^ V[2][1] ^ V[3][1] ^ V[4][1];
+                out[10] = V[0][2] ^ V[1][2] ^ V[2][2] ^ V[3][2] ^ V[4][2];
+                out[11] = V[0][3] ^ V[1][3] ^ V[2][3] ^ V[3][3] ^ V[4][3];
+                out[12] = V[0][4] ^ V[1][4] ^ V[2][4] ^ V[3][4] ^ V[4][4];
+                out[13] = V[0][5] ^ V[1][5] ^ V[2][5] ^ V[3][5] ^ V[4][5];
+                out[14] = V[0][6] ^ V[1][6] ^ V[2][6] ^ V[3][6] ^ V[4][6];
+                out[15] = V[0][7] ^ V[1][7] ^ V[2][7] ^ V[3][7] ^ V[4][7];
+                break;
+        }
+    }
+    return out;
+};
 
 module.exports = function(input, format, output) {
-  var msg;
-  if (format === 1) {
-    msg = input;
-  }
-  else if (format === 2) {
-    msg = h.int32Buffer2Bytes(input);
-  }
-  else {
-    msg = h.string2bytes(input);
-  }
-  var ctx = {};
-  ctx.state = V_INIT;
-  ctx.ptr = 0;
-  ctx.buffer = new Array(32);
-  luffa5(ctx, msg);
-  var r = luffa5Close(ctx, 0, 0);
-  var out;
-  if (output === 2) {
-    out = r;
-  }
-  else if (output === 1) {
-    out = h.int32Buffer2Bytes(r)
-  }
-  else {
-    out = h.int32ArrayToHexString(r)
-  }
-  return out;
-}
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = h.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = h.string2bytes(input);
+    }
+    var ctx = {};
+    ctx.state = V_INIT;
+    ctx.ptr = 0;
+    ctx.buffer = new Array(32);
+    luffa5(ctx, msg);
+    var r = luffa5Close(ctx, 0, 0);
+    var out;
+    if (output === 2) {
+        out = r;
+    }
+    else if (output === 1) {
+        out = h.int32Buffer2Bytes(r);
+    }
+    else {
+        out = h.int32ArrayToHexString(r);
+    }
+    return out;
+};
+
 },{"./helper":7,"./op":11}],11:[function(require,module,exports){
 'use strict';
 //the right shift is important, it has to do with 32 bit operations in javascript, it will make things faster
 function u64(h, l) {
-  this.hi = h >>> 0;
-  this.lo = l >>> 0;
+    this.hi = h >>> 0;
+    this.lo = l >>> 0;
 }
 
 u64.prototype.set = function(oWord) {
-  this.lo = oWord.lo;
-  this.hi = oWord.hi;
-}
+    this.lo = oWord.lo;
+    this.hi = oWord.hi;
+};
 
 u64.prototype.add = function(oWord) {
-  var lowest, lowMid, highMid, highest; //four parts of the whole 64 bit number..
+    var lowest, lowMid, highMid, highest; //four parts of the whole 64 bit number..
 
-  //need to add the respective parts from each number and the carry if on is present..
-  lowest = (this.lo & 0XFFFF) + (oWord.lo & 0XFFFF);
-  lowMid = (this.lo >>> 16) + (oWord.lo >>> 16) + (lowest >>> 16);
-  highMid = (this.hi & 0XFFFF) + (oWord.hi & 0XFFFF) + (lowMid >>> 16);
-  highest = (this.hi >>> 16) + (oWord.hi >>> 16) + (highMid >>> 16);
+    //need to add the respective parts from each number and the carry if on is present..
+    lowest = (this.lo & 0XFFFF) + (oWord.lo & 0XFFFF);
+    lowMid = (this.lo >>> 16) + (oWord.lo >>> 16) + (lowest >>> 16);
+    highMid = (this.hi & 0XFFFF) + (oWord.hi & 0XFFFF) + (lowMid >>> 16);
+    highest = (this.hi >>> 16) + (oWord.hi >>> 16) + (highMid >>> 16);
 
-  //now set the hgih and the low accordingly..
-  this.lo = (lowMid << 16) | (lowest & 0XFFFF);
-  this.hi = (highest << 16) | (highMid & 0XFFFF);
+    //now set the hgih and the low accordingly..
+    this.lo = (lowMid << 16) | (lowest & 0XFFFF);
+    this.hi = (highest << 16) | (highMid & 0XFFFF);
 
-  return this; //for chaining..
+    return this; //for chaining..
 };
 
 u64.prototype.addOne = function() {
-  if (this.lo === -1 || this.lo === 0xFFFFFFFF) {
-    this.lo = 0;
-    this.hi++;
-  }
-  else {
-    this.lo++;
-  }
-}
+    if (this.lo === -1 || this.lo === 0xFFFFFFFF) {
+        this.lo = 0;
+        this.hi++;
+    }
+    else {
+        this.lo++;
+    }
+};
 
 u64.prototype.plus = function(oWord) {
-  var c = new u64(0, 0);
-  var lowest, lowMid, highMid, highest; //four parts of the whole 64 bit number..
+    var c = new u64(0, 0);
+    var lowest, lowMid, highMid, highest; //four parts of the whole 64 bit number..
 
-  //need to add the respective parts from each number and the carry if on is present..
-  lowest = (this.lo & 0XFFFF) + (oWord.lo & 0XFFFF);
-  lowMid = (this.lo >>> 16) + (oWord.lo >>> 16) + (lowest >>> 16);
-  highMid = (this.hi & 0XFFFF) + (oWord.hi & 0XFFFF) + (lowMid >>> 16);
-  highest = (this.hi >>> 16) + (oWord.hi >>> 16) + (highMid >>> 16);
+    //need to add the respective parts from each number and the carry if on is present..
+    lowest = (this.lo & 0XFFFF) + (oWord.lo & 0XFFFF);
+    lowMid = (this.lo >>> 16) + (oWord.lo >>> 16) + (lowest >>> 16);
+    highMid = (this.hi & 0XFFFF) + (oWord.hi & 0XFFFF) + (lowMid >>> 16);
+    highest = (this.hi >>> 16) + (oWord.hi >>> 16) + (highMid >>> 16);
 
-  //now set the hgih and the low accordingly..
-  c.lo = (lowMid << 16) | (lowest & 0XFFFF);
-  c.hi = (highest << 16) | (highMid & 0XFFFF);
+    //now set the hgih and the low accordingly..
+    c.lo = (lowMid << 16) | (lowest & 0XFFFF);
+    c.hi = (highest << 16) | (highMid & 0XFFFF);
 
-  return c; //for chaining..
+    return c; //for chaining..
 };
 
 u64.prototype.not = function() {
-  return new u64(~this.hi, ~this.lo);
-}
+    return new u64(~this.hi, ~this.lo);
+};
 
 u64.prototype.one = function() {
-  return new u64(0x0, 0x1);
-}
+    return new u64(0x0, 0x1);
+};
 
 u64.prototype.zero = function() {
-  return new u64(0x0, 0x0);
-}
+    return new u64(0x0, 0x0);
+};
 
 u64.prototype.neg = function() {
-  return this.not().plus(this.one());
-}
+    return this.not().plus(this.one());
+};
 
 u64.prototype.minus = function(oWord) {
-  return this.plus(oWord.neg());
+    return this.plus(oWord.neg());
 };
 
 u64.prototype.isZero = function() {
-  return (this.lo === 0) && (this.hi === 0);
-}
+    return (this.lo === 0) && (this.hi === 0);
+};
 
 function isLong(obj) {
-  return (obj && obj["__isLong__"]) === true;
+    return (obj && obj.__isLong__) === true;
 }
 
 function fromNumber(value) {
-  if (isNaN(value) || !isFinite(value))
-    return this.zero();
-  var pow32 = (1 << 32);
-  return new u64((value % pow32) | 0, (value / pow32) | 0);
+    if (isNaN(value) || !isFinite(value)) return this.zero();
+    var pow32 = (1 << 32);
+    return new u64((value % pow32) | 0, (value / pow32) | 0);
 }
 
 u64.prototype.multiply = function(multiplier) {
-  if (this.isZero())
-    return this.zero();
-  if (!isLong(multiplier))
-    multiplier = fromNumber(multiplier);
-  if (multiplier.isZero())
-    return this.zero();
+    if (this.isZero()) return this.zero();
+    if (!isLong(multiplier)) multiplier = fromNumber(multiplier);
+    if (multiplier.isZero()) return this.zero();
 
-  // Divide each long into 4 chunks of 16 bits, and then add up 4x4 products.
-  // We can skip products that would overflow.
+    // Divide each long into 4 chunks of 16 bits, and then add up 4x4 products.
+    // We can skip products that would overflow.
 
-  var a48 = this.hi >>> 16;
-  var a32 = this.hi & 0xFFFF;
-  var a16 = this.lo >>> 16;
-  var a00 = this.lo & 0xFFFF;
+    var a48 = this.hi >>> 16;
+    var a32 = this.hi & 0xFFFF;
+    var a16 = this.lo >>> 16;
+    var a00 = this.lo & 0xFFFF;
 
-  var b48 = multiplier.hi >>> 16;
-  var b32 = multiplier.hi & 0xFFFF;
-  var b16 = multiplier.lo >>> 16;
-  var b00 = multiplier.lo & 0xFFFF;
+    var b48 = multiplier.hi >>> 16;
+    var b32 = multiplier.hi & 0xFFFF;
+    var b16 = multiplier.lo >>> 16;
+    var b00 = multiplier.lo & 0xFFFF;
 
-  var c48 = 0,
-    c32 = 0,
-    c16 = 0,
-    c00 = 0;
-  c00 += a00 * b00;
-  c16 += c00 >>> 16;
-  c00 &= 0xFFFF;
-  c16 += a16 * b00;
-  c32 += c16 >>> 16;
-  c16 &= 0xFFFF;
-  c16 += a00 * b16;
-  c32 += c16 >>> 16;
-  c16 &= 0xFFFF;
-  c32 += a32 * b00;
-  c48 += c32 >>> 16;
-  c32 &= 0xFFFF;
-  c32 += a16 * b16;
-  c48 += c32 >>> 16;
-  c32 &= 0xFFFF;
-  c32 += a00 * b32;
-  c48 += c32 >>> 16;
-  c32 &= 0xFFFF;
-  c48 += a48 * b00 + a32 * b16 + a16 * b32 + a00 * b48;
-  c48 &= 0xFFFF;
-  return new u64((c48 << 16) | c32, (c16 << 16) | c00);
+    var c48 = 0,
+        c32 = 0,
+        c16 = 0,
+        c00 = 0;
+    c00 += a00 * b00;
+    c16 += c00 >>> 16;
+    c00 &= 0xFFFF;
+    c16 += a16 * b00;
+    c32 += c16 >>> 16;
+    c16 &= 0xFFFF;
+    c16 += a00 * b16;
+    c32 += c16 >>> 16;
+    c16 &= 0xFFFF;
+    c32 += a32 * b00;
+    c48 += c32 >>> 16;
+    c32 &= 0xFFFF;
+    c32 += a16 * b16;
+    c48 += c32 >>> 16;
+    c32 &= 0xFFFF;
+    c32 += a00 * b32;
+    c48 += c32 >>> 16;
+    c32 &= 0xFFFF;
+    c48 += a48 * b00 + a32 * b16 + a16 * b32 + a00 * b48;
+    c48 &= 0xFFFF;
+    return new u64((c48 << 16) | c32, (c16 << 16) | c00);
 };
 
 u64.prototype.shiftLeft = function(bits) {
-  bits = bits % 64;
-  var c = new u64(0, 0);
-  if (bits === 0) {
-    return this.clone();
-  }
-  else if (bits > 31) {
-    c.lo = 0;
-    c.hi = this.lo << (bits - 32);
-  }
-  else {
-    var toMoveUp = this.lo >>> 32 - bits;
-    c.lo = this.lo << bits;
-    c.hi = (this.hi << bits) | toMoveUp;
-  }
-  return c; //for chaining..
+    bits = bits % 64;
+    var c = new u64(0, 0);
+    if (bits === 0) {
+        return this.clone();
+    }
+    else if (bits > 31) {
+        c.lo = 0;
+        c.hi = this.lo << (bits - 32);
+    }
+    else {
+        var toMoveUp = this.lo >>> 32 - bits;
+        c.lo = this.lo << bits;
+        c.hi = (this.hi << bits) | toMoveUp;
+    }
+    return c; //for chaining..
 };
 
 u64.prototype.setShiftLeft = function(bits) {
-  if (bits === 0) {
-    return this;
-  }
-  if (bits > 63) {
-    bits = bits % 64;
-  }
-  
-  if (bits > 31) {
-    this.hi = this.lo << (bits - 32);
-    this.lo = 0;
-  }
-  else {
-    var toMoveUp = this.lo >>> 32 - bits;
-    this.lo <<= bits;
-    this.hi = (this.hi << bits) | toMoveUp;
-  }
-  return this; //for chaining..
+    if (bits === 0) {
+        return this;
+    }
+    if (bits > 63) {
+        bits = bits % 64;
+    }
+
+    if (bits > 31) {
+        this.hi = this.lo << (bits - 32);
+        this.lo = 0;
+    }
+    else {
+        var toMoveUp = this.lo >>> 32 - bits;
+        this.lo <<= bits;
+        this.hi = (this.hi << bits) | toMoveUp;
+    }
+    return this; //for chaining..
 };
 //Shifts this word by the given number of bits to the right (max 32)..
 u64.prototype.shiftRight = function(bits) {
-  bits = bits % 64;
-  var c = new u64(0, 0);
-  if (bits === 0) {
-    return this.clone();
-  }
-  else if (bits >= 32) {
-    c.hi = 0;
-    c.lo = this.hi >>> (bits - 32);
-  }
-  else {
-    var bitsOff32 = 32 - bits,
-      toMoveDown = this.hi << bitsOff32 >>> bitsOff32;
-    c.hi = this.hi >>> bits;
-    c.lo = this.lo >>> bits | (toMoveDown << bitsOff32);
-  }
-  return c; //for chaining..
+    bits = bits % 64;
+    var c = new u64(0, 0);
+    if (bits === 0) {
+        return this.clone();
+    }
+    else if (bits >= 32) {
+        c.hi = 0;
+        c.lo = this.hi >>> (bits - 32);
+    }
+    else {
+        var bitsOff32 = 32 - bits,
+            toMoveDown = this.hi << bitsOff32 >>> bitsOff32;
+        c.hi = this.hi >>> bits;
+        c.lo = this.lo >>> bits | (toMoveDown << bitsOff32);
+    }
+    return c; //for chaining..
 };
 //Rotates the bits of this word round to the left (max 32)..
 u64.prototype.rotateLeft = function(bits) {
-  if (bits > 32) {
-    return this.rotateRight(64 - bits);
-  }
-  var c = new u64(0, 0);
-  if (bits === 0) {
-    c.lo = this.lo >>> 0;
-    c.hi = this.hi >>> 0;
-  }
-  else if (bits === 32) { //just switch high and low over in this case..
-    c.lo = this.hi;
-    c.hi = this.lo;
-  }
-  else {
-    c.lo = (this.lo << bits) | (this.hi >>> (32 - bits));
-    c.hi = (this.hi << bits) | (this.lo >>> (32 - bits));
-  }
-  return c; //for chaining..
+    if (bits > 32) {
+        return this.rotateRight(64 - bits);
+    }
+    var c = new u64(0, 0);
+    if (bits === 0) {
+        c.lo = this.lo >>> 0;
+        c.hi = this.hi >>> 0;
+    }
+    else if (bits === 32) { //just switch high and low over in this case..
+        c.lo = this.hi;
+        c.hi = this.lo;
+    }
+    else {
+        c.lo = (this.lo << bits) | (this.hi >>> (32 - bits));
+        c.hi = (this.hi << bits) | (this.lo >>> (32 - bits));
+    }
+    return c; //for chaining..
 };
 
 u64.prototype.setRotateLeft = function(bits) {
-  if (bits > 32) {
-    return this.setRotateRight(64 - bits);
-  }
-  var newHigh;
-  if (bits === 0) {
-    return this;
-  }
-  else if (bits === 32) { //just switch high and low over in this case..
-    newHigh = this.lo;
-    this.lo = this.hi;
-    this.hi = newHigh;
-  }
-  else {
-    newHigh = (this.hi << bits) | (this.lo >>> (32 - bits));
-    this.lo = (this.lo << bits) | (this.hi >>> (32 - bits));
-    this.hi = newHigh;
-  }
-  return this; //for chaining..
+    if (bits > 32) {
+        return this.setRotateRight(64 - bits);
+    }
+    var newHigh;
+    if (bits === 0) {
+        return this;
+    }
+    else if (bits === 32) { //just switch high and low over in this case..
+        newHigh = this.lo;
+        this.lo = this.hi;
+        this.hi = newHigh;
+    }
+    else {
+        newHigh = (this.hi << bits) | (this.lo >>> (32 - bits));
+        this.lo = (this.lo << bits) | (this.hi >>> (32 - bits));
+        this.hi = newHigh;
+    }
+    return this; //for chaining..
 };
 //Rotates the bits of this word round to the right (max 32)..
 u64.prototype.rotateRight = function(bits) {
-  if (bits > 32) {
-    return this.rotateLeft(64 - bits);
-  }
-  var c = new u64(0, 0);
-  if (bits === 0) {
-    c.lo = this.lo >>> 0;
-    c.hi = this.hi >>> 0;
-  }
-  else if (bits === 32) { //just switch high and low over in this case..
-    c.lo = this.hi;
-    c.hi = this.lo;
-  }
-  else {
-    c.lo = (this.hi << (32 - bits)) | (this.lo >>> bits);
-    c.hi = (this.lo << (32 - bits)) | (this.hi >>> bits);
-  }
-  return c; //for chaining..
+    if (bits > 32) {
+        return this.rotateLeft(64 - bits);
+    }
+    var c = new u64(0, 0);
+    if (bits === 0) {
+        c.lo = this.lo >>> 0;
+        c.hi = this.hi >>> 0;
+    }
+    else if (bits === 32) { //just switch high and low over in this case..
+        c.lo = this.hi;
+        c.hi = this.lo;
+    }
+    else {
+        c.lo = (this.hi << (32 - bits)) | (this.lo >>> bits);
+        c.hi = (this.lo << (32 - bits)) | (this.hi >>> bits);
+    }
+    return c; //for chaining..
 };
 u64.prototype.setFlip = function() {
-  var newHigh;
-  newHigh = this.lo;
-  this.lo = this.hi;
-  this.hi = newHigh;
-  return this;
-};
-//Rotates the bits of this word round to the right (max 32)..
-u64.prototype.setRotateRight = function(bits) {
-  if (bits > 32) {
-    return this.setRotateLeft(64 - bits);
-  }
-
-  if (bits === 0) {
-    return this;
-  }
-  else if (bits === 32) { //just switch high and low over in this case..
     var newHigh;
     newHigh = this.lo;
     this.lo = this.hi;
     this.hi = newHigh;
-  }
-  else {
-    newHigh = (this.lo << (32 - bits)) | (this.hi >>> bits);
-    this.lo = (this.hi << (32 - bits)) | (this.lo >>> bits);
-    this.hi = newHigh;
-  }
-  return this; //for chaining..
+    return this;
+};
+//Rotates the bits of this word round to the right (max 32)..
+u64.prototype.setRotateRight = function(bits) {
+    if (bits > 32) {
+        return this.setRotateLeft(64 - bits);
+    }
+
+    if (bits === 0) {
+        return this;
+    }
+    else if (bits === 32) { //just switch high and low over in this case..
+        var newHigh;
+        newHigh = this.lo;
+        this.lo = this.hi;
+        this.hi = newHigh;
+    }
+    else {
+        newHigh = (this.lo << (32 - bits)) | (this.hi >>> bits);
+        this.lo = (this.hi << (32 - bits)) | (this.lo >>> bits);
+        this.hi = newHigh;
+    }
+    return this; //for chaining..
 };
 //Xors this word with the given other..
 u64.prototype.xor = function(oWord) {
-  var c = new u64(0, 0);
-  c.hi = this.hi ^ oWord.hi;
-  c.lo = this.lo ^ oWord.lo;
-  return c; //for chaining..
+    var c = new u64(0, 0);
+    c.hi = this.hi ^ oWord.hi;
+    c.lo = this.lo ^ oWord.lo;
+    return c; //for chaining..
 };
 //Xors this word with the given other..
 u64.prototype.setxorOne = function(oWord) {
-  this.hi ^= oWord.hi;
-  this.lo ^= oWord.lo;
-  return this; //for chaining..
+    this.hi ^= oWord.hi;
+    this.lo ^= oWord.lo;
+    return this; //for chaining..
 };
 //Ands this word with the given other..
 u64.prototype.and = function(oWord) {
-  var c = new u64(0, 0);
-  c.hi = this.hi & oWord.hi;
-  c.lo = this.lo & oWord.lo;
-  return c; //for chaining..
+    var c = new u64(0, 0);
+    c.hi = this.hi & oWord.hi;
+    c.lo = this.lo & oWord.lo;
+    return c; //for chaining..
 };
 
 //Creates a deep copy of this Word..
 u64.prototype.clone = function() {
-  return new u64(this.hi, this.lo);
+    return new u64(this.hi, this.lo);
 };
 
 u64.prototype.setxor64 = function() {
-  var a = arguments;
-  var i = 0, len = a.length;
-  while (i < len) {
-    this.hi ^= a[i].hi;
-    this.lo ^= a[i].lo;
-    i++;
-  }
-  return this;
-}
+    var a = arguments;
+    var i = a.length;
+    while (i--) {
+        this.hi ^= a[i].hi;
+        this.lo ^= a[i].lo;
+    }
+    return this;
+};
 
 module.exports.u64 = u64;
 
 module.exports.u = function(h, l) {
-  return new u64(h, l);
-}
+    return new u64(h, l);
+};
 /*
 module.exports.add64 = function(a, b) {
   var lowest, lowMid, highMid, highest; //four parts of the whole 64 bit number..
@@ -4856,62 +4843,63 @@ module.exports.add64 = function(a, b) {
 };
 */
 module.exports.xor64 = function() {
-  var a = arguments,
-      h = a[0].hi,
-      l = a[0].lo;
-  var i = 1, len = a.length;
-  while (i < len) {
-    h ^= a[i].hi;
-    l ^= a[i].lo;
-    i++;
-  }
-  return new this.u64(h, l);
-}
+    var a = arguments,
+        h = a[0].hi,
+        l = a[0].lo;
+    var i = a.length-1;
+    do {
+        h ^= a[i].hi;
+        l ^= a[i].lo;
+        i--;
+    } while (i>0);
+    return new this.u64(h, l);
+};
 
 module.exports.clone64Array = function(array) {
-  var i = 0;
-  var len = array.length;
-  var a = new Array(len);
-  while(i<len) {
-    a[i] = array[i];
-    i++;
-  }
-  return a;
-}
+    var i = 0;
+    var len = array.length;
+    var a = new Array(len);
+    while (i<len) {
+        a[i] = array[i];
+        i++;
+    }
+    return a;
+};
 
 //this shouldn't be a problem, but who knows in the future javascript might support 64bits
 module.exports.t32 = function(x) {
-  return (x & 0xFFFFFFFF)
-}
+    return (x & 0xFFFFFFFF);
+};
 
 module.exports.rotl32 = function(x, c) {
-  return (((x) << (c)) | ((x) >>> (32 - (c)))) & (0xFFFFFFFF);
-}
+    return (((x) << (c)) | ((x) >>> (32 - (c)))) & (0xFFFFFFFF);
+};
 
 module.exports.rotr32 = function(x, c) {
-  return this.rotl32(x, (32 - (c)));
-}
+    return this.rotl32(x, (32 - (c)));
+};
 
 module.exports.swap32 = function(val) {
-  return ((val & 0xFF) << 24) |
+    return ((val & 0xFF) << 24) |
     ((val & 0xFF00) << 8) |
     ((val >>> 8) & 0xFF00) |
     ((val >>> 24) & 0xFF);
-}
+};
 
 module.exports.swap32Array = function(a) {
-  //can't do this with map because of support for IE8 (Don't hate me plz).
-  var i = 0, len = a.length, r = new Array(len);
-  while (i<len) {
-    r[i] = (this.swap32(a[i]));
-    i++;
-  }
-  return r;
-}
+    //can't do this with map because of support for IE8 (Don't hate me plz).
+    var i = 0, len = a.length;
+    var r = new Array(i);
+    while (i<len) {
+        r[i] = (this.swap32(a[i]));
+        i++;
+    }
+    return r;
+};
 
 module.exports.xnd64 = function(x, y, z) {
-  return new this.u64(x.hi ^ ((~y.hi) & z.hi), x.lo ^ ((~y.lo) & z.lo));
-}
+    return new this.u64(x.hi ^ ((~y.hi) & z.hi), x.lo ^ ((~y.lo) & z.lo));
+};
 /*
 module.exports.load64 = function(x, i) {
   var l = x[i] | (x[i + 1] << 8) | (x[i + 2] << 16) | (x[i + 3] << 24);
@@ -4920,67 +4908,65 @@ module.exports.load64 = function(x, i) {
 }
 */
 module.exports.bufferInsert = function(buffer, bufferOffset, data, len, dataOffset) {
-  dataOffset = dataOffset | 0;
-  var i = 0;
-  while (i < len) {
-    buffer[i + bufferOffset] = data[i + dataOffset];
-    i++;
-  }
-}
+    dataOffset = dataOffset | 0;
+    var i = 0;
+    while (i < len) {
+        buffer[i + bufferOffset] = data[i + dataOffset];
+        i++;
+    }
+};
 
 module.exports.bufferInsert64 = function(buffer, bufferOffset, data, len) {
-  var i = 0;
-  while (i < len) {
-    buffer[i + bufferOffset] = data[i].clone();
-    i++;
-  }
-}
+    var i = 0;
+    while (i < len) {
+        buffer[i + bufferOffset] = data[i].clone();
+        i++;
+    }
+};
 
 module.exports.buffer2Insert = function(buffer, bufferOffset, bufferOffset2, data, len, len2) {
-  var i = 0;
-  while (i < len) {
-    var j = 0;
-    while (j < len2) {
-      buffer[i + bufferOffset][j + bufferOffset2] = data[i][j];
-      j++;
+    while (len--) {
+        var j = len2;
+        while (j--) {
+            buffer[len + bufferOffset][j + bufferOffset2] = data[len][j];
+        }
     }
-    i++;
-  }
-}
+};
 
 module.exports.bufferInsertBackwards = function(buffer, bufferOffset, data, len) {
-  var i = 0;
-  while (i < len) {
-    buffer[i + bufferOffset] = data[len - 1 - i];
-    i++;
-  }
-}
+    var i = 0;
+    while (i < len) {
+        buffer[i + bufferOffset] = data[len - 1 - i];
+        i++;
+    }
+};
 
 module.exports.bufferSet = function(buffer, bufferOffset, value, len) {
-  var i = 0;
-  while (i < len) {
-    buffer[i + bufferOffset] = value;
-    i++;
-  }
-}
+    var i = 0;
+    while (i < len) {
+        buffer[i + bufferOffset] = value;
+        i++;
+    }
+};
 
 module.exports.bufferXORInsert = function(buffer, bufferOffset, data, dataOffset, len) {
-  var i = 0;
-  while (i < len) {
-    buffer[i + bufferOffset] ^= data[i + dataOffset];
-    i++;
-  }
-}
+    var i = 0;
+    while (i < len) {
+        buffer[i + bufferOffset] ^= data[i + dataOffset];
+        i++;
+    }
+};
 
 module.exports.xORTable = function(d, s1, s2, len) {
-  var i = 0;
-  while (i < len) {
-    d[i] = s1[i] ^ s2[i];
-    i++
-  }
-}
+    var i = 0;
+    while (i < len) {
+        d[i] = s1[i] ^ s2[i];
+        i++;
+    }
+};
 
 },{}],12:[function(require,module,exports){
+'use strict';
 /////////////////////////////////////
 ////////////  Shavite ///////////////
 
@@ -4994,128 +4980,481 @@ var h = require('./helper');
 var aes = require('./aes');
 
 var IV512 = [
-  0x72FCCDD8, 0x79CA4727, 0x128A077B, 0x40D55AEC,
-  0xD1901A06, 0x430AE307, 0xB29F5CD1, 0xDF07FBFC,
-  0x8E45D73D, 0x681AB538, 0xBDE86578, 0xDD577E47,
-  0xE275EADE, 0x502D9FCD, 0xB9357178, 0x022A4B9A,
+    0x72FCCDD8, 0x79CA4727, 0x128A077B, 0x40D55AEC,
+    0xD1901A06, 0x430AE307, 0xB29F5CD1, 0xDF07FBFC,
+    0x8E45D73D, 0x681AB538, 0xBDE86578, 0xDD577E47,
+    0xE275EADE, 0x502D9FCD, 0xB9357178, 0x022A4B9A,
 ];
 
 var AES_ROUND_NOKEY = function(x) {
-  var t = new Array(4);
-  op.bufferInsert(t, 0, x, 4);
-  aes.AES_ROUND_NOKEY_LE(t, x);
-  return x;
-}
+    var t = new Array(4);
+    op.bufferInsert(t, 0, x, 4);
+    aes.AES_ROUND_NOKEY_LE(t, x);
+    return x;
+};
 
 var KEY_EXPAND_ELT = function(k, start, end) {
-  var kt = k.slice(start, end);
-  var l = AES_ROUND_NOKEY([kt[1], kt[2], kt[3], kt[0]]);
-  op.bufferInsert(k, start, l, end - start);
-}
+    var kt = k.slice(start, end);
+    var l = AES_ROUND_NOKEY([kt[1], kt[2], kt[3], kt[0]]);
+    op.bufferInsert(k, start, l, end - start);
+};
 
 var c512 = function(ctx, msg) {
-  var m = h.bytes2Int32Buffer(msg);
-  var p = Array(16);
-  var x = Array(4);
-  var rk = Array(32);
-  var r;
+    var m = h.bytes2Int32Buffer(msg);
+    var p = Array(16);
+    var x = Array(4);
+    var rk = Array(32);
+    var r;
 
-  op.bufferInsert(p, 0, ctx.h, 16);
-  /* round 0 */
-  rk[0] = op.swap32(m[0]);
-  x[0] = p[4] ^ rk[0];
-  rk[1] = op.swap32(m[1]);
-  x[1] = p[5] ^ rk[1];
-  rk[2] = op.swap32(m[2]);
-  x[2] = p[6] ^ rk[2];
-  rk[3] = op.swap32(m[3]);
-  x[3] = p[7] ^ rk[3];
-  AES_ROUND_NOKEY(x);
-  rk[4] = op.swap32(m[4]);
-  x[0] ^= rk[4];
-  rk[5] = op.swap32(m[5]);
-  x[1] ^= rk[5];
-  rk[6] = op.swap32(m[6]);
-  x[2] ^= rk[6];
-  rk[7] = op.swap32(m[7]);
-  x[3] ^= rk[7];
-  AES_ROUND_NOKEY(x);
-  rk[8] = op.swap32(m[8]);
-  x[0] ^= rk[8];
-  rk[9] = op.swap32(m[9]);
-  x[1] ^= rk[9];
-  rk[10] = op.swap32(m[10]);
-  x[2] ^= rk[10];
-  rk[11] = op.swap32(m[11]);
-  x[3] ^= rk[11];
-  AES_ROUND_NOKEY(x);
-  rk[12] = op.swap32(m[12]);
-  x[0] ^= rk[12];
-  rk[13] = op.swap32(m[13]);
-  x[1] ^= rk[13];
-  rk[14] = op.swap32(m[14]);
-  x[2] ^= rk[14];
-  rk[15] = op.swap32(m[15]);
-  x[3] ^= rk[15];
-  AES_ROUND_NOKEY(x);
-  p[0] ^= x[0];
-  p[1] ^= x[1];
-  p[2] ^= x[2];
-  p[3] ^= x[3];
-  rk[16] = op.swap32(m[16]);
-  x[0] = p[12] ^ rk[16];
-  rk[17] = op.swap32(m[17]);
-  x[1] = p[13] ^ rk[17];
-  rk[18] = op.swap32(m[18]);
-  x[2] = p[14] ^ rk[18];
-  rk[19] = op.swap32(m[19]);
-  x[3] = p[15] ^ rk[19];
-  AES_ROUND_NOKEY(x);
-  rk[20] = op.swap32(m[20]);
-  x[0] ^= rk[20];
-  rk[21] = op.swap32(m[21]);
-  x[1] ^= rk[21];
-  rk[22] = op.swap32(m[22]);
-  x[2] ^= rk[22];
-  rk[23] = op.swap32(m[23]);
-  x[3] ^= rk[23];
-  AES_ROUND_NOKEY(x);
-  rk[24] = op.swap32(m[24]);
-  x[0] ^= rk[24];
-  rk[25] = op.swap32(m[25]);
-  x[1] ^= rk[25];
-  rk[26] = op.swap32(m[26]);
-  x[2] ^= rk[26];
-  rk[27] = op.swap32(m[27]);
-  x[3] ^= rk[27];
-  AES_ROUND_NOKEY(x);
-  rk[28] = op.swap32(m[28]);
-  x[0] ^= rk[28];
-  rk[29] = op.swap32(m[29]);
-  x[1] ^= rk[29];
-  rk[30] = op.swap32(m[30]);
-  x[2] ^= rk[30];
-  rk[31] = op.swap32(m[31]);
-  x[3] ^= rk[31];
-  AES_ROUND_NOKEY(x);
-  p[8] ^= x[0];
-  p[9] ^= x[1];
-  p[10] ^= x[2];
-  p[11] ^= x[3];
+    op.bufferInsert(p, 0, ctx.h, 16);
+    /* round 0 */
+    rk[0] = op.swap32(m[0]);
+    x[0] = p[4] ^ rk[0];
+    rk[1] = op.swap32(m[1]);
+    x[1] = p[5] ^ rk[1];
+    rk[2] = op.swap32(m[2]);
+    x[2] = p[6] ^ rk[2];
+    rk[3] = op.swap32(m[3]);
+    x[3] = p[7] ^ rk[3];
+    AES_ROUND_NOKEY(x);
+    rk[4] = op.swap32(m[4]);
+    x[0] ^= rk[4];
+    rk[5] = op.swap32(m[5]);
+    x[1] ^= rk[5];
+    rk[6] = op.swap32(m[6]);
+    x[2] ^= rk[6];
+    rk[7] = op.swap32(m[7]);
+    x[3] ^= rk[7];
+    AES_ROUND_NOKEY(x);
+    rk[8] = op.swap32(m[8]);
+    x[0] ^= rk[8];
+    rk[9] = op.swap32(m[9]);
+    x[1] ^= rk[9];
+    rk[10] = op.swap32(m[10]);
+    x[2] ^= rk[10];
+    rk[11] = op.swap32(m[11]);
+    x[3] ^= rk[11];
+    AES_ROUND_NOKEY(x);
+    rk[12] = op.swap32(m[12]);
+    x[0] ^= rk[12];
+    rk[13] = op.swap32(m[13]);
+    x[1] ^= rk[13];
+    rk[14] = op.swap32(m[14]);
+    x[2] ^= rk[14];
+    rk[15] = op.swap32(m[15]);
+    x[3] ^= rk[15];
+    AES_ROUND_NOKEY(x);
+    p[0] ^= x[0];
+    p[1] ^= x[1];
+    p[2] ^= x[2];
+    p[3] ^= x[3];
+    rk[16] = op.swap32(m[16]);
+    x[0] = p[12] ^ rk[16];
+    rk[17] = op.swap32(m[17]);
+    x[1] = p[13] ^ rk[17];
+    rk[18] = op.swap32(m[18]);
+    x[2] = p[14] ^ rk[18];
+    rk[19] = op.swap32(m[19]);
+    x[3] = p[15] ^ rk[19];
+    AES_ROUND_NOKEY(x);
+    rk[20] = op.swap32(m[20]);
+    x[0] ^= rk[20];
+    rk[21] = op.swap32(m[21]);
+    x[1] ^= rk[21];
+    rk[22] = op.swap32(m[22]);
+    x[2] ^= rk[22];
+    rk[23] = op.swap32(m[23]);
+    x[3] ^= rk[23];
+    AES_ROUND_NOKEY(x);
+    rk[24] = op.swap32(m[24]);
+    x[0] ^= rk[24];
+    rk[25] = op.swap32(m[25]);
+    x[1] ^= rk[25];
+    rk[26] = op.swap32(m[26]);
+    x[2] ^= rk[26];
+    rk[27] = op.swap32(m[27]);
+    x[3] ^= rk[27];
+    AES_ROUND_NOKEY(x);
+    rk[28] = op.swap32(m[28]);
+    x[0] ^= rk[28];
+    rk[29] = op.swap32(m[29]);
+    x[1] ^= rk[29];
+    rk[30] = op.swap32(m[30]);
+    x[2] ^= rk[30];
+    rk[31] = op.swap32(m[31]);
+    x[3] ^= rk[31];
+    AES_ROUND_NOKEY(x);
+    p[8] ^= x[0];
+    p[9] ^= x[1];
+    p[10] ^= x[2];
+    p[11] ^= x[3];
 
-  for (r = 0; r < 3; r++) {
+    for (r = 0; r < 3; r++) {
     /* round 1, 5, 9 */
+        KEY_EXPAND_ELT(rk, 0, 4);
+        rk[0] ^= rk[28];
+        rk[1] ^= rk[29];
+        rk[2] ^= rk[30];
+        rk[3] ^= rk[31];
+        if (r === 0) {
+            rk[0] ^= ctx.count[0];
+            rk[1] ^= ctx.count[1];
+            rk[2] ^= ctx.count[2];
+            rk[3] ^= op.t32(~ctx.count[3]);
+        }
+        x[0] = p[0] ^ rk[0];
+        x[1] = p[1] ^ rk[1];
+        x[2] = p[2] ^ rk[2];
+        x[3] = p[3] ^ rk[3];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 4, 8);
+        rk[4] ^= rk[0];
+        rk[5] ^= rk[1];
+        rk[6] ^= rk[2];
+        rk[7] ^= rk[3];
+        if (r === 1) {
+            rk[4] ^= ctx.count[3];
+            rk[5] ^= ctx.count[2];
+            rk[6] ^= ctx.count[1];
+            rk[7] ^= op.t32(~ctx.count[0]);
+        }
+        x[0] ^= rk[4];
+        x[1] ^= rk[5];
+        x[2] ^= rk[6];
+        x[3] ^= rk[7];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 8, 12);
+        rk[8] ^= rk[4];
+        rk[9] ^= rk[5];
+        rk[10] ^= rk[6];
+        rk[11] ^= rk[7];
+        x[0] ^= rk[8];
+        x[1] ^= rk[9];
+        x[2] ^= rk[10];
+        x[3] ^= rk[11];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 12, 16);
+        rk[12] ^= rk[8];
+        rk[13] ^= rk[9];
+        rk[14] ^= rk[10];
+        rk[15] ^= rk[11];
+        x[0] ^= rk[12];
+        x[1] ^= rk[13];
+        x[2] ^= rk[14];
+        x[3] ^= rk[15];
+        AES_ROUND_NOKEY(x);
+        p[12] ^= x[0];
+        p[13] ^= x[1];
+        p[14] ^= x[2];
+        p[15] ^= x[3];
+        KEY_EXPAND_ELT(rk, 16, 20);
+        rk[16] ^= rk[12];
+        rk[17] ^= rk[13];
+        rk[18] ^= rk[14];
+        rk[19] ^= rk[15];
+        x[0] = p[8] ^ rk[16];
+        x[1] = p[9] ^ rk[17];
+        x[2] = p[10] ^ rk[18];
+        x[3] = p[11] ^ rk[19];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 20, 24);
+        rk[20] ^= rk[16];
+        rk[21] ^= rk[17];
+        rk[22] ^= rk[18];
+        rk[23] ^= rk[19];
+        x[0] ^= rk[20];
+        x[1] ^= rk[21];
+        x[2] ^= rk[22];
+        x[3] ^= rk[23];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 24, 28);
+        rk[24] ^= rk[20];
+        rk[25] ^= rk[21];
+        rk[26] ^= rk[22];
+        rk[27] ^= rk[23];
+        x[0] ^= rk[24];
+        x[1] ^= rk[25];
+        x[2] ^= rk[26];
+        x[3] ^= rk[27];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 28, 32);
+        rk[28] ^= rk[24];
+        rk[29] ^= rk[25];
+        rk[30] ^= rk[26];
+        rk[31] ^= rk[27];
+        if (r === 2) {
+            rk[28] ^= ctx.count[2];
+            rk[29] ^= ctx.count[3];
+            rk[30] ^= ctx.count[0];
+            rk[31] ^= op.t32(~ctx.count[1]);
+        }
+        x[0] ^= rk[28];
+        x[1] ^= rk[29];
+        x[2] ^= rk[30];
+        x[3] ^= rk[31];
+        AES_ROUND_NOKEY(x);
+        p[4] ^= x[0];
+        p[5] ^= x[1];
+        p[6] ^= x[2];
+        p[7] ^= x[3];
+        /* round 2, 6, 10 */
+        rk[0] ^= rk[25];
+        x[0] = p[12] ^ rk[0];
+        rk[1] ^= rk[26];
+        x[1] = p[13] ^ rk[1];
+        rk[2] ^= rk[27];
+        x[2] = p[14] ^ rk[2];
+        rk[3] ^= rk[28];
+        x[3] = p[15] ^ rk[3];
+        AES_ROUND_NOKEY(x);
+        rk[4] ^= rk[29];
+        x[0] ^= rk[4];
+        rk[5] ^= rk[30];
+        x[1] ^= rk[5];
+        rk[6] ^= rk[31];
+        x[2] ^= rk[6];
+        rk[7] ^= rk[0];
+        x[3] ^= rk[7];
+        AES_ROUND_NOKEY(x);
+        rk[8] ^= rk[1];
+        x[0] ^= rk[8];
+        rk[9] ^= rk[2];
+        x[1] ^= rk[9];
+        rk[10] ^= rk[3];
+        x[2] ^= rk[10];
+        rk[11] ^= rk[4];
+        x[3] ^= rk[11];
+        AES_ROUND_NOKEY(x);
+        rk[12] ^= rk[5];
+        x[0] ^= rk[12];
+        rk[13] ^= rk[6];
+        x[1] ^= rk[13];
+        rk[14] ^= rk[7];
+        x[2] ^= rk[14];
+        rk[15] ^= rk[8];
+        x[3] ^= rk[15];
+        AES_ROUND_NOKEY(x);
+        p[8] ^= x[0];
+        p[9] ^= x[1];
+        p[10] ^= x[2];
+        p[11] ^= x[3];
+        rk[16] ^= rk[9];
+        x[0] = p[4] ^ rk[16];
+        rk[17] ^= rk[10];
+        x[1] = p[5] ^ rk[17];
+        rk[18] ^= rk[11];
+        x[2] = p[6] ^ rk[18];
+        rk[19] ^= rk[12];
+        x[3] = p[7] ^ rk[19];
+        AES_ROUND_NOKEY(x);
+        rk[20] ^= rk[13];
+        x[0] ^= rk[20];
+        rk[21] ^= rk[14];
+        x[1] ^= rk[21];
+        rk[22] ^= rk[15];
+        x[2] ^= rk[22];
+        rk[23] ^= rk[16];
+        x[3] ^= rk[23];
+        AES_ROUND_NOKEY(x);
+        rk[24] ^= rk[17];
+        x[0] ^= rk[24];
+        rk[25] ^= rk[18];
+        x[1] ^= rk[25];
+        rk[26] ^= rk[19];
+        x[2] ^= rk[26];
+        rk[27] ^= rk[20];
+        x[3] ^= rk[27];
+        AES_ROUND_NOKEY(x);
+        rk[28] ^= rk[21];
+        x[0] ^= rk[28];
+        rk[29] ^= rk[22];
+        x[1] ^= rk[29];
+        rk[30] ^= rk[23];
+        x[2] ^= rk[30];
+        rk[31] ^= rk[24];
+        x[3] ^= rk[31];
+        AES_ROUND_NOKEY(x);
+        p[0] ^= x[0];
+        p[1] ^= x[1];
+        p[2] ^= x[2];
+        p[3] ^= x[3];
+        /* round 3, 7, 11 */
+        KEY_EXPAND_ELT(rk, 0, 4);
+        rk[0] ^= rk[28];
+        rk[1] ^= rk[29];
+        rk[2] ^= rk[30];
+        rk[3] ^= rk[31];
+        x[0] = p[8] ^ rk[0];
+        x[1] = p[9] ^ rk[1];
+        x[2] = p[10] ^ rk[2];
+        x[3] = p[11] ^ rk[3];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 4, 8);
+        rk[4] ^= rk[0];
+        rk[5] ^= rk[1];
+        rk[6] ^= rk[2];
+        rk[7] ^= rk[3];
+        x[0] ^= rk[4];
+        x[1] ^= rk[5];
+        x[2] ^= rk[6];
+        x[3] ^= rk[7];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 8, 12);
+        rk[8] ^= rk[4];
+        rk[9] ^= rk[5];
+        rk[10] ^= rk[6];
+        rk[11] ^= rk[7];
+        x[0] ^= rk[8];
+        x[1] ^= rk[9];
+        x[2] ^= rk[10];
+        x[3] ^= rk[11];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 12, 16);
+        rk[12] ^= rk[8];
+        rk[13] ^= rk[9];
+        rk[14] ^= rk[10];
+        rk[15] ^= rk[11];
+        x[0] ^= rk[12];
+        x[1] ^= rk[13];
+        x[2] ^= rk[14];
+        x[3] ^= rk[15];
+        AES_ROUND_NOKEY(x);
+        p[4] ^= x[0];
+        p[5] ^= x[1];
+        p[6] ^= x[2];
+        p[7] ^= x[3];
+        KEY_EXPAND_ELT(rk, 16, 20);
+        rk[16] ^= rk[12];
+        rk[17] ^= rk[13];
+        rk[18] ^= rk[14];
+        rk[19] ^= rk[15];
+        x[0] = p[0] ^ rk[16];
+        x[1] = p[1] ^ rk[17];
+        x[2] = p[2] ^ rk[18];
+        x[3] = p[3] ^ rk[19];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 20, 24);
+        rk[20] ^= rk[16];
+        rk[21] ^= rk[17];
+        rk[22] ^= rk[18];
+        rk[23] ^= rk[19];
+        x[0] ^= rk[20];
+        x[1] ^= rk[21];
+        x[2] ^= rk[22];
+        x[3] ^= rk[23];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 24, 28);
+        rk[24] ^= rk[20];
+        rk[25] ^= rk[21];
+        rk[26] ^= rk[22];
+        rk[27] ^= rk[23];
+        x[0] ^= rk[24];
+        x[1] ^= rk[25];
+        x[2] ^= rk[26];
+        x[3] ^= rk[27];
+        AES_ROUND_NOKEY(x);
+        KEY_EXPAND_ELT(rk, 28, 32);
+        rk[28] ^= rk[24];
+        rk[29] ^= rk[25];
+        rk[30] ^= rk[26];
+        rk[31] ^= rk[27];
+        x[0] ^= rk[28];
+        x[1] ^= rk[29];
+        x[2] ^= rk[30];
+        x[3] ^= rk[31];
+        AES_ROUND_NOKEY(x);
+        p[12] ^= x[0];
+        p[13] ^= x[1];
+        p[14] ^= x[2];
+        p[15] ^= x[3];
+        /* round 4, 8, 12 */
+        rk[0] ^= rk[25];
+        x[0] = p[4] ^ rk[0];
+        rk[1] ^= rk[26];
+        x[1] = p[5] ^ rk[1];
+        rk[2] ^= rk[27];
+        x[2] = p[6] ^ rk[2];
+        rk[3] ^= rk[28];
+        x[3] = p[7] ^ rk[3];
+        AES_ROUND_NOKEY(x);
+        rk[4] ^= rk[29];
+        x[0] ^= rk[4];
+        rk[5] ^= rk[30];
+        x[1] ^= rk[5];
+        rk[6] ^= rk[31];
+        x[2] ^= rk[6];
+        rk[7] ^= rk[0];
+        x[3] ^= rk[7];
+        AES_ROUND_NOKEY(x);
+        rk[8] ^= rk[1];
+        x[0] ^= rk[8];
+        rk[9] ^= rk[2];
+        x[1] ^= rk[9];
+        rk[10] ^= rk[3];
+        x[2] ^= rk[10];
+        rk[11] ^= rk[4];
+        x[3] ^= rk[11];
+        AES_ROUND_NOKEY(x);
+        rk[12] ^= rk[5];
+        x[0] ^= rk[12];
+        rk[13] ^= rk[6];
+        x[1] ^= rk[13];
+        rk[14] ^= rk[7];
+        x[2] ^= rk[14];
+        rk[15] ^= rk[8];
+        x[3] ^= rk[15];
+        AES_ROUND_NOKEY(x);
+        p[0] ^= x[0];
+        p[1] ^= x[1];
+        p[2] ^= x[2];
+        p[3] ^= x[3];
+        rk[16] ^= rk[9];
+        x[0] = p[12] ^ rk[16];
+        rk[17] ^= rk[10];
+        x[1] = p[13] ^ rk[17];
+        rk[18] ^= rk[11];
+        x[2] = p[14] ^ rk[18];
+        rk[19] ^= rk[12];
+        x[3] = p[15] ^ rk[19];
+        AES_ROUND_NOKEY(x);
+        rk[20] ^= rk[13];
+        x[0] ^= rk[20];
+        rk[21] ^= rk[14];
+        x[1] ^= rk[21];
+        rk[22] ^= rk[15];
+        x[2] ^= rk[22];
+        rk[23] ^= rk[16];
+        x[3] ^= rk[23];
+        AES_ROUND_NOKEY(x);
+        rk[24] ^= rk[17];
+        x[0] ^= rk[24];
+        rk[25] ^= rk[18];
+        x[1] ^= rk[25];
+        rk[26] ^= rk[19];
+        x[2] ^= rk[26];
+        rk[27] ^= rk[20];
+        x[3] ^= rk[27];
+        AES_ROUND_NOKEY(x);
+        rk[28] ^= rk[21];
+        x[0] ^= rk[28];
+        rk[29] ^= rk[22];
+        x[1] ^= rk[29];
+        rk[30] ^= rk[23];
+        x[2] ^= rk[30];
+        rk[31] ^= rk[24];
+        x[3] ^= rk[31];
+        AES_ROUND_NOKEY(x);
+        p[8] ^= x[0];
+        p[9] ^= x[1];
+        p[10] ^= x[2];
+        p[11] ^= x[3];
+    }
+    /* round 13 */
     KEY_EXPAND_ELT(rk, 0, 4);
     rk[0] ^= rk[28];
     rk[1] ^= rk[29];
     rk[2] ^= rk[30];
     rk[3] ^= rk[31];
-    if (r == 0) {
-      rk[0] ^= ctx.count[0];
-      rk[1] ^= ctx.count[1];
-      rk[2] ^= ctx.count[2];
-      rk[3] ^= op.t32(~ctx.count[3]);
-    }
     x[0] = p[0] ^ rk[0];
     x[1] = p[1] ^ rk[1];
     x[2] = p[2] ^ rk[2];
@@ -5126,12 +5465,6 @@ var c512 = function(ctx, msg) {
     rk[5] ^= rk[1];
     rk[6] ^= rk[2];
     rk[7] ^= rk[3];
-    if (r == 1) {
-      rk[4] ^= ctx.count[3];
-      rk[5] ^= ctx.count[2];
-      rk[6] ^= ctx.count[1];
-      rk[7] ^= op.t32(~ctx.count[0]);
-    }
     x[0] ^= rk[4];
     x[1] ^= rk[5];
     x[2] ^= rk[6];
@@ -5182,186 +5515,10 @@ var c512 = function(ctx, msg) {
     x[3] ^= rk[23];
     AES_ROUND_NOKEY(x);
     KEY_EXPAND_ELT(rk, 24, 28);
-    rk[24] ^= rk[20];
-    rk[25] ^= rk[21];
-    rk[26] ^= rk[22];
-    rk[27] ^= rk[23];
-    x[0] ^= rk[24];
-    x[1] ^= rk[25];
-    x[2] ^= rk[26];
-    x[3] ^= rk[27];
-    AES_ROUND_NOKEY(x);
-    KEY_EXPAND_ELT(rk, 28, 32);
-    rk[28] ^= rk[24];
-    rk[29] ^= rk[25];
-    rk[30] ^= rk[26];
-    rk[31] ^= rk[27];
-    if (r == 2) {
-      rk[28] ^= ctx.count[2];
-      rk[29] ^= ctx.count[3];
-      rk[30] ^= ctx.count[0];
-      rk[31] ^= op.t32(~ctx.count[1]);
-    }
-    x[0] ^= rk[28];
-    x[1] ^= rk[29];
-    x[2] ^= rk[30];
-    x[3] ^= rk[31];
-    AES_ROUND_NOKEY(x);
-    p[4] ^= x[0];
-    p[5] ^= x[1];
-    p[6] ^= x[2];
-    p[7] ^= x[3];
-    /* round 2, 6, 10 */
-    rk[0] ^= rk[25];
-    x[0] = p[12] ^ rk[0];
-    rk[1] ^= rk[26];
-    x[1] = p[13] ^ rk[1];
-    rk[2] ^= rk[27];
-    x[2] = p[14] ^ rk[2];
-    rk[3] ^= rk[28];
-    x[3] = p[15] ^ rk[3];
-    AES_ROUND_NOKEY(x);
-    rk[4] ^= rk[29];
-    x[0] ^= rk[4];
-    rk[5] ^= rk[30];
-    x[1] ^= rk[5];
-    rk[6] ^= rk[31];
-    x[2] ^= rk[6];
-    rk[7] ^= rk[0];
-    x[3] ^= rk[7];
-    AES_ROUND_NOKEY(x);
-    rk[8] ^= rk[1];
-    x[0] ^= rk[8];
-    rk[9] ^= rk[2];
-    x[1] ^= rk[9];
-    rk[10] ^= rk[3];
-    x[2] ^= rk[10];
-    rk[11] ^= rk[4];
-    x[3] ^= rk[11];
-    AES_ROUND_NOKEY(x);
-    rk[12] ^= rk[5];
-    x[0] ^= rk[12];
-    rk[13] ^= rk[6];
-    x[1] ^= rk[13];
-    rk[14] ^= rk[7];
-    x[2] ^= rk[14];
-    rk[15] ^= rk[8];
-    x[3] ^= rk[15];
-    AES_ROUND_NOKEY(x);
-    p[8] ^= x[0];
-    p[9] ^= x[1];
-    p[10] ^= x[2];
-    p[11] ^= x[3];
-    rk[16] ^= rk[9];
-    x[0] = p[4] ^ rk[16];
-    rk[17] ^= rk[10];
-    x[1] = p[5] ^ rk[17];
-    rk[18] ^= rk[11];
-    x[2] = p[6] ^ rk[18];
-    rk[19] ^= rk[12];
-    x[3] = p[7] ^ rk[19];
-    AES_ROUND_NOKEY(x);
-    rk[20] ^= rk[13];
-    x[0] ^= rk[20];
-    rk[21] ^= rk[14];
-    x[1] ^= rk[21];
-    rk[22] ^= rk[15];
-    x[2] ^= rk[22];
-    rk[23] ^= rk[16];
-    x[3] ^= rk[23];
-    AES_ROUND_NOKEY(x);
-    rk[24] ^= rk[17];
-    x[0] ^= rk[24];
-    rk[25] ^= rk[18];
-    x[1] ^= rk[25];
-    rk[26] ^= rk[19];
-    x[2] ^= rk[26];
-    rk[27] ^= rk[20];
-    x[3] ^= rk[27];
-    AES_ROUND_NOKEY(x);
-    rk[28] ^= rk[21];
-    x[0] ^= rk[28];
-    rk[29] ^= rk[22];
-    x[1] ^= rk[29];
-    rk[30] ^= rk[23];
-    x[2] ^= rk[30];
-    rk[31] ^= rk[24];
-    x[3] ^= rk[31];
-    AES_ROUND_NOKEY(x);
-    p[0] ^= x[0];
-    p[1] ^= x[1];
-    p[2] ^= x[2];
-    p[3] ^= x[3];
-    /* round 3, 7, 11 */
-    KEY_EXPAND_ELT(rk, 0, 4);
-    rk[0] ^= rk[28];
-    rk[1] ^= rk[29];
-    rk[2] ^= rk[30];
-    rk[3] ^= rk[31];
-    x[0] = p[8] ^ rk[0];
-    x[1] = p[9] ^ rk[1];
-    x[2] = p[10] ^ rk[2];
-    x[3] = p[11] ^ rk[3];
-    AES_ROUND_NOKEY(x);
-    KEY_EXPAND_ELT(rk, 4, 8);
-    rk[4] ^= rk[0];
-    rk[5] ^= rk[1];
-    rk[6] ^= rk[2];
-    rk[7] ^= rk[3];
-    x[0] ^= rk[4];
-    x[1] ^= rk[5];
-    x[2] ^= rk[6];
-    x[3] ^= rk[7];
-    AES_ROUND_NOKEY(x);
-    KEY_EXPAND_ELT(rk, 8, 12);
-    rk[8] ^= rk[4];
-    rk[9] ^= rk[5];
-    rk[10] ^= rk[6];
-    rk[11] ^= rk[7];
-    x[0] ^= rk[8];
-    x[1] ^= rk[9];
-    x[2] ^= rk[10];
-    x[3] ^= rk[11];
-    AES_ROUND_NOKEY(x);
-    KEY_EXPAND_ELT(rk, 12, 16);
-    rk[12] ^= rk[8];
-    rk[13] ^= rk[9];
-    rk[14] ^= rk[10];
-    rk[15] ^= rk[11];
-    x[0] ^= rk[12];
-    x[1] ^= rk[13];
-    x[2] ^= rk[14];
-    x[3] ^= rk[15];
-    AES_ROUND_NOKEY(x);
-    p[4] ^= x[0];
-    p[5] ^= x[1];
-    p[6] ^= x[2];
-    p[7] ^= x[3];
-    KEY_EXPAND_ELT(rk, 16, 20);
-    rk[16] ^= rk[12];
-    rk[17] ^= rk[13];
-    rk[18] ^= rk[14];
-    rk[19] ^= rk[15];
-    x[0] = p[0] ^ rk[16];
-    x[1] = p[1] ^ rk[17];
-    x[2] = p[2] ^ rk[18];
-    x[3] = p[3] ^ rk[19];
-    AES_ROUND_NOKEY(x);
-    KEY_EXPAND_ELT(rk, 20, 24);
-    rk[20] ^= rk[16];
-    rk[21] ^= rk[17];
-    rk[22] ^= rk[18];
-    rk[23] ^= rk[19];
-    x[0] ^= rk[20];
-    x[1] ^= rk[21];
-    x[2] ^= rk[22];
-    x[3] ^= rk[23];
-    AES_ROUND_NOKEY(x);
-    KEY_EXPAND_ELT(rk, 24, 28);
-    rk[24] ^= rk[20];
-    rk[25] ^= rk[21];
-    rk[26] ^= rk[22];
-    rk[27] ^= rk[23];
+    rk[24] ^= rk[20] ^ ctx.count[1];
+    rk[25] ^= rk[21] ^ ctx.count[0];
+    rk[26] ^= rk[22] ^ ctx.count[3];
+    rk[27] ^= rk[23] ^ op.t32(~ctx.count[2]);
     x[0] ^= rk[24];
     x[1] ^= rk[25];
     x[2] ^= rk[26];
@@ -5377,303 +5534,133 @@ var c512 = function(ctx, msg) {
     x[2] ^= rk[30];
     x[3] ^= rk[31];
     AES_ROUND_NOKEY(x);
-    p[12] ^= x[0];
-    p[13] ^= x[1];
-    p[14] ^= x[2];
-    p[15] ^= x[3];
-    /* round 4, 8, 12 */
-    rk[0] ^= rk[25];
-    x[0] = p[4] ^ rk[0];
-    rk[1] ^= rk[26];
-    x[1] = p[5] ^ rk[1];
-    rk[2] ^= rk[27];
-    x[2] = p[6] ^ rk[2];
-    rk[3] ^= rk[28];
-    x[3] = p[7] ^ rk[3];
-    AES_ROUND_NOKEY(x);
-    rk[4] ^= rk[29];
-    x[0] ^= rk[4];
-    rk[5] ^= rk[30];
-    x[1] ^= rk[5];
-    rk[6] ^= rk[31];
-    x[2] ^= rk[6];
-    rk[7] ^= rk[0];
-    x[3] ^= rk[7];
-    AES_ROUND_NOKEY(x);
-    rk[8] ^= rk[1];
-    x[0] ^= rk[8];
-    rk[9] ^= rk[2];
-    x[1] ^= rk[9];
-    rk[10] ^= rk[3];
-    x[2] ^= rk[10];
-    rk[11] ^= rk[4];
-    x[3] ^= rk[11];
-    AES_ROUND_NOKEY(x);
-    rk[12] ^= rk[5];
-    x[0] ^= rk[12];
-    rk[13] ^= rk[6];
-    x[1] ^= rk[13];
-    rk[14] ^= rk[7];
-    x[2] ^= rk[14];
-    rk[15] ^= rk[8];
-    x[3] ^= rk[15];
-    AES_ROUND_NOKEY(x);
-    p[0] ^= x[0];
-    p[1] ^= x[1];
-    p[2] ^= x[2];
-    p[3] ^= x[3];
-    rk[16] ^= rk[9];
-    x[0] = p[12] ^ rk[16];
-    rk[17] ^= rk[10];
-    x[1] = p[13] ^ rk[17];
-    rk[18] ^= rk[11];
-    x[2] = p[14] ^ rk[18];
-    rk[19] ^= rk[12];
-    x[3] = p[15] ^ rk[19];
-    AES_ROUND_NOKEY(x);
-    rk[20] ^= rk[13];
-    x[0] ^= rk[20];
-    rk[21] ^= rk[14];
-    x[1] ^= rk[21];
-    rk[22] ^= rk[15];
-    x[2] ^= rk[22];
-    rk[23] ^= rk[16];
-    x[3] ^= rk[23];
-    AES_ROUND_NOKEY(x);
-    rk[24] ^= rk[17];
-    x[0] ^= rk[24];
-    rk[25] ^= rk[18];
-    x[1] ^= rk[25];
-    rk[26] ^= rk[19];
-    x[2] ^= rk[26];
-    rk[27] ^= rk[20];
-    x[3] ^= rk[27];
-    AES_ROUND_NOKEY(x);
-    rk[28] ^= rk[21];
-    x[0] ^= rk[28];
-    rk[29] ^= rk[22];
-    x[1] ^= rk[29];
-    rk[30] ^= rk[23];
-    x[2] ^= rk[30];
-    rk[31] ^= rk[24];
-    x[3] ^= rk[31];
-    AES_ROUND_NOKEY(x);
-    p[8] ^= x[0];
-    p[9] ^= x[1];
-    p[10] ^= x[2];
-    p[11] ^= x[3];
-  }
-  /* round 13 */
-  KEY_EXPAND_ELT(rk, 0, 4);
-  rk[0] ^= rk[28];
-  rk[1] ^= rk[29];
-  rk[2] ^= rk[30];
-  rk[3] ^= rk[31];
-  x[0] = p[0] ^ rk[0];
-  x[1] = p[1] ^ rk[1];
-  x[2] = p[2] ^ rk[2];
-  x[3] = p[3] ^ rk[3];
-  AES_ROUND_NOKEY(x);
-  KEY_EXPAND_ELT(rk, 4, 8);
-  rk[4] ^= rk[0];
-  rk[5] ^= rk[1];
-  rk[6] ^= rk[2];
-  rk[7] ^= rk[3];
-  x[0] ^= rk[4];
-  x[1] ^= rk[5];
-  x[2] ^= rk[6];
-  x[3] ^= rk[7];
-  AES_ROUND_NOKEY(x);
-  KEY_EXPAND_ELT(rk, 8, 12);
-  rk[8] ^= rk[4];
-  rk[9] ^= rk[5];
-  rk[10] ^= rk[6];
-  rk[11] ^= rk[7];
-  x[0] ^= rk[8];
-  x[1] ^= rk[9];
-  x[2] ^= rk[10];
-  x[3] ^= rk[11];
-  AES_ROUND_NOKEY(x);
-  KEY_EXPAND_ELT(rk, 12, 16);
-  rk[12] ^= rk[8];
-  rk[13] ^= rk[9];
-  rk[14] ^= rk[10];
-  rk[15] ^= rk[11];
-  x[0] ^= rk[12];
-  x[1] ^= rk[13];
-  x[2] ^= rk[14];
-  x[3] ^= rk[15];
-  AES_ROUND_NOKEY(x);
-  p[12] ^= x[0];
-  p[13] ^= x[1];
-  p[14] ^= x[2];
-  p[15] ^= x[3];
-  KEY_EXPAND_ELT(rk, 16, 20);
-  rk[16] ^= rk[12];
-  rk[17] ^= rk[13];
-  rk[18] ^= rk[14];
-  rk[19] ^= rk[15];
-  x[0] = p[8] ^ rk[16];
-  x[1] = p[9] ^ rk[17];
-  x[2] = p[10] ^ rk[18];
-  x[3] = p[11] ^ rk[19];
-  AES_ROUND_NOKEY(x);
-  KEY_EXPAND_ELT(rk, 20, 24);
-  rk[20] ^= rk[16];
-  rk[21] ^= rk[17];
-  rk[22] ^= rk[18];
-  rk[23] ^= rk[19];
-  x[0] ^= rk[20];
-  x[1] ^= rk[21];
-  x[2] ^= rk[22];
-  x[3] ^= rk[23];
-  AES_ROUND_NOKEY(x);
-  KEY_EXPAND_ELT(rk, 24, 28);
-  rk[24] ^= rk[20] ^ ctx.count[1];
-  rk[25] ^= rk[21] ^ ctx.count[0];
-  rk[26] ^= rk[22] ^ ctx.count[3];
-  rk[27] ^= rk[23] ^ op.t32(~ctx.count[2]);
-  x[0] ^= rk[24];
-  x[1] ^= rk[25];
-  x[2] ^= rk[26];
-  x[3] ^= rk[27];
-  AES_ROUND_NOKEY(x);
-  KEY_EXPAND_ELT(rk, 28, 32);
-  rk[28] ^= rk[24];
-  rk[29] ^= rk[25];
-  rk[30] ^= rk[26];
-  rk[31] ^= rk[27];
-  x[0] ^= rk[28];
-  x[1] ^= rk[29];
-  x[2] ^= rk[30];
-  x[3] ^= rk[31];
-  AES_ROUND_NOKEY(x);
-  p[4] ^= x[0];
-  p[5] ^= x[1];
-  p[6] ^= x[2];
-  p[7] ^= x[3];
-  ctx.h[0] ^= p[8];
-  ctx.h[1] ^= p[9];
-  ctx.h[2] ^= p[10];
-  ctx.h[3] ^= p[11];
-  ctx.h[4] ^= p[12];
-  ctx.h[5] ^= p[13];
-  ctx.h[6] ^= p[14];
-  ctx.h[7] ^= p[15];
-  ctx.h[8] ^= p[0];
-  ctx.h[9] ^= p[1];
-  ctx.h[10] ^= p[2];
-  ctx.h[11] ^= p[3];
-  ctx.h[12] ^= p[4];
-  ctx.h[13] ^= p[5];
-  ctx.h[14] ^= p[6];
-  ctx.h[15] ^= p[7];
-}
+    p[4] ^= x[0];
+    p[5] ^= x[1];
+    p[6] ^= x[2];
+    p[7] ^= x[3];
+    ctx.h[0] ^= p[8];
+    ctx.h[1] ^= p[9];
+    ctx.h[2] ^= p[10];
+    ctx.h[3] ^= p[11];
+    ctx.h[4] ^= p[12];
+    ctx.h[5] ^= p[13];
+    ctx.h[6] ^= p[14];
+    ctx.h[7] ^= p[15];
+    ctx.h[8] ^= p[0];
+    ctx.h[9] ^= p[1];
+    ctx.h[10] ^= p[2];
+    ctx.h[11] ^= p[3];
+    ctx.h[12] ^= p[4];
+    ctx.h[13] ^= p[5];
+    ctx.h[14] ^= p[6];
+    ctx.h[15] ^= p[7];
+};
 
 var shavite = function(ctx, data) {
-  var len = data.length;
-  var buf = ctx.buffer;
-  var ptr = ctx.ptr;
-  while (len > 0) {
-    var clen = ctx.buffer.length - ctx.ptr;
-    if (clen > len) clen = len;
-    op.bufferInsert(buf, ptr, data, clen);
-    ptr += clen;
-    data = data.slice(clen);
-    len -= clen;
-    if (ptr === ctx.buffer.length) {
-      if ((ctx.count[0] = op.t32(ctx.count[0] + 1024)) == 0) {
-        ctx.count[1] = op.t32(ctx.count[1] + 1);
-        if (ctx.count[1] == 0) {
-          ctx.count[2] = op.t32(ctx.count[2] + 1);
-          if (ctx.count[2] == 0) {
-            ctx.count[3] = op.t32(ctx.count[3] + 1);
-          }
+    var len = data.length;
+    var buf = ctx.buffer;
+    var ptr = ctx.ptr;
+    while (len > 0) {
+        var clen = ctx.buffer.length - ctx.ptr;
+        if (clen > len) clen = len;
+        op.bufferInsert(buf, ptr, data, clen);
+        ptr += clen;
+        data = data.slice(clen);
+        len -= clen;
+        if (ptr === ctx.buffer.length) {
+            if ((ctx.count[0] = op.t32(ctx.count[0] + 1024)) === 0) {
+                ctx.count[1] = op.t32(ctx.count[1] + 1);
+                if (ctx.count[1] === 0) {
+                    ctx.count[2] = op.t32(ctx.count[2] + 1);
+                    if (ctx.count[2] === 0) {
+                        ctx.count[3] = op.t32(ctx.count[3] + 1);
+                    }
+                }
+            }
+            c512(ctx, buf);
+            ptr = 0;
         }
-      }
-      c512(ctx, buf);
-      ptr = 0;
     }
-  }
-  ctx.ptr = ptr;
-}
+    ctx.ptr = ptr;
+};
 
 var shaviteClose = function(ctx, ub, n) {
-  var buf;
-  var ptr, u;
-  var z;
-  var count = new Array(4);
+    var buf;
+    var ptr, u;
+    var z;
+    var count = new Array(4);
 
-  buf = ctx.buffer;
-  ptr = ctx.ptr;
-  count[0] = (ctx.count[0] += (ptr << 3) + n);
-  count[1] = ctx.count[1];
-  count[2] = ctx.count[2];
-  count[3] = ctx.count[3];
-  z = 0x80 >> n;
-  z = ((ub & -z) | z) & 0xFF;
-  if (ptr == 0 && n == 0) {
-    buf[0] = 0x80;
-    op.bufferSet(buf, 1, 0, 109);
-    op.bufferSet(ctx.count, 0, 0, 4);
-  }
-  else if (ptr < 110) {
-    buf[ptr++] = z;
-    op.bufferSet(buf, ptr, 0, 110 - ptr);
-  }
-  else {
-    buf[ptr++] = z;
-    op.bufferSet(buf, ptr, 0, 128 - ptr);
+    buf = ctx.buffer;
+    ptr = ctx.ptr;
+    count[0] = (ctx.count[0] += (ptr << 3) + n);
+    count[1] = ctx.count[1];
+    count[2] = ctx.count[2];
+    count[3] = ctx.count[3];
+    z = 0x80 >> n;
+    z = ((ub & -z) | z) & 0xFF;
+    if (ptr === 0 && n === 0) {
+        buf[0] = 0x80;
+        op.bufferSet(buf, 1, 0, 109);
+        op.bufferSet(ctx.count, 0, 0, 4);
+    }
+    else if (ptr < 110) {
+        buf[ptr++] = z;
+        op.bufferSet(buf, ptr, 0, 110 - ptr);
+    }
+    else {
+        buf[ptr++] = z;
+        op.bufferSet(buf, ptr, 0, 128 - ptr);
+        c512(ctx, buf);
+        op.bufferSet(buf, 0, 0, 110);
+        op.bufferSet(ctx.count, 0, 0, 4);
+    }
+
+    var countSwapped = op.swap32Array(count);
+    var countBytes = h.int32Buffer2Bytes(countSwapped);
+    op.bufferInsert(buf, 110, countBytes, 16);
+    buf[126] = (16 << 5) & 0xFF; //just to copy the spec (doesn't make sense)
+    buf[127] = 16 >>> 3;
     c512(ctx, buf);
-    op.bufferSet(buf, 0, 0, 110);
-    op.bufferSet(ctx.count, 0, 0, 4);
-  }
 
-  var countSwapped = op.swap32Array(count);
-  var countBytes = h.int32Buffer2Bytes(countSwapped);
-  op.bufferInsert(buf, 110, countBytes, 16);
-  buf[126] = (16 << 5) & 0xFF; //just to copy the spec (doesn't make sense)
-  buf[127] = 16 >>> 3;
-  c512(ctx, buf);
-
-  var out = new Array(16);
-  for (u = 0; u < 16; u++)
-    out[u] = op.swap32(ctx.h[u]);
-  return out;
-}
+    var out = new Array(16);
+    for (u = 0; u < 16; u++) out[u] = op.swap32(ctx.h[u]);
+    return out;
+};
 
 module.exports = function(input, format, output) {
-  var msg;
-  if (format === 1) {
-    msg = input;
-  }
-  else if (format === 2) {
-    msg = h.int32Buffer2Bytes(input);
-  }
-  else {
-    msg = h.string2bytes(input);
-  }
-  var ctx = {};
-  ctx.ptr = 0;
-  ctx.count = new Array(4);
-  op.bufferSet(ctx.count, 0, 0, 4);
-  ctx.h = IV512.slice();
-  ctx.buffer = new Array(128);
-  shavite(ctx, msg);
-  var r = shaviteClose(ctx, 0, 0);
-  var out;
-  if (output === 2) {
-    out = r;
-  }
-  else if (output === 1) {
-    out = h.int32Buffer2Bytes(r)
-  }
-  else {
-    out = h.int32ArrayToHexString(r)
-  }
-  return out;
-}
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = h.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = h.string2bytes(input);
+    }
+    var ctx = {};
+    ctx.ptr = 0;
+    ctx.count = new Array(4);
+    op.bufferSet(ctx.count, 0, 0, 4);
+    ctx.h = IV512.slice();
+    ctx.buffer = new Array(128);
+    shavite(ctx, msg);
+    var r = shaviteClose(ctx, 0, 0);
+    var out;
+    if (output === 2) {
+        out = r;
+    }
+    else if (output === 1) {
+        out = h.int32Buffer2Bytes(r);
+    }
+    else {
+        out = h.int32ArrayToHexString(r);
+    }
+    return out;
+};
+
 },{"./aes":1,"./helper":7,"./op":11}],13:[function(require,module,exports){
+'use strict';
 /////////////////////////////////////
 //////////////  Simd ///////////////
 
@@ -5685,7 +5672,7 @@ module.exports = function(input, format, output) {
 var op = require('./op');
 var h = require('./helper');
 
-var IV512 = h.bytes2Int32Buffer(h.b64Decode("C6FrlXL5ma2f7MKuujJk/F6JSSmOnzDlLx2qN/DyxVisUGZDqQY1peJbh4uqt4ePiIF/egoCiStVmnVQWY9lfn7vYKFrcOPonBcU0blY4qirAmde7RwBT82NZbv9t6JXCSVImdaZx7yQGbbcK5Ai5I+hSVYhv5vTuU0JQ2/93CI="));
+var IV512 = h.bytes2Int32Buffer(h.b64Decode('C6FrlXL5ma2f7MKuujJk/F6JSSmOnzDlLx2qN/DyxVisUGZDqQY1peJbh4uqt4ePiIF/egoCiStVmnVQWY9lfn7vYKFrcOPonBcU0blY4qirAmde7RwBT82NZbv9t6JXCSVImdaZx7yQGbbcK5Ai5I+hSVYhv5vTuU0JQ2/93CI='));
 
 // var IV512 = [
 //   0x0BA16B95, 0x72F999AD, 0x9FECC2AE, 0xBA3264FC,
@@ -5703,28 +5690,28 @@ var IV512 = h.bytes2Int32Buffer(h.b64Decode("C6FrlXL5ma2f7MKuujJk/F6JSSmOnzDlLx2
  */
 
 var alpha_tab = [
-  1, 41, 139, 45, 46, 87, 226, 14, 60, 147, 116, 130,
-  190, 80, 196, 69, 2, 82, 21, 90, 92, 174, 195, 28,
-  120, 37, 232, 3, 123, 160, 135, 138, 4, 164, 42, 180,
-  184, 91, 133, 56, 240, 74, 207, 6, 246, 63, 13, 19,
-  8, 71, 84, 103, 111, 182, 9, 112, 223, 148, 157, 12,
-  235, 126, 26, 38, 16, 142, 168, 206, 222, 107, 18, 224,
-  189, 39, 57, 24, 213, 252, 52, 76, 32, 27, 79, 155,
-  187, 214, 36, 191, 121, 78, 114, 48, 169, 247, 104, 152,
-  64, 54, 158, 53, 117, 171, 72, 125, 242, 156, 228, 96,
-  81, 237, 208, 47, 128, 108, 59, 106, 234, 85, 144, 250,
-  227, 55, 199, 192, 162, 217, 159, 94, 256, 216, 118, 212,
-  211, 170, 31, 243, 197, 110, 141, 127, 67, 177, 61, 188,
-  255, 175, 236, 167, 165, 83, 62, 229, 137, 220, 25, 254,
-  134, 97, 122, 119, 253, 93, 215, 77, 73, 166, 124, 201,
-  17, 183, 50, 251, 11, 194, 244, 238, 249, 186, 173, 154,
-  146, 75, 248, 145, 34, 109, 100, 245, 22, 131, 231, 219,
-  241, 115, 89, 51, 35, 150, 239, 33, 68, 218, 200, 233,
-  44, 5, 205, 181, 225, 230, 178, 102, 70, 43, 221, 66,
-  136, 179, 143, 209, 88, 10, 153, 105, 193, 203, 99, 204,
-  140, 86, 185, 132, 15, 101, 29, 161, 176, 20, 49, 210,
-  129, 149, 198, 151, 23, 172, 113, 7, 30, 202, 58, 65,
-  95, 40, 98, 163
+    1, 41, 139, 45, 46, 87, 226, 14, 60, 147, 116, 130,
+    190, 80, 196, 69, 2, 82, 21, 90, 92, 174, 195, 28,
+    120, 37, 232, 3, 123, 160, 135, 138, 4, 164, 42, 180,
+    184, 91, 133, 56, 240, 74, 207, 6, 246, 63, 13, 19,
+    8, 71, 84, 103, 111, 182, 9, 112, 223, 148, 157, 12,
+    235, 126, 26, 38, 16, 142, 168, 206, 222, 107, 18, 224,
+    189, 39, 57, 24, 213, 252, 52, 76, 32, 27, 79, 155,
+    187, 214, 36, 191, 121, 78, 114, 48, 169, 247, 104, 152,
+    64, 54, 158, 53, 117, 171, 72, 125, 242, 156, 228, 96,
+    81, 237, 208, 47, 128, 108, 59, 106, 234, 85, 144, 250,
+    227, 55, 199, 192, 162, 217, 159, 94, 256, 216, 118, 212,
+    211, 170, 31, 243, 197, 110, 141, 127, 67, 177, 61, 188,
+    255, 175, 236, 167, 165, 83, 62, 229, 137, 220, 25, 254,
+    134, 97, 122, 119, 253, 93, 215, 77, 73, 166, 124, 201,
+    17, 183, 50, 251, 11, 194, 244, 238, 249, 186, 173, 154,
+    146, 75, 248, 145, 34, 109, 100, 245, 22, 131, 231, 219,
+    241, 115, 89, 51, 35, 150, 239, 33, 68, 218, 200, 233,
+    44, 5, 205, 181, 225, 230, 178, 102, 70, 43, 221, 66,
+    136, 179, 143, 209, 88, 10, 153, 105, 193, 203, 99, 204,
+    140, 86, 185, 132, 15, 101, 29, 161, 176, 20, 49, 210,
+    129, 149, 198, 151, 23, 172, 113, 7, 30, 202, 58, 65,
+    95, 40, 98, 163
 ];
 
 // console.log(alpha_tab);
@@ -5732,425 +5719,423 @@ var alpha_tab = [
 //console.log(h.b64Encode(alpha_tab));
 
 
-
 /*
  * beta^(255*i) mod 257
  */
 var yoff_b_n = [
-  1, 163, 98, 40, 95, 65, 58, 202, 30, 7, 113, 172,
-  23, 151, 198, 149, 129, 210, 49, 20, 176, 161, 29, 101,
-  15, 132, 185, 86, 140, 204, 99, 203, 193, 105, 153, 10,
-  88, 209, 143, 179, 136, 66, 221, 43, 70, 102, 178, 230,
-  225, 181, 205, 5, 44, 233, 200, 218, 68, 33, 239, 150,
-  35, 51, 89, 115, 241, 219, 231, 131, 22, 245, 100, 109,
-  34, 145, 248, 75, 146, 154, 173, 186, 249, 238, 244, 194,
-  11, 251, 50, 183, 17, 201, 124, 166, 73, 77, 215, 93,
-  253, 119, 122, 97, 134, 254, 25, 220, 137, 229, 62, 83,
-  165, 167, 236, 175, 255, 188, 61, 177, 67, 127, 141, 110,
-  197, 243, 31, 170, 211, 212, 118, 216, 256, 94, 159, 217,
-  162, 192, 199, 55, 227, 250, 144, 85, 234, 106, 59, 108,
-  128, 47, 208, 237, 81, 96, 228, 156, 242, 125, 72, 171,
-  117, 53, 158, 54, 64, 152, 104, 247, 169, 48, 114, 78,
-  121, 191, 36, 214, 187, 155, 79, 27, 32, 76, 52, 252,
-  213, 24, 57, 39, 189, 224, 18, 107, 222, 206, 168, 142,
-  16, 38, 26, 126, 235, 12, 157, 148, 223, 112, 9, 182,
-  111, 103, 84, 71, 8, 19, 13, 63, 246, 6, 207, 74,
-  240, 56, 133, 91, 184, 180, 42, 164, 4, 138, 135, 160,
-  123, 3, 232, 37, 120, 28, 195, 174, 92, 90, 21, 82,
-  2, 69, 196, 80, 190, 130, 116, 147, 60, 14, 226, 87,
-  46, 45, 139, 41
+    1, 163, 98, 40, 95, 65, 58, 202, 30, 7, 113, 172,
+    23, 151, 198, 149, 129, 210, 49, 20, 176, 161, 29, 101,
+    15, 132, 185, 86, 140, 204, 99, 203, 193, 105, 153, 10,
+    88, 209, 143, 179, 136, 66, 221, 43, 70, 102, 178, 230,
+    225, 181, 205, 5, 44, 233, 200, 218, 68, 33, 239, 150,
+    35, 51, 89, 115, 241, 219, 231, 131, 22, 245, 100, 109,
+    34, 145, 248, 75, 146, 154, 173, 186, 249, 238, 244, 194,
+    11, 251, 50, 183, 17, 201, 124, 166, 73, 77, 215, 93,
+    253, 119, 122, 97, 134, 254, 25, 220, 137, 229, 62, 83,
+    165, 167, 236, 175, 255, 188, 61, 177, 67, 127, 141, 110,
+    197, 243, 31, 170, 211, 212, 118, 216, 256, 94, 159, 217,
+    162, 192, 199, 55, 227, 250, 144, 85, 234, 106, 59, 108,
+    128, 47, 208, 237, 81, 96, 228, 156, 242, 125, 72, 171,
+    117, 53, 158, 54, 64, 152, 104, 247, 169, 48, 114, 78,
+    121, 191, 36, 214, 187, 155, 79, 27, 32, 76, 52, 252,
+    213, 24, 57, 39, 189, 224, 18, 107, 222, 206, 168, 142,
+    16, 38, 26, 126, 235, 12, 157, 148, 223, 112, 9, 182,
+    111, 103, 84, 71, 8, 19, 13, 63, 246, 6, 207, 74,
+    240, 56, 133, 91, 184, 180, 42, 164, 4, 138, 135, 160,
+    123, 3, 232, 37, 120, 28, 195, 174, 92, 90, 21, 82,
+    2, 69, 196, 80, 190, 130, 116, 147, 60, 14, 226, 87,
+    46, 45, 139, 41
 ];
 
 /*
  * beta^(255*i) + beta^(253*i) mod 257
  */
 var yoff_b_f = [
-  2, 203, 156, 47, 118, 214, 107, 106, 45, 93, 212, 20,
-  111, 73, 162, 251, 97, 215, 249, 53, 211, 19, 3, 89,
-  49, 207, 101, 67, 151, 130, 223, 23, 189, 202, 178, 239,
-  253, 127, 204, 49, 76, 236, 82, 137, 232, 157, 65, 79,
-  96, 161, 176, 130, 161, 30, 47, 9, 189, 247, 61, 226,
-  248, 90, 107, 64, 0, 88, 131, 243, 133, 59, 113, 115,
-  17, 236, 33, 213, 12, 191, 111, 19, 251, 61, 103, 208,
-  57, 35, 148, 248, 47, 116, 65, 119, 249, 178, 143, 40,
-  189, 129, 8, 163, 204, 227, 230, 196, 205, 122, 151, 45,
-  187, 19, 227, 72, 247, 125, 111, 121, 140, 220, 6, 107,
-  77, 69, 10, 101, 21, 65, 149, 171, 255, 54, 101, 210,
-  139, 43, 150, 151, 212, 164, 45, 237, 146, 184, 95, 6,
-  160, 42, 8, 204, 46, 238, 254, 168, 208, 50, 156, 190,
-  106, 127, 34, 234, 68, 55, 79, 18, 4, 130, 53, 208,
-  181, 21, 175, 120, 25, 100, 192, 178, 161, 96, 81, 127,
-  96, 227, 210, 248, 68, 10, 196, 31, 9, 167, 150, 193,
-  0, 169, 126, 14, 124, 198, 144, 142, 240, 21, 224, 44,
-  245, 66, 146, 238, 6, 196, 154, 49, 200, 222, 109, 9,
-  210, 141, 192, 138, 8, 79, 114, 217, 68, 128, 249, 94,
-  53, 30, 27, 61, 52, 135, 106, 212, 70, 238, 30, 185,
-  10, 132, 146, 136, 117, 37, 251, 150, 180, 188, 247, 156,
-  236, 192, 108, 86
+    2, 203, 156, 47, 118, 214, 107, 106, 45, 93, 212, 20,
+    111, 73, 162, 251, 97, 215, 249, 53, 211, 19, 3, 89,
+    49, 207, 101, 67, 151, 130, 223, 23, 189, 202, 178, 239,
+    253, 127, 204, 49, 76, 236, 82, 137, 232, 157, 65, 79,
+    96, 161, 176, 130, 161, 30, 47, 9, 189, 247, 61, 226,
+    248, 90, 107, 64, 0, 88, 131, 243, 133, 59, 113, 115,
+    17, 236, 33, 213, 12, 191, 111, 19, 251, 61, 103, 208,
+    57, 35, 148, 248, 47, 116, 65, 119, 249, 178, 143, 40,
+    189, 129, 8, 163, 204, 227, 230, 196, 205, 122, 151, 45,
+    187, 19, 227, 72, 247, 125, 111, 121, 140, 220, 6, 107,
+    77, 69, 10, 101, 21, 65, 149, 171, 255, 54, 101, 210,
+    139, 43, 150, 151, 212, 164, 45, 237, 146, 184, 95, 6,
+    160, 42, 8, 204, 46, 238, 254, 168, 208, 50, 156, 190,
+    106, 127, 34, 234, 68, 55, 79, 18, 4, 130, 53, 208,
+    181, 21, 175, 120, 25, 100, 192, 178, 161, 96, 81, 127,
+    96, 227, 210, 248, 68, 10, 196, 31, 9, 167, 150, 193,
+    0, 169, 126, 14, 124, 198, 144, 142, 240, 21, 224, 44,
+    245, 66, 146, 238, 6, 196, 154, 49, 200, 222, 109, 9,
+    210, 141, 192, 138, 8, 79, 114, 217, 68, 128, 249, 94,
+    53, 30, 27, 61, 52, 135, 106, 212, 70, 238, 30, 185,
+    10, 132, 146, 136, 117, 37, 251, 150, 180, 188, 247, 156,
+    236, 192, 108, 86
 ];
 
 var WB_DATA = [
-  [
-    [4, 0, 1, 185],
-    [6, 0, 1, 185],
-    [0, 0, 1, 185],
-    [2, 0, 1, 185],
-    [7, 0, 1, 185],
-    [5, 0, 1, 185],
-    [3, 0, 1, 185],
-    [1, 0, 1, 185]
-  ],
-  [
-    [15, 0, 1, 185],
-    [11, 0, 1, 185],
-    [12, 0, 1, 185],
-    [8, 0, 1, 185],
-    [9, 0, 1, 185],
-    [13, 0, 1, 185],
-    [10, 0, 1, 185],
-    [14, 0, 1, 185]
-  ],
-  [
-    [17, -256, -128, 233],
-    [18, -256, -128, 233],
-    [23, -256, -128, 233],
-    [20, -256, -128, 233],
-    [22, -256, -128, 233],
-    [21, -256, -128, 233],
-    [16, -256, -128, 233],
-    [19, -256, -128, 233]
-  ],
-  [
-    [30, -383, -255, 233],
-    [24, -383, -255, 233],
-    [25, -383, -255, 233],
-    [31, -383, -255, 233],
-    [27, -383, -255, 233],
-    [29, -383, -255, 233],
-    [28, -383, -255, 233],
-    [26, -383, -255, 233]
-  ]
+    [
+        [4, 0, 1, 185],
+        [6, 0, 1, 185],
+        [0, 0, 1, 185],
+        [2, 0, 1, 185],
+        [7, 0, 1, 185],
+        [5, 0, 1, 185],
+        [3, 0, 1, 185],
+        [1, 0, 1, 185]
+    ],
+    [
+        [15, 0, 1, 185],
+        [11, 0, 1, 185],
+        [12, 0, 1, 185],
+        [8, 0, 1, 185],
+        [9, 0, 1, 185],
+        [13, 0, 1, 185],
+        [10, 0, 1, 185],
+        [14, 0, 1, 185]
+    ],
+    [
+        [17, -256, -128, 233],
+        [18, -256, -128, 233],
+        [23, -256, -128, 233],
+        [20, -256, -128, 233],
+        [22, -256, -128, 233],
+        [21, -256, -128, 233],
+        [16, -256, -128, 233],
+        [19, -256, -128, 233]
+    ],
+    [
+        [30, -383, -255, 233],
+        [24, -383, -255, 233],
+        [25, -383, -255, 233],
+        [31, -383, -255, 233],
+        [27, -383, -255, 233],
+        [29, -383, -255, 233],
+        [28, -383, -255, 233],
+        [26, -383, -255, 233]
+    ]
 ];
 
 var REDS1 = function(x) {
-  return ((x & 0xFF) - (x >> 8));
-}
+    return ((x & 0xFF) - (x >> 8));
+};
 var REDS2 = function(x) {
-  return ((x & 0xFFFF) + (x >> 16));
-}
+    return ((x & 0xFFFF) + (x >> 16));
+};
 
 var IF = function(x, y, z) {
-  return ((y ^ z) & x) ^ (z);
-}
+    return ((y ^ z) & x) ^ (z);
+};
 var MAJ = function(x, y, z) {
-  return (x & y) | ((x | y) & (z));
-}
+    return (x & y) | ((x | y) & (z));
+};
 
 var FFT_LOOP = function(q, qOffset, hk, as) {
-  var u, v;
-  var m = q[(qOffset)];
-  var n = q[(qOffset) + (hk)];
-  q[(qOffset)] = m + n;
-  q[(qOffset) + (hk)] = m - n;
-  u = v = 0;
-  var firstTime = true;
-  for (; u < (hk); u += 4, v += 4 * (as)) {
-    if (!firstTime) {
-      var t;
-      m = q[(qOffset) + u + 0];
-      n = q[(qOffset) + u + 0 + (hk)];
-      t = REDS2(n * alpha_tab[v + 0 * (as)]);
-      q[(qOffset) + u + 0] = m + t;
-      q[(qOffset) + u + 0 + (hk)] = m - t;
+    var u, v;
+    var m = q[(qOffset)];
+    var n = q[(qOffset) + (hk)];
+    q[(qOffset)] = m + n;
+    q[(qOffset) + (hk)] = m - n;
+    u = v = 0;
+    var firstTime = true;
+    for (; u < (hk); u += 4, v += 4 * (as)) {
+        if (!firstTime) {
+            var t;
+            m = q[(qOffset) + u + 0];
+            n = q[(qOffset) + u + 0 + (hk)];
+            t = REDS2(n * alpha_tab[v + 0 * (as)]);
+            q[(qOffset) + u + 0] = m + t;
+            q[(qOffset) + u + 0 + (hk)] = m - t;
+        }
+        else {
+            firstTime = false;
+        }
+        m = q[(qOffset) + u + 1];
+        n = q[(qOffset) + u + 1 + (hk)];
+        t = REDS2(n * alpha_tab[v + Number(as)]);
+        q[(qOffset) + u + 1] = m + t;
+        q[(qOffset) + u + 1 + (hk)] = m - t;
+        m = q[(qOffset) + u + 2];
+        n = q[(qOffset) + u + 2 + (hk)];
+        t = REDS2(n * alpha_tab[v + 2 * (as)]);
+        q[(qOffset) + u + 2] = m + t;
+        q[(qOffset) + u + 2 + (hk)] = m - t;
+        m = q[(qOffset) + u + 3];
+        n = q[(qOffset) + u + 3 + (hk)];
+        t = REDS2(n * alpha_tab[v + 3 * (as)]);
+        q[(qOffset) + u + 3] = m + t;
+        q[(qOffset) + u + 3 + (hk)] = m - t;
     }
-    else {
-      firstTime = false;
-    }
-    m = q[(qOffset) + u + 1];
-    n = q[(qOffset) + u + 1 + (hk)];
-    t = REDS2(n * alpha_tab[v + 1 * (as)]);
-    q[(qOffset) + u + 1] = m + t;
-    q[(qOffset) + u + 1 + (hk)] = m - t;
-    m = q[(qOffset) + u + 2];
-    n = q[(qOffset) + u + 2 + (hk)];
-    t = REDS2(n * alpha_tab[v + 2 * (as)]);
-    q[(qOffset) + u + 2] = m + t;
-    q[(qOffset) + u + 2 + (hk)] = m - t;
-    m = q[(qOffset) + u + 3];
-    n = q[(qOffset) + u + 3 + (hk)];
-    t = REDS2(n * alpha_tab[v + 3 * (as)]);
-    q[(qOffset) + u + 3] = m + t;
-    q[(qOffset) + u + 3 + (hk)] = m - t;
-  }
-}
+};
 
 var FFT8 = function(x, xOffset, xs, d) {
-  var x0 = x[(xOffset)];
-  var x1 = x[(xOffset) + (xs)];
-  var x2 = x[(xOffset) + 2 * (xs)];
-  var x3 = x[(xOffset) + 3 * (xs)];
-  var a0 = x0 + x2;
-  var a1 = x0 + (x2 << 4);
-  var a2 = x0 - x2;
-  var a3 = x0 - (x2 << 4);
-  var b0 = x1 + x3;
-  var b1 = REDS1((x1 << 2) + (x3 << 6));
-  var b2 = (x1 << 4) - (x3 << 4);
-  var b3 = REDS1((x1 << 6) + (x3 << 2));
-  d[0] = a0 + b0;
-  d[1] = a1 + b1;
-  d[2] = a2 + b2;
-  d[3] = a3 + b3;
-  d[4] = a0 - b0;
-  d[5] = a1 - b1;
-  d[6] = a2 - b2;
-  d[7] = a3 - b3;
-}
+    var x0 = x[(xOffset)];
+    var x1 = x[(xOffset) + (xs)];
+    var x2 = x[(xOffset) + 2 * (xs)];
+    var x3 = x[(xOffset) + 3 * (xs)];
+    var a0 = x0 + x2;
+    var a1 = x0 + (x2 << 4);
+    var a2 = x0 - x2;
+    var a3 = x0 - (x2 << 4);
+    var b0 = x1 + x3;
+    var b1 = REDS1((x1 << 2) + (x3 << 6));
+    var b2 = (x1 << 4) - (x3 << 4);
+    var b3 = REDS1((x1 << 6) + (x3 << 2));
+    d[0] = a0 + b0;
+    d[1] = a1 + b1;
+    d[2] = a2 + b2;
+    d[3] = a3 + b3;
+    d[4] = a0 - b0;
+    d[5] = a1 - b1;
+    d[6] = a2 - b2;
+    d[7] = a3 - b3;
+};
 
 var FFT16 = function(x, xOffset, q, qOffset, xs) {
-  var d1 = new Array(8);
-  var d2 = new Array(8);
-  FFT8(x, xOffset, (xs) << 1, d1);
-  FFT8(x, (xOffset) + (xs), (xs) << 1, d2);
-  for (var i = 0;i<8;i++) {
-    q[(qOffset) + i] = d1[i] + (d2[i] << i);
-  }
-  for (var i = 0;i<8;i++) {
-    q[(qOffset) + 8 + i] = d1[i] - (d2[i] << i);
-  }
-}
+    var d1 = new Array(8);
+    var d2 = new Array(8);
+    FFT8(x, xOffset, (xs) << 1, d1);
+    FFT8(x, (xOffset) + (xs), (xs) << 1, d2);
+    for (var i = 0;i<8;i++) {
+        q[(qOffset) + i] = d1[i] + (d2[i] << i);
+    }
+    for (var i = 0;i<8;i++) {
+        q[(qOffset) + 8 + i] = d1[i] - (d2[i] << i);
+    }
+};
 
 var FFT32 = function(x, xOffset, q, qOffset, xs) {
-  var xd = xs << 1;
-  FFT16(x, xOffset, q, qOffset, xd);
-  FFT16(x, xOffset + xs, q, qOffset + 16, xd);
-  FFT_LOOP(q, qOffset, 16, 8);
-}
+    var xd = xs << 1;
+    FFT16(x, xOffset, q, qOffset, xd);
+    FFT16(x, xOffset + xs, q, qOffset + 16, xd);
+    FFT_LOOP(q, qOffset, 16, 8);
+};
 
 var FFT64 = function(x, xOffset, q, qOffset, xs) {
-  var xd = xs << 1;
-  FFT32(x, xOffset, q, qOffset, xd);
-  FFT32(x, xOffset + xs, q, qOffset + 32, xd);
-  FFT_LOOP(q, qOffset, 32, 4);
-}
+    var xd = xs << 1;
+    FFT32(x, xOffset, q, qOffset, xd);
+    FFT32(x, xOffset + xs, q, qOffset + 32, xd);
+    FFT_LOOP(q, qOffset, 32, 4);
+};
 
 var FFT256 = function(x, xOffset, q, qOffset, xs) {
-  FFT64(x, xOffset, q, qOffset, (xs) << 2);
-  FFT64(x, (xOffset) + ((xs) * 2), q, qOffset + 64, (xs) << 2);
-  FFT_LOOP(q, qOffset, 64, 2);
-  FFT64(x, (xOffset) + ((xs) * 1), q, qOffset + 128, (xs) << 2);
-  FFT64(x, (xOffset) + ((xs) * 3), q, qOffset + 192, (xs) << 2);
-  FFT_LOOP(q, qOffset + 128, 64, 2);
-  FFT_LOOP(q, qOffset, 128, 1);
-}
+    FFT64(x, xOffset, q, qOffset, (xs) << 2);
+    FFT64(x, (xOffset) + ((xs) * 2), q, qOffset + 64, (xs) << 2);
+    FFT_LOOP(q, qOffset, 64, 2);
+    FFT64(x, (xOffset) + (Number(xs)), q, qOffset + 128, (xs) << 2);
+    FFT64(x, (xOffset) + ((xs) * 3), q, qOffset + 192, (xs) << 2);
+    FFT_LOOP(q, qOffset + 128, 64, 2);
+    FFT_LOOP(q, qOffset, 128, 1);
+};
 
 var PP8 = [
-  [1, 0, 3, 2, 5, 4, 7, 6],
-  [6, 7, 4, 5, 2, 3, 0, 1],
-  [2, 3, 0, 1, 6, 7, 4, 5],
-  [3, 2, 1, 0, 7, 6, 5, 4],
-  [5, 4, 7, 6, 1, 0, 3, 2],
-  [7, 6, 5, 4, 3, 2, 1, 0],
-  [4, 5, 6, 7, 0, 1, 2, 3]
+    [1, 0, 3, 2, 5, 4, 7, 6],
+    [6, 7, 4, 5, 2, 3, 0, 1],
+    [2, 3, 0, 1, 6, 7, 4, 5],
+    [3, 2, 1, 0, 7, 6, 5, 4],
+    [5, 4, 7, 6, 1, 0, 3, 2],
+    [7, 6, 5, 4, 3, 2, 1, 0],
+    [4, 5, 6, 7, 0, 1, 2, 3]
 ];
 
 
 var M7 = [
-  [0, 1, 2, 3],
-  [1, 2, 3, 4],
-  [2, 3, 4, 5],
-  [3, 4, 5, 6],
-  [4, 5, 6, 0],
-  [5, 6, 0, 1],
-  [6, 0, 1, 2],
-  [0, 1, 2, 3]
+    [0, 1, 2, 3],
+    [1, 2, 3, 4],
+    [2, 3, 4, 5],
+    [3, 4, 5, 6],
+    [4, 5, 6, 0],
+    [5, 6, 0, 1],
+    [6, 0, 1, 2],
+    [0, 1, 2, 3]
 ];
 
 var INNER = function(l, h, mm) {
-  return (((l * mm) & 0xFFFF) + ((h * mm) << 16));
-}
+    return (((l * mm) & 0xFFFF) + ((h * mm) << 16));
+};
 
 var W_BIG = function(sb, o1, o2, mm, q) {
-  var r = new Array(8);
-  for (var i = 0;i<8;i++) {
-    r[i] = INNER(q[16 * (sb) + 2 * i + o1], q[16 * (sb) + 2 * i + o2], mm);
-  }
-  return r;
-}
+    var r = new Array(8);
+    for (var i = 0;i<8;i++) {
+        r[i] = INNER(q[16 * (sb) + 2 * i + o1], q[16 * (sb) + 2 * i + o2], mm);
+    }
+    return r;
+};
 
 var WB = function(x, y, q) {
-  var wb = WB_DATA[x][y];
-  return W_BIG(wb[0], wb[1], wb[2], wb[3], q);
-}
+    var wb = WB_DATA[x][y];
+    return W_BIG(wb[0], wb[1], wb[2], wb[3], q);
+};
 
 var STEP_ELT = function(n, w, fun, s, ppb, tA, A, B, C, D) {
-  var tt = op.t32(D[n] + (w) + fun(A[n], B[n], C[n]));
-  A[n] = op.t32(op.rotl32(tt, s) + tA[ppb[n]]);
-  D[n] = C[n];
-  C[n] = B[n];
-  B[n] = tA[n];
+    var tt = op.t32(D[n] + (w) + fun(A[n], B[n], C[n]));
+    A[n] = op.t32(op.rotl32(tt, s) + tA[ppb[n]]);
+    D[n] = C[n];
+    C[n] = B[n];
+    B[n] = tA[n];
 };
 
 var STEP_BIG = function(w, fun, r, s, pp8b, A, B, C, D) {
-  var tA = new Array(8);
-  for (var i = 0;i<8;i++) {
-    tA[i] = op.rotl32(A[i], r);
-  }
-  for (var i = 0;i<8;i++) {
-    STEP_ELT(i, w[i], fun, s, pp8b, tA, A, B, C, D);
-  }
-}
+    var tA = new Array(8);
+    for (var i = 0;i<8;i++) {
+        tA[i] = op.rotl32(A[i], r);
+    }
+    for (var i = 0;i<8;i++) {
+        STEP_ELT(i, w[i], fun, s, pp8b, tA, A, B, C, D);
+    }
+};
 
 var ONE_ROUND_BIG = function(ri, isp, p0, p1, p2, p3, A, B, C, D, q) {
-  STEP_BIG(WB(ri, 0, q), IF, p0, p1, PP8[M7[0][isp]], A, B, C, D);
-  STEP_BIG(WB(ri, 1, q), IF, p1, p2, PP8[M7[1][isp]], A, B, C, D);
-  STEP_BIG(WB(ri, 2, q), IF, p2, p3, PP8[M7[2][isp]], A, B, C, D);
-  STEP_BIG(WB(ri, 3, q), IF, p3, p0, PP8[M7[3][isp]], A, B, C, D);
-  STEP_BIG(WB(ri, 4, q), MAJ, p0, p1, PP8[M7[4][isp]], A, B, C, D);
-  STEP_BIG(WB(ri, 5, q), MAJ, p1, p2, PP8[M7[5][isp]], A, B, C, D);
-  STEP_BIG(WB(ri, 6, q), MAJ, p2, p3, PP8[M7[6][isp]], A, B, C, D);
-  STEP_BIG(WB(ri, 7, q), MAJ, p3, p0, PP8[M7[7][isp]], A, B, C, D);
-}
+    STEP_BIG(WB(ri, 0, q), IF, p0, p1, PP8[M7[0][isp]], A, B, C, D);
+    STEP_BIG(WB(ri, 1, q), IF, p1, p2, PP8[M7[1][isp]], A, B, C, D);
+    STEP_BIG(WB(ri, 2, q), IF, p2, p3, PP8[M7[2][isp]], A, B, C, D);
+    STEP_BIG(WB(ri, 3, q), IF, p3, p0, PP8[M7[3][isp]], A, B, C, D);
+    STEP_BIG(WB(ri, 4, q), MAJ, p0, p1, PP8[M7[4][isp]], A, B, C, D);
+    STEP_BIG(WB(ri, 5, q), MAJ, p1, p2, PP8[M7[5][isp]], A, B, C, D);
+    STEP_BIG(WB(ri, 6, q), MAJ, p2, p3, PP8[M7[6][isp]], A, B, C, D);
+    STEP_BIG(WB(ri, 7, q), MAJ, p3, p0, PP8[M7[7][isp]], A, B, C, D);
+};
 
 var compress = function(ctx, last) {
-  var q = new Array(256);
-  var i;
-  var A = new Array(8);
-  var B = new Array(8);
-  var C = new Array(8);
-  var D = new Array(8);
-  FFT256(ctx.buffer, 0, q, 0, 1);
-  if (last) {
-    for (i = 0; i < 256; i++) {
-      var tq;
+    var q = new Array(256);
+    var i;
+    var A = new Array(8);
+    var B = new Array(8);
+    var C = new Array(8);
+    var D = new Array(8);
+    FFT256(ctx.buffer, 0, q, 0, 1);
+    if (last) {
+        for (i = 0; i < 256; i++) {
+            var tq;
 
-      tq = q[i] + yoff_b_f[i];
-      tq = REDS2(tq);
-      tq = REDS1(tq);
-      tq = REDS1(tq);
-      q[i] = (tq <= 128 ? tq : tq - 257);
+            tq = q[i] + yoff_b_f[i];
+            tq = REDS2(tq);
+            tq = REDS1(tq);
+            tq = REDS1(tq);
+            q[i] = (tq <= 128 ? tq : tq - 257);
+        }
     }
-  }
-  else {
-    for (i = 0; i < 256; i++) {
-      var tq;
+    else {
+        for (i = 0; i < 256; i++) {
+            var tq;
 
-      tq = q[i] + yoff_b_n[i];
-      tq = REDS2(tq);
-      tq = REDS1(tq);
-      tq = REDS1(tq);
-      q[i] = (tq <= 128 ? tq : tq - 257);
+            tq = q[i] + yoff_b_n[i];
+            tq = REDS2(tq);
+            tq = REDS1(tq);
+            tq = REDS1(tq);
+            q[i] = (tq <= 128 ? tq : tq - 257);
+        }
     }
-  }
-  op.bufferInsert(A,0,ctx.state,8);
-  op.bufferInsert(B,0,ctx.state,8,8);
-  op.bufferInsert(C,0,ctx.state,8,16);
-  op.bufferInsert(D,0,ctx.state,8,24);
-  var x = op.swap32Array(h.bytes2Int32Buffer(ctx.buffer));
-  op.bufferXORInsert(A,0,x,0,8);
-  op.bufferXORInsert(B,0,x,8,8);
-  op.bufferXORInsert(C,0,x,16,8);
-  op.bufferXORInsert(D,0,x,24,8);
+    op.bufferInsert(A,0,ctx.state,8);
+    op.bufferInsert(B,0,ctx.state,8,8);
+    op.bufferInsert(C,0,ctx.state,8,16);
+    op.bufferInsert(D,0,ctx.state,8,24);
+    var x = op.swap32Array(h.bytes2Int32Buffer(ctx.buffer));
+    op.bufferXORInsert(A,0,x,0,8);
+    op.bufferXORInsert(B,0,x,8,8);
+    op.bufferXORInsert(C,0,x,16,8);
+    op.bufferXORInsert(D,0,x,24,8);
 
-  ONE_ROUND_BIG(0, 0, 3, 23, 17, 27, A, B, C, D, q);
-  ONE_ROUND_BIG(1, 1, 28, 19, 22, 7, A, B, C, D, q);
-  ONE_ROUND_BIG(2, 2, 29, 9, 15, 5, A, B, C, D, q);
-  ONE_ROUND_BIG(3, 3, 4, 13, 10, 25, A, B, C, D, q);
+    ONE_ROUND_BIG(0, 0, 3, 23, 17, 27, A, B, C, D, q);
+    ONE_ROUND_BIG(1, 1, 28, 19, 22, 7, A, B, C, D, q);
+    ONE_ROUND_BIG(2, 2, 29, 9, 15, 5, A, B, C, D, q);
+    ONE_ROUND_BIG(3, 3, 4, 13, 10, 25, A, B, C, D, q);
 
-  STEP_BIG(ctx.state.slice(0, 8),IF, 4, 13, PP8[4],A,B,C,D);
-  STEP_BIG(ctx.state.slice(8, 16),IF, 13, 10, PP8[5],A,B,C,D);
-  STEP_BIG(ctx.state.slice(16, 24),IF, 10, 25, PP8[6],A,B,C,D);
-  STEP_BIG(ctx.state.slice(24, 32),IF, 25, 4, PP8[0],A,B,C,D);
-  op.bufferInsert(ctx.state,0,A,8);
-  op.bufferInsert(ctx.state,8,B,8);
-  op.bufferInsert(ctx.state,16,C,8);
-  op.bufferInsert(ctx.state,24,D,8);
-}
+    STEP_BIG(ctx.state.slice(0, 8),IF, 4, 13, PP8[4],A,B,C,D);
+    STEP_BIG(ctx.state.slice(8, 16),IF, 13, 10, PP8[5],A,B,C,D);
+    STEP_BIG(ctx.state.slice(16, 24),IF, 10, 25, PP8[6],A,B,C,D);
+    STEP_BIG(ctx.state.slice(24, 32),IF, 25, 4, PP8[0],A,B,C,D);
+    op.bufferInsert(ctx.state,0,A,8);
+    op.bufferInsert(ctx.state,8,B,8);
+    op.bufferInsert(ctx.state,16,C,8);
+    op.bufferInsert(ctx.state,24,D,8);
+};
 
 var simd = function(ctx, data) {
-  var len = data.length;
-  while (len > 0) {
-    var clen = ctx.buffer.length - ctx.ptr;
-    if (clen > len) clen = len;
-    op.bufferInsert(ctx.buffer, ctx.ptr, data, clen);
-    ctx.ptr += clen;
-    data = data.slice(clen);
-    len -= clen;
-    if (ctx.ptr === ctx.buffer.length) {
-      compress(ctx, 0);
-      ctx.ptr = 0;
-      ctx.countLow = op.t32(ctx.countLow + 1);
-      if (ctx.countLow == 0)
-        ctx.countHigh++;
+    var len = data.length;
+    while (len > 0) {
+        var clen = ctx.buffer.length - ctx.ptr;
+        if (clen > len) clen = len;
+        op.bufferInsert(ctx.buffer, ctx.ptr, data, clen);
+        ctx.ptr += clen;
+        data = data.slice(clen);
+        len -= clen;
+        if (ctx.ptr === ctx.buffer.length) {
+            compress(ctx, 0);
+            ctx.ptr = 0;
+            ctx.countLow = op.t32(ctx.countLow + 1);
+            if (ctx.countLow === 0) ctx.countHigh++;
+        }
     }
-  }
-}
+};
 
 var encode_count = function(dst, offset, low, high, ptr, n) {
-  low = op.t32(low << 10);
-  high = op.t32(high << 10) + (low >> 22);
-  low += (ptr << 3) + n;
-  dst[offset] = low & 0xFF;
-  dst[offset + 1] = (low & 0xFF00) >>> 8;
-  dst[offset + 2] = (low & 0xFF0000) >>> 8;
-  dst[offset + 3] = (low & 0xFF000000) >>> 8;
-  dst[offset + 4] = high & 0xFF;
-  dst[offset + 5] = (high & 0xFF00) >>> 8;
-  dst[offset + 6] = (high & 0xFF0000) >>> 8;
-  dst[offset + 7] = (high & 0xFF000000) >>> 8;
-}
+    low = op.t32(low << 10);
+    high = op.t32(high << 10) + (low >> 22);
+    low += (ptr << 3) + n;
+    dst[offset] = low & 0xFF;
+    dst[offset + 1] = (low & 0xFF00) >>> 8;
+    dst[offset + 2] = (low & 0xFF0000) >>> 8;
+    dst[offset + 3] = (low & 0xFF000000) >>> 8;
+    dst[offset + 4] = high & 0xFF;
+    dst[offset + 5] = (high & 0xFF00) >>> 8;
+    dst[offset + 6] = (high & 0xFF0000) >>> 8;
+    dst[offset + 7] = (high & 0xFF000000) >>> 8;
+};
 
 var simdClose = function(ctx, ub, n) {
-  var buf = ctx.buffer;
-  var ptr = ctx.ptr;
-  var d;
-  var u;
+    var buf = ctx.buffer;
+    var ptr = ctx.ptr;
+    var d;
+    var u;
 
-  if (ctx.ptr > 0 || n > 0) {
-    op.bufferSet(buf, ptr, 0, buf.length - ptr);
-    buf[ptr] = ub & (0xFF << (8 - n));
-    compress(ctx, 0);
-  }
-  op.bufferSet(buf, 0, 0, buf.length);
-  encode_count(buf, 0, ctx.countLow, ctx.countHigh, ctx.ptr, n);
-  compress(ctx, 1);
-  var out = new Array(16);
-  for (u = 0; u < 16; u++)
-    out[u] = op.swap32(ctx.state[u]);
-  return out;
-}
+    if (ctx.ptr > 0 || n > 0) {
+        op.bufferSet(buf, ptr, 0, buf.length - ptr);
+        buf[ptr] = ub & (0xFF << (8 - n));
+        compress(ctx, 0);
+    }
+    op.bufferSet(buf, 0, 0, buf.length);
+    encode_count(buf, 0, ctx.countLow, ctx.countHigh, ctx.ptr, n);
+    compress(ctx, 1);
+    var out = new Array(16);
+    for (u = 0; u < 16; u++) out[u] = op.swap32(ctx.state[u]);
+    return out;
+};
 
 module.exports = function(input, format, output) {
-  var msg;
-  if (format === 1) {
-    msg = input;
-  }
-  else if (format === 2) {
-    msg = h.int32Buffer2Bytes(input);
-  }
-  else {
-    msg = h.string2bytes(input);
-  }
-  var ctx = {};
-  ctx.state = IV512.slice();
-  ctx.ptr = 0;
-  ctx.countLow = 0;
-  ctx.countHigh = 0;
-  ctx.buffer = new Array(128);
-  simd(ctx, msg);
-  var r = simdClose(ctx, 0, 0);
-  var out;
-  if (output === 2) {
-    out = r;
-  }
-  else if (output === 1) {
-    out = h.int32Buffer2Bytes(r)
-  }
-  else {
-    out = h.int32ArrayToHexString(r)
-  }
-  return out;
-}
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = h.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = h.string2bytes(input);
+    }
+    var ctx = {};
+    ctx.state = IV512.slice();
+    ctx.ptr = 0;
+    ctx.countLow = 0;
+    ctx.countHigh = 0;
+    ctx.buffer = new Array(128);
+    simd(ctx, msg);
+    var r = simdClose(ctx, 0, 0);
+    var out;
+    if (output === 2) {
+        out = r;
+    }
+    else if (output === 1) {
+        out = h.int32Buffer2Bytes(r);
+    }
+    else {
+        out = h.int32ArrayToHexString(r);
+    }
+    return out;
+};
+
 },{"./helper":7,"./op":11}],14:[function(require,module,exports){
 //from http://www.h2database.com/skein/
 // Released under the public domain
@@ -6159,130 +6144,129 @@ var op = require('./op');
 var h = require('./helper');
 
 module.exports = function(input, format, output) {
-	var msg;
-	if (format === 1) {
-		msg = input;
-	}
-	else if (format === 2) {
-		msg = h.int32Buffer2Bytes(input);
-	}
-	else {
-		msg = h.string2bytes(input);
-	}
-	// final: 0x80; first: 0x40; conf: 0x4; msg: 0x30; out: 0x3f
-	var tweak = [
-			[0, 32],
-			[(0x80 + 0x40 + 0x4) << 24, 0]
-		],
-		c = [];
-	var buff = h.string2bytes("SHA3\1\0\0\0\0\2");
-	block(c, tweak, buff, 0);
-	tweak = [
-		[0, 0],
-		[(0x40 + 0x30) << 24, 0]
-	];
-	var len = msg.length,
-		pos = 0;
-	for (; len > 64; len -= 64, pos += 64) {
-		tweak[0][1] += 64;
-		block(c, tweak, msg, pos);
-		tweak[1][0] = 0x30 << 24;
-	}
-	tweak[0][1] += len;
-	tweak[1][0] |= 0x80 << 24;
-	block(c, tweak, msg, pos);
-	tweak[0][1] = 8;
-	tweak[1][0] = (0x80 + 0x40 + 0x3f) << 24;
-	block(c, tweak, [], 0);
-	for (var hash = [], i = 0; i < 64; i++) {
-		var b = (shiftRight(c[i >> 3], (i & 7) * 8)[1] & 255);
-		hash.push(b);
-	}
-	var out;
-  if (output === 2) {
-    out = h.bytes2Int32Buffer(hash);
-  }
-  else if (output === 1) {
+    var msg;
+    if (format === 1) {
+        msg = input;
+    }
+    else if (format === 2) {
+        msg = h.int32Buffer2Bytes(input);
+    }
+    else {
+        msg = h.string2bytes(input);
+    }
+    // final: 0x80; first: 0x40; conf: 0x4; msg: 0x30; out: 0x3f
+    var tweak = [
+            [0, 32],
+            [(0x80 + 0x40 + 0x4) << 24, 0]
+        ],
+        c = [];
+    var buff = h.string2bytes('SHA3\1\0\0\0\0\2');
+    block(c, tweak, buff, 0);
+    tweak = [
+        [0, 0],
+        [(0x40 + 0x30) << 24, 0]
+    ];
+    var len = msg.length,
+        pos = 0;
+    for (; len > 64; len -= 64, pos += 64) {
+        tweak[0][1] += 64;
+        block(c, tweak, msg, pos);
+        tweak[1][0] = 0x30 << 24;
+    }
+    tweak[0][1] += len;
+    tweak[1][0] |= 0x80 << 24;
+    block(c, tweak, msg, pos);
+    tweak[0][1] = 8;
+    tweak[1][0] = (0x80 + 0x40 + 0x3f) << 24;
+    block(c, tweak, [], 0);
+    for (var hash = [], i = 0; i < 64; i++) {
+        var b = (shiftRight(c[i >> 3], (i & 7) * 8)[1] & 255);
+        hash.push(b);
+    }
+    var out;
+    if (output === 2) {
+        out = h.bytes2Int32Buffer(hash);
+    }
+    else if (output === 1) {
+        return out;
+    }
+    else {
+        out = h.int8ArrayToHexString(hash);
+    }
     return out;
-  }
-  else {
-    out = h.int8ArrayToHexString(hash);
-  }
-  return out;
-}
+};
 
 function shiftLeft(x, n) {
-	if (x == null) return [0, 0];
-	if (n > 32) return [x[1] << (n - 32), 0];
-	if (n == 32) return [x[1], 0];
-	if (n == 0) return x;
-	return [(x[0] << n) | (x[1] >>> (32 - n)), x[1] << n];
+    if (x == null) return [0, 0];
+    if (n > 32) return [x[1] << (n - 32), 0];
+    if (n == 32) return [x[1], 0];
+    if (n == 0) return x;
+    return [(x[0] << n) | (x[1] >>> (32 - n)), x[1] << n];
 }
 
 function shiftRight(x, n) {
-	if (x == null) return [0, 0];
-	if (n > 32) return [0, x[0] >>> (n - 32)];
-	if (n == 32) return [0, x[0]];
-	if (n == 0) return x;
-	return [x[0] >>> n, (x[0] << (32 - n)) | (x[1] >>> n)];
+    if (x == null) return [0, 0];
+    if (n > 32) return [0, x[0] >>> (n - 32)];
+    if (n == 32) return [0, x[0]];
+    if (n == 0) return x;
+    return [x[0] >>> n, (x[0] << (32 - n)) | (x[1] >>> n)];
 }
 
 function add(x, y) {
-	if (y == null) return x;
-	var lsw = (x[1] & 0xffff) + (y[1] & 0xffff);
-	var msw = (x[1] >>> 16) + (y[1] >>> 16) + (lsw >>> 16);
-	var lowOrder = ((msw & 0xffff) << 16) | (lsw & 0xffff);
-	lsw = (x[0] & 0xffff) + (y[0] & 0xffff) + (msw >>> 16);
-	msw = (x[0] >>> 16) + (y[0] >>> 16) + (lsw >>> 16);
-	var highOrder = ((msw & 0xffff) << 16) | (lsw & 0xffff);
-	return [highOrder, lowOrder];
+    if (y == null) return x;
+    var lsw = (x[1] & 0xffff) + (y[1] & 0xffff);
+    var msw = (x[1] >>> 16) + (y[1] >>> 16) + (lsw >>> 16);
+    var lowOrder = ((msw & 0xffff) << 16) | (lsw & 0xffff);
+    lsw = (x[0] & 0xffff) + (y[0] & 0xffff) + (msw >>> 16);
+    msw = (x[0] >>> 16) + (y[0] >>> 16) + (lsw >>> 16);
+    var highOrder = ((msw & 0xffff) << 16) | (lsw & 0xffff);
+    return [highOrder, lowOrder];
 }
 
 function xor(a, b) {
-	if (b == null) return a;
-	return [a[0] ^ b[0], a[1] ^ b[1]];
+    if (b == null) return a;
+    return [a[0] ^ b[0], a[1] ^ b[1]];
 }
 
 function block(c, tweak, b, off) {
-	var R = [46, 36, 19, 37, 33, 42, 14, 27, 17, 49, 36, 39, 44, 56, 54, 9,
-		39, 30, 34, 24, 13, 17, 10, 50, 25, 29, 39, 43, 8, 22, 56, 35
-	];
-	var x = [],
-		t = [];
-	// c[8] = [0x55555555, 0x55555555];
-	c[8] = [0x1BD11BDA, 0xA9FC1A22];
-	for (var i = 0; i < 8; i++) {
-		for (var j = 7, k = off + i * 8 + 7; j >= 0; j--, k--) {
-			t[i] = shiftLeft(t[i], 8);
-			t[i][1] |= b[k] & 255;
-		}
-		x[i] = add(t[i], c[i]);
-		c[8] = xor(c[8], c[i]);
-	}
-	x[5] = add(x[5], tweak[0]);
-	x[6] = add(x[6], tweak[1]);
-	tweak[2] = xor(tweak[0], tweak[1]);
-	for (var round = 1; round <= 18; round++) {
-		var p = 16 - ((round & 1) << 4);
-		for (var i = 0; i < 16; i++) {
-			// m: 0, 2, 4, 6, 2, 0, 6, 4, 4, 6, 0, 2, 6, 4, 2, 0
-			var m = 2 * ((i + (1 + i + i) * (i >> 2)) & 3);
-			var n = (1 + i + i) & 7;
-			var r = R[p + i];
-			x[m] = add(x[m], x[n]);
-			x[n] = xor(shiftLeft(x[n], r), shiftRight(x[n], 64 - r));
-			x[n] = xor(x[n], x[m]);
+    var R = [46, 36, 19, 37, 33, 42, 14, 27, 17, 49, 36, 39, 44, 56, 54, 9,
+        39, 30, 34, 24, 13, 17, 10, 50, 25, 29, 39, 43, 8, 22, 56, 35
+    ];
+    var x = [],
+        t = [];
+    // c[8] = [0x55555555, 0x55555555];
+    c[8] = [0x1BD11BDA, 0xA9FC1A22];
+    for (var i = 0; i < 8; i++) {
+        for (var j = 7, k = off + i * 8 + 7; j >= 0; j--, k--) {
+            t[i] = shiftLeft(t[i], 8);
+            t[i][1] |= b[k] & 255;
+        }
+        x[i] = add(t[i], c[i]);
+        c[8] = xor(c[8], c[i]);
+    }
+    x[5] = add(x[5], tweak[0]);
+    x[6] = add(x[6], tweak[1]);
+    tweak[2] = xor(tweak[0], tweak[1]);
+    for (var round = 1; round <= 18; round++) {
+        var p = 16 - ((round & 1) << 4);
+        for (var i = 0; i < 16; i++) {
+            // m: 0, 2, 4, 6, 2, 0, 6, 4, 4, 6, 0, 2, 6, 4, 2, 0
+            var m = 2 * ((i + (1 + i + i) * (i >> 2)) & 3);
+            var n = (1 + i + i) & 7;
+            var r = R[p + i];
+            x[m] = add(x[m], x[n]);
+            x[n] = xor(shiftLeft(x[n], r), shiftRight(x[n], 64 - r));
+            x[n] = xor(x[n], x[m]);
 
-		}
-		for (var i = 0; i < 8; i++)
-			x[i] = add(x[i], c[(round + i) % 9]);
-		x[5] = add(x[5], tweak[round % 3]);
-		x[6] = add(x[6], tweak[(round + 1) % 3]);
-		x[7] = add(x[7], [0, round]);
-	}
-	for (var i = 0; i < 8; i++)
-		c[i] = xor(t[i], x[i]);
+        }
+        for (var i = 0; i < 8; i++) x[i] = add(x[i], c[(round + i) % 9]);
+        x[5] = add(x[5], tweak[round % 3]);
+        x[6] = add(x[6], tweak[(round + 1) % 3]);
+        x[7] = add(x[7], [0, round]);
+    }
+    for (var i = 0; i < 8; i++) c[i] = xor(t[i], x[i]);
 }
+
 },{"./helper":7,"./op":11}],"x11hash":[function(require,module,exports){
 'use strict';
 
