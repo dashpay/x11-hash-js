@@ -6160,7 +6160,7 @@ module.exports = function(input, format, output) {
             [(0x80 + 0x40 + 0x4) << 24, 0]
         ],
         c = [];
-    var buff = h.string2bytes('SHA3\1\0\0\0\0\2');
+    var buff = [83, 72, 65, 51, 1, 0, 0, 0, 0, 2];
     block(c, tweak, buff, 0);
     tweak = [
         [0, 0],
@@ -6188,7 +6188,7 @@ module.exports = function(input, format, output) {
         out = h.bytes2Int32Buffer(hash);
     }
     else if (output === 1) {
-        return out;
+        return hash;
     }
     else {
         out = h.int8ArrayToHexString(hash);
@@ -6283,85 +6283,81 @@ var groestl = require('./lib/groestl');
 var bmw = require('./lib/bmw');
 var h = require('./lib/helper');
 
-var x11hash = module.exports;
-
 module.exports.blake = function(str,format, output) {
-  return blake(str,format,output);
-}
+    return blake(str,format,output);
+};
 
 module.exports.bmw = function(str,format, output) {
-  return bmw(str,format,output);
-}
+    return bmw(str,format,output);
+};
 
 module.exports.cubehash = function(str,format, output) {
-  return cubehash(str,format,output);
-}
+    return cubehash(str,format,output);
+};
 
 module.exports.echo = function(str,format, output) {
-  return echo(str,format,output);
-}
+    return echo(str,format,output);
+};
 
 module.exports.groestl = function(str,format, output) {
-  return groestl(str,format,output);
-}
+    return groestl(str,format,output);
+};
 
 module.exports.jh = function(str,format, output) {
-  return jh(str,format,output);
-}
+    return jh(str,format,output);
+};
 
 module.exports.keccak = function(str,format, output) {
-  var msg = str;
-  if (format === 2) {
-    msg = h.int32Buffer2Bytes(str);
-  }
-  if (output === 1) {
-    return keccak['array'](msg);
-  } else if (output === 2) {
-    return h.bytes2Int32Buffer(keccak['array'](msg));
-  } else {
-    return keccak['hex'](msg);
-  }
-}
+    var msg = str;
+    if (format === 2) {
+        msg = h.int32Buffer2Bytes(str);
+    }
+    if (output === 1) {
+        return keccak.array(msg);
+    } else if (output === 2) {
+        return h.bytes2Int32Buffer(keccak.array(msg));
+    }
+    return keccak.hex(msg);
+
+};
 
 module.exports.luffa = function(str,format, output) {
-  return luffa(str,format,output);
-}
+    return luffa(str,format,output);
+};
 
 module.exports.shavite = function(str,format, output) {
-  return shavite(str,format,output);
-}
+    return shavite(str,format,output);
+};
 
 module.exports.simd = function(str,format, output) {
-  return simd(str,format,output);
-}
+    return simd(str,format,output);
+};
 
 module.exports.skein = function(str,format, output) {
-  return skein(str,format,output);
-}
+    return skein(str,format,output);
+};
 
 
 module.exports.digest = function(str,format, output) {
-  var a = blake(str,format,2);
-  a = bmw(a,2,2);
-  a = groestl(a,2,2);
-  a = skein(a,2,2);
-  a = jh(a,2,2);
-  a = this.keccak(a,2,1);
-  a = luffa(a,1,2);
-  a = cubehash(a,2,2);
-  a = shavite(a,2,2);
-  a = simd(a,2,2);
-  a = echo(a,2,2);
-  a = a.slice(0,8);
-  if (output === 2) {
-    return a;
-  }
-  else if (output === 1) {
-    return h.int32Buffer2Bytes(a);
-  }
-  else {
+    var a = blake(str,format,2);
+    a = bmw(a,2,2);
+    a = groestl(a,2,2);
+    a = skein(a,2,2);
+    a = jh(a,2,2);
+    a = this.keccak(a,2,1);
+    a = luffa(a,1,2);
+    a = cubehash(a,2,2);
+    a = shavite(a,2,2);
+    a = simd(a,2,2);
+    a = echo(a,2,2);
+    a = a.slice(0,8);
+    if (output === 2) {
+        return a;
+    }
+    else if (output === 1) {
+        return h.int32Buffer2Bytes(a);
+    }
     return h.int32ArrayToHexString(a);
-  }
-}
+};
 
 },{"./lib/blake":2,"./lib/bmw":3,"./lib/cubehash":4,"./lib/echo":5,"./lib/groestl":6,"./lib/helper":7,"./lib/jh":8,"./lib/keccak":9,"./lib/luffa":10,"./lib/shavite":12,"./lib/simd":13,"./lib/skein":14}]},{},[]);
