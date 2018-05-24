@@ -1,5 +1,5 @@
 {
-  "name": "x11-hash-js",
+  "name": "@dashevo/x11-hash-js",
   "version": "1.0.1",
   "description": "x11 javascript hashing algorithm in pure javascript",
   "main": "index.js",
@@ -33,7 +33,7 @@
   "author": "quantumexplorer",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/quantumexplorer/x11-hash-js/issues"
+    "url": "https://github.com/dashpay/x11-hash-js/issues"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
