@@ -25,9 +25,10 @@ module.exports = function (grunt) {
                     'dist/x11-hash.js': ['lib']
                 },
                 options: {
-                    require: [
-                        './index.js:x11hash'
-                    ]
+                  require: [
+                      './index.js:x11hash',
+                      'buffer'
+                  ]
                 }
             }
         },
@@ -48,10 +49,10 @@ module.exports = function (grunt) {
                     colors: true,
                     logLevel: 'INFO',
                     autoWatch: false,
-                    browsers: ['PhantomJS'],
+                    browsers: ['Chrome', 'Firefox'],
                     singleRun: true,
                     plugins: [
-                        'karma-phantomjs-launcher',
+                        'karma-chrome-launcher',
                         'karma-firefox-launcher',
                         'karma-mocha-reporter',
                         'karma-mocha',
