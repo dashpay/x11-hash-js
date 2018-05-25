@@ -43,13 +43,20 @@ module.exports = function (grunt) {
                         'test/test.js'
                     ],
                     exclude: [],
-                    browserNoActivityTimeout: 30000,
+                    browserNoActivityTimeout: 60000,
                     reporters: ['mocha'],
                     port: 9876,
                     colors: true,
                     logLevel: 'INFO',
                     autoWatch: false,
-                    browsers: ['Chrome', 'Firefox'],
+                    concurrency: Infinity,
+                    customLaunchers: {
+                        FirefoxHeadless: {
+                            base: 'Firefox',
+                            flags: ['-headless'],
+                        },
+                    },
+                    browsers: ['ChromeHeadless', 'Firefox'],
                     singleRun: true,
                     plugins: [
                         'karma-chrome-launcher',
