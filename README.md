@@ -7,7 +7,7 @@
 Install the library as a Node module.
 
 ```
-$ npm install --save x11-hash-js
+$ npm install --save @dashevo/x11-hash-js
 ```
 
 Reference the library within a Node module.
