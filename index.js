@@ -27,8 +27,8 @@ var errors = module.exports.errors = {
 
 /**
  * Obtain an x11 hash
- * @param input {string|array} input data to hash
- * @param inputFormat {number} optional - format of the input: 0: string, 1: 8 bit array, 2: 32 bit array
+ * @param input {string|array|buffer} input data to hash
+ * @param inputFormat {number} optional - format of the input: 0: string, 1: 8 bit array/Buffer, 2: 32 bit array
  * @param outputFormat {number} optional - format of the output: 0: string, 1: 8 bit array, 2: 32 bit array
  * @returns {string|array} x11 hash of input as a string, 8-bit array or 32-bit array
  */
@@ -51,7 +51,7 @@ module.exports.digest = function (input, inputFormat, outputFormat) {
                 throw (errors.input_format_mismatch_string);
             }
         } else if (inputFormat === 1 || inputFormat === 2) {
-            if (!Array.isArray(input)) {
+            if (!Array.isArray(input) && !h.isBuffer(input)) {
                 throw (errors.input_format_mismatch_array);
             }
         } else {

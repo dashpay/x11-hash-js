@@ -1,12 +1,14 @@
 'use strict';
-
-// enable reuse of this test between npm test and karma browser test...
-var x11, expect;
+ // enable reuse of this test between npm test and karma browser test...
+var x11, buffer, expect;
 if (typeof module !== 'undefined' && module.exports) {
     x11 = require('../');
     expect = require('chai').expect;
+    buffer = Buffer;
 } else {
     x11 = require('x11hash');
+    buffer = require('buffer').Buffer
+
 }
 
 var fox = 'The quick brown fox jumps over the lazy dog';
@@ -14,7 +16,7 @@ var empty = '';
 var dash = 'DASH';
 var longDream = 'Take this kiss upon the brow! And, in parting from you now, Thus much let me avow-- You are not wrong, who deem That my days have been a dream; Yet if hope has flown away In a night, or in a day, In a vision, or in none, Is it therefore the less gone? All that we see or seem Is but a dream within a dream. I stand amid the roar Of a surf-tormented shore, And I hold within my hand Grains of the golden sand-- How few! yet how they creep Through my fingers to the deep, While I weep--while I weep! O God! can I not grasp Them with a tighter clasp? O God! can I not save One from the pitiless wave? Is all that we see or seem But a dream within a dream?';
 var int32 = [-1245000620, -1578223460, 654805539, -1068884769, -968029107, -8582190, 491541657, 290156804, 1046922525, 1254877013, -1307320917, 1691597203, 55068107, 1715389297, 252729336, 127805489];
-
+var buffer = new buffer('0400000097ea9c8bee806143a8ae50116fe3d329dcbb18b5d8ea71a7a213a1b052000000b1950f668df2593684169b0e33ee7fb1b8e00d90ed906d80b4c2baa7d1b65f548f495a57ed98521d348b0700','hex')
 describe('X11 Hash Functions', function () {
 
     // main x11 digest function tests
@@ -38,6 +40,10 @@ describe('X11 Hash Functions', function () {
 
         it('int32', function () {
             expect(x11.digest(int32, 2)).to.equal('ce06ca169b75084cd7b245966296e637e9af85091e848937af070f110cdb6298');
+        });
+
+        it('buffer', function () {
+            expect(x11.digest(buffer, 1)).to.equal('01840edc7f98704e3c66c6fcad1e90642a382f7c1cb4af64ed085cc50c000000');
         });
 
         // argument exceptions...
