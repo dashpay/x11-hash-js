@@ -83,11 +83,11 @@ module.exports.digest = function (input, inputFormat, outputFormat) {
 
     // output 32-bit array
     if (outputFormat === 2) {
-        return a;
+        return h.int32Buffer2Bytes(a);
     }
     // output 8-bit array
     else if (outputFormat === 1) {
-        return h.int32Buffer2Bytes(a);
+        return a;
     }
     // output string
     return h.int32ArrayToHexString(a);
