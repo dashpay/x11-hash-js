@@ -46,6 +46,61 @@ describe('X11 Hash Functions', function () {
             expect(x11.digest(buffer, 1)).to.equal('01840edc7f98704e3c66c6fcad1e90642a382f7c1cb4af64ed085cc50c000000');
         });
 
+        it('buffer outputFormat=0', function () {
+            expect(x11.digest(buffer, 1, 0)).to.equal('01840edc7f98704e3c66c6fcad1e90642a382f7c1cb4af64ed085cc50c000000');
+        });
+
+        it('buffer outputFormat=1 -> 8 bit', function () {
+            expect(x11.digest(buffer, 1, 1)).to.deep.equal([
+                25431772,
+                2140696654,
+                1013368572,
+                -1390505884,
+                708325244,
+                481603428,
+                -318219067,
+                201326592
+            ]);
+        });
+
+        it('buffer outputFormat=2 -> 32 bit', function () {
+            expect(x11.digest(buffer, 1, 2)).to.deep.equal([
+                1,
+                132,
+                14,
+                220,
+                127,
+                152,
+                112,
+                78,
+                60,
+                102,
+                198,
+                252,
+                173,
+                30,
+                144,
+                100,
+                42,
+                56,
+                47,
+                124,
+                28,
+                180,
+                175,
+                100,
+                237,
+                8,
+                92,
+                197,
+                12,
+                0,
+                0,
+                0
+            ]);
+        });
+
+
         // argument exceptions...
         describe('input argument exceptions', function () {
 
