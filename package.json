@@ -1,6 +1,6 @@
 {
   "name": "@dashevo/x11-hash-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "x11 javascript hashing algorithm in pure javascript",
   "main": "index.js",
   "scripts": {
