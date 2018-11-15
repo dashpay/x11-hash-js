@@ -54,7 +54,7 @@
     "karma-mocha": "^1.3.0",
     "karma-mocha-reporter": "^2.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
-    "mocha": "^2.5.3",
+    "mocha": "^5.2.0",
     "phantomjs": "^2.1.7",
     "uglify": "^0.1.5"
   }
